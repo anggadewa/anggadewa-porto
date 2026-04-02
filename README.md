@@ -37,49 +37,12 @@ This repository marks the architectural leap from a legacy Monolithic Laravel ap
 
 ---
 
-## 💻 Local Development Setup
+## 💻 Vision & Development
 
-To initialize the project locally on your machine, follow these instructions:
+This application is purposefully designed to transcend standard portfolio formats. It acts as an interactive resume that prioritizes raw performance, fluid micro-interactions, and rigid component hygiene. 
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/anggadewa/dewa-porto-app.git
-cd dewa-porto-app
-```
+By offloading backend operations to a serverless Database and relying on Vite as the React compiler, the application achieves instantaneous transitions and optimal payload delivery.
 
-### 2. Install Dependencies
-```bash
-npm install
-```
+> "EXECUTING_VISIONARY_LOGIC // SYSTEM_IDENT: ALPHA_PROTOCOL"
 
-### 3. Environment Variables
-Create a `.env` file at the root of the project with your valid keys.
-```env
-VITE_APP_NAME="Frontend Team Lead Portofolio"
-VITE_SUPABASE_URL="https://[YOUR-PROJECT-REF].supabase.co"
-VITE_SUPABASE_ANON_KEY="your-public-anon-key-here"
-VITE_STORAGE_BUCKET_NAME="portfolio-assets"
-```
-
-### 4. Database Setup (Supabase)
-Run the provided `supabase_security.sql` in your Supabase SQL Editor. This script:
-- Creates all necessary Row Level Security (RLS) locks to prevent unauthorized write access from public visitors.
-- Enables the secure read state for the `portfolio-assets` bucket.
-- Separates Admin logic safely onto the server side.
-
-### 5. Initialize the Server
-```bash
-npm run dev
-```
-Execute localhost on port `5173`.
-
----
-
-## 🔒 Security Posture
-The application is pre-hardened for public deployment:
-- `vercel.json` HTTP Header directives inject strict XSS protections and deny iframe clickjacking attempts upon deployment.
-- Internal RLS enforces complete lockdown on Database and Storage manipulation attempts via the public client API.
-
-> "EXECUTING_VISIONARY_LOGIC // NODE_IDENT: ALPHA_7_GLOBAL"
-
-*Developed & Maintained by **Dewa**.*
+*Engineered by **Dewa**.*
