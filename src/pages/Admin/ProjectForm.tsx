@@ -123,8 +123,9 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
         e.preventDefault();
         setSaving(true);
 
+        const { id: _, created_at: __, ...updatePayload } = formData;
         const projectData = {
-            ...formData,
+            ...updatePayload,
             updated_at: new Date().toISOString()
         };
 

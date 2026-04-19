@@ -67,17 +67,19 @@ export default function SkillForm() {
         e.preventDefault();
         setSaving(true);
 
+        const { id: _, created_at: __, ...updatePayload } = formData as any;
+        
         let error;
         if (id) {
             const { error: updateError } = await supabase
                 .from('skills')
-                .update(formData)
+                .update(updatePayload)
                 .eq('id', id);
             error = updateError;
         } else {
             const { error: insertError } = await supabase
                 .from('skills')
-                .insert([formData]);
+                .insert([updatePayload]);
             error = insertError;
         }
 
