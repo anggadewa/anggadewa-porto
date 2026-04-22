@@ -6,7 +6,7 @@ import {
     Pencil, 
     Trash2, 
     MoreVertical,
-    Terminal,
+    Code2,
     Layers,
     ListOrdered
 } from 'lucide-react';
