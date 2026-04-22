@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 @layer base {
   :root {
@@ -52,11 +52,14 @@
 
 @layer base {
     * {
-        @apply border-border;
+        border-color: hsl(var(--border));
     }
     body {
-        @apply bg-background text-foreground antialiased;
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
         font-family: 'Outfit', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
         transition: background-color 0.3s ease, color 0.3s ease;
     }
 }
@@ -68,41 +71,6 @@
     .border-glow {
         box-shadow: 0 0 15px rgba(106, 43, 255, 0.1), inset 0 0 10px rgba(106, 43, 255, 0.05);
     }
-    .scanline {
-        width: 100%;
-        height: 100px;
-        z-index: 9999;
-        background: linear-gradient(
-            0deg,
-            rgba(0, 0, 0, 0) 0%,
-            rgba(255, 255, 255, 0.02) 50%,
-            rgba(0, 0, 0, 0) 100%
-        );
-        opacity: 0.1;
-        position: absolute;
-        bottom: 100%;
-        animation: scanline 10s linear infinite;
-    }
-}
-
-@keyframes scanline {
-    0% { bottom: 100%; }
-    100% { bottom: -100px; }
-}
-
-@keyframes terminal-flicker {
-    0% { opacity: 0.97; }
-    5% { opacity: 0.95; }
-    10% { opacity: 0.9; }
-    15% { opacity: 0.98; }
-    20% { opacity: 0.93; }
-    25% { opacity: 0.95; }
-    30% { opacity: 0.9; }
-    100% { opacity: 1; }
-}
-
-.terminal-effect {
-    animation: terminal-flicker 0.15s infinite;
 }
 
 /* Custom Webkit Scrollbar */

@@ -63,51 +63,51 @@ export default function SkillList() {
     };
 
     return (
-        <div className="space-y-8">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-                <div className="space-y-1">
-                    <h1 className="text-3xl font-black text-white tracking-tighter uppercase">Skill_Registry</h1>
-                    <p className="text-sm text-gray-500 font-bold tracking-widest uppercase opacity-70">Capability_Control_Center</p>
+        <div className="space-y-10">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+                <div className="space-y-2">
+                    <h1 className="text-4xl font-black text-white tracking-tighter uppercase">Technical Skills</h1>
+                    <p className="text-sm text-gray-500 font-bold tracking-widest uppercase opacity-70 italic">Define and organize your core expertise</p>
                 </div>
                 
                 <Link to="new">
-                    <Button className="h-12 bg-primary hover:bg-primary/90 text-white font-black px-6 rounded-xl shadow-lg shadow-primary/20 gap-2">
-                        <Plus className="w-5 h-5" /> NEW_SKILL_NODE
+                    <Button className="h-14 bg-primary hover:bg-primary/90 text-white font-black px-8 rounded-2xl shadow-xl shadow-primary/20 gap-3 border-none uppercase text-[10px] tracking-[0.2em]">
+                        <Plus className="w-5 h-5" /> Add Category
                     </Button>
                 </Link>
             </div>
 
-            <div className="bg-[#0D1117]/60 border border-gray-800/50 rounded-[2rem] overflow-hidden backdrop-blur-xl">
+            <div className="bg-[#0D1117]/60 border border-white/5 rounded-[2.5rem] overflow-hidden backdrop-blur-3xl shadow-2xl">
                 <div className="overflow-x-auto custom-scrollbar">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="border-b border-gray-800/50 bg-white/5">
-                                <th className="p-6 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">
-                                    <div className="flex items-center gap-2"><Layers className="w-3 h-3" /> Category</div>
+                            <tr className="border-b border-white/5 bg-white/[0.02]">
+                                <th className="p-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">
+                                    <div className="flex items-center gap-3"><Layers className="w-4 h-4 text-primary" /> Category</div>
                                 </th>
-                                <th className="p-6 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">
-                                    <div className="flex items-center gap-2"><Terminal className="w-3 h-3" /> Skills_Node</div>
+                                <th className="p-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">
+                                    <div className="flex items-center gap-3"><Code2 className="w-4 h-4 text-primary" /> Technologies</div>
                                 </th>
-                                <th className="p-6 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">
-                                    <div className="flex items-center gap-2"><ListOrdered className="w-3 h-3" /> Order</div>
+                                <th className="p-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">
+                                    <div className="flex items-center gap-3"><ListOrdered className="w-4 h-4 text-primary" /> Priority</div>
                                 </th>
-                                <th className="p-6 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 text-right">Actions</th>
+                                <th className="p-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 text-right">Options</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-800/30">
+                        <tbody className="divide-y divide-white/5">
                             {loading ? (
                                 <tr>
-                                    <td colSpan={4} className="p-20 text-center">
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-                                            <span className="text-xs font-black tracking-widest text-primary animate-pulse uppercase">Querying_Skills...</span>
+                                    <td colSpan={4} className="p-24 text-center">
+                                        <div className="flex flex-col items-center gap-6">
+                                            <div className="w-14 h-14 border-4 border-primary border-t-transparent rounded-full animate-spin shadow-lg shadow-primary/20"></div>
+                                            <span className="text-[10px] font-black tracking-[0.4em] text-primary animate-pulse uppercase">Syncing Matrix...</span>
                                         </div>
                                     </td>
                                 </tr>
                             ) : skills.length === 0 ? (
                                 <tr>
-                                    <td colSpan={4} className="p-20 text-center text-gray-500 uppercase tracking-widest font-black text-xs">
-                                        No_Skills_Modules_Found
+                                    <td colSpan={4} className="p-24 text-center text-gray-600 uppercase tracking-[0.3em] font-black text-xs italic">
+                                        No skill categories identified
                                     </td>
                                 </tr>
                             ) : (
@@ -116,46 +116,47 @@ export default function SkillList() {
                                         key={skill.id}
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
-                                        className="group hover:bg-white/5 transition-colors duration-300"
+                                        className="group hover:bg-white/[0.03] transition-colors duration-500"
                                     >
-                                        <td className="p-6">
-                                            <span className="text-sm font-black text-white group-hover:text-primary transition-colors duration-300 uppercase tracking-tight">
+                                        <td className="p-8">
+                                            <span className="text-sm font-black text-white group-hover:text-primary transition-colors duration-500 uppercase tracking-tight">
                                                 {skill.category}
                                             </span>
                                         </td>
-                                        <td className="p-6">
+                                        <td className="p-8">
                                             <div className="flex flex-wrap gap-2">
                                                 {skill.items.map((item, idx) => (
-                                                    <Badge key={idx} className="bg-primary/5 text-primary/70 border-primary/20 text-[9px] font-black tracking-widest uppercase px-2 py-0.5">
+                                                    <Badge key={idx} className="bg-primary/10 text-primary border-primary/20 text-[9px] font-black tracking-widest uppercase px-3 py-1 rounded-lg">
                                                         {item}
                                                     </Badge>
                                                 ))}
                                             </div>
                                         </td>
-                                        <td className="p-6">
-                                            <Badge variant="outline" className="border-gray-800 text-[10px] font-mono text-gray-500">
-                                                ORD_{skill.sort_order.toString().padStart(2, '0')}
-                                            </Badge>
+                                        <td className="p-8">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-2 h-2 rounded-full bg-primary/40" />
+                                                <span className="text-[10px] font-black text-gray-500 tracking-widest">Level {skill.sort_order}</span>
+                                            </div>
                                         </td>
-                                        <td className="p-6 text-right">
+                                        <td className="p-8 text-right">
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger asChild>
-                                                    <Button variant="ghost" size="sm" className="h-10 w-10 p-0 text-gray-500 hover:text-white hover:bg-gray-800/50 rounded-xl">
+                                                    <Button variant="ghost" size="sm" className="h-12 w-12 p-0 text-gray-600 hover:text-white hover:bg-white/5 rounded-2xl transition-all">
                                                         <MoreVertical className="w-5 h-5" />
                                                     </Button>
                                                 </DropdownMenuTrigger>
-                                                <DropdownMenuContent align="end" className="w-48 bg-[#0D1117] border-gray-800 rounded-xl p-2 z-[60]">
+                                                <DropdownMenuContent align="end" className="w-56 bg-[#0D1117] border-white/10 rounded-[1.5rem] p-3 z-[60] shadow-2xl backdrop-blur-xl">
                                                     <Link to={`/admin/skills/edit/${skill.id}`}>
-                                                        <DropdownMenuItem className="gap-3 rounded-lg py-2.5 cursor-pointer text-gray-300 hover:bg-primary/10 hover:text-primary">
-                                                            <Pencil className="w-4 h-4" /> update_skill
+                                                        <DropdownMenuItem className="gap-3 rounded-xl py-3.5 cursor-pointer text-[10px] font-black uppercase tracking-widest text-gray-400 hover:bg-primary/10 hover:text-primary transition-all">
+                                                            <Pencil className="w-4 h-4" /> Edit Category
                                                         </DropdownMenuItem>
                                                     </Link>
-                                                    <DropdownMenuSeparator className="bg-gray-800" />
+                                                    <DropdownMenuSeparator className="bg-white/5 my-2" />
                                                     <DropdownMenuItem 
                                                         onClick={() => handleDelete(skill.id)}
-                                                        className="gap-3 rounded-lg py-2.5 cursor-pointer text-rose-500 hover:bg-rose-500/10 hover:text-rose-500"
+                                                        className="gap-3 rounded-xl py-3.5 cursor-pointer text-[10px] font-black uppercase tracking-widest text-rose-500 hover:bg-rose-500/10 hover:text-rose-500 transition-all"
                                                     >
-                                                        <Trash2 className="w-4 h-4" /> purge_node
+                                                        <Trash2 className="w-4 h-4" /> Remove Category
                                                     </DropdownMenuItem>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
@@ -165,6 +166,13 @@ export default function SkillList() {
                             )}
                         </tbody>
                     </table>
+                </div>
+
+                <div className="p-8 border-t border-white/5 bg-white/[0.01] flex items-center justify-between text-[9px] font-black uppercase tracking-[0.3em] text-gray-600">
+                    <div className="flex items-center gap-3">
+                        <div className="w-1.5 h-1.5 rounded-full bg-violet-500 shadow-lg shadow-violet-500/20" />
+                        Skill Matrix Synchronized
+                    </div>
                 </div>
             </div>
         </div>

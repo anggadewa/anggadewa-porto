@@ -30,9 +30,9 @@ export default function AdminDashboard() {
     if (isChecking) {
         return (
             <div className="min-h-screen bg-[#06080B] flex items-center justify-center">
-                <div className="flex flex-col items-center gap-4">
-                    <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-                    <span className="text-[10px] font-black tracking-[0.4em] text-primary animate-pulse uppercase">Handshaking_Secure_Terminal...</span>
+                <div className="flex flex-col items-center gap-6">
+                    <div className="w-14 h-14 border-4 border-primary border-t-transparent rounded-full animate-spin shadow-lg shadow-primary/20"></div>
+                    <span className="text-[10px] font-black tracking-[0.4em] text-primary animate-pulse uppercase">Verifying Credentials...</span>
                 </div>
             </div>
         );

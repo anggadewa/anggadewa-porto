@@ -6,7 +6,7 @@ import {
     ChevronLeft, 
     X, 
     Loader2, 
-    Terminal,
+    Plus,
     Layers,
     ListOrdered
 } from 'lucide-react';
@@ -92,73 +92,73 @@ export default function SkillForm() {
     };
 
     if (loading) return (
-        <div className="flex flex-col items-center justify-center py-40 gap-4">
-            <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-            <span className="text-xs font-black tracking-widest text-primary animate-pulse uppercase">Querying_Skill_Node...</span>
+        <div className="flex flex-col items-center justify-center py-40 gap-6">
+            <div className="w-14 h-14 border-4 border-primary border-t-transparent rounded-full animate-spin shadow-lg shadow-primary/20"></div>
+            <span className="text-[10px] font-black tracking-[0.4em] text-primary animate-pulse uppercase">Syncing Matrix...</span>
         </div>
     );
 
     return (
-        <div className="max-w-3xl mx-auto space-y-12 pb-20">
+        <div className="max-w-3xl mx-auto space-y-12 pb-32">
             {/* Form Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-                <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-8">
+                <div className="flex items-center gap-6">
                     <Link to="/admin/skills">
-                        <Button variant="ghost" size="sm" className="h-12 w-12 rounded-xl text-gray-500 hover:text-white border border-transparent hover:border-gray-800 transition-all">
+                        <Button variant="ghost" size="sm" className="h-14 w-14 rounded-2xl text-gray-500 hover:text-white bg-white/5 border border-white/5 hover:border-white/10 transition-all">
                             <ChevronLeft className="w-6 h-6" />
                         </Button>
                     </Link>
                     <div className="space-y-1">
-                        <h1 className="text-3xl font-black text-white tracking-tighter uppercase whitespace-nowrap">
-                            {id ? 'UPDATE_SKILL' : 'CONFIGURE_SKILL'}
+                        <h1 className="text-4xl font-black text-white tracking-tighter uppercase">
+                            {id ? 'Update Category' : 'Define Category'}
                         </h1>
-                        <p className="text-[10px] font-black tracking-[0.3em] text-gray-600 uppercase">Capability_Protocol_Module</p>
+                        <p className="text-[10px] font-black tracking-[0.3em] text-gray-500 uppercase opacity-60 italic">Configure skill groupings and visibility</p>
                     </div>
                 </div>
 
                 <Button 
                     onClick={handleSubmit}
                     disabled={saving}
-                    className="h-14 bg-primary hover:bg-primary/90 text-white font-black px-10 rounded-2xl shadow-lg shadow-primary/20 gap-3 border-b-4 border-black/20"
+                    className="h-16 bg-primary hover:bg-primary/90 text-white font-black px-12 rounded-2xl shadow-2xl shadow-primary/20 gap-4 border-none text-[11px] tracking-[0.2em] uppercase transition-all hover:-translate-y-1"
                 >
                     {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
-                    EXECUTE_SAVE
+                    Save Category
                 </Button>
             </div>
 
             <motion.div 
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-[#0D1117]/60 border border-gray-800/50 rounded-[2.5rem] p-10 lg:p-14 space-y-10"
+                className="bg-[#0D1117]/60 border border-white/5 rounded-[2.5rem] p-10 lg:p-14 space-y-12 shadow-2xl"
             >
-                <div className="space-y-10">
+                <div className="space-y-12">
                     {/* Category Field */}
                     <div className="relative group">
-                        <label className="absolute -top-3 left-6 px-2 bg-[#0D1117] text-[10px] font-black text-primary uppercase tracking-[0.2em] z-10">SKILL_CATEGORY</label>
+                        <label className="absolute -top-3 left-6 px-3 bg-[#0D1117] text-[10px] font-black text-primary uppercase tracking-[0.2em] z-10">Category Name</label>
                         <div className="relative">
                             <Layers className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 group-focus-within:text-primary transition-colors" />
                             <Input 
                                 value={formData.category}
                                 onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
-                                className="h-16 pl-16 rounded-2xl bg-gray-900/50 border-gray-800 focus:border-primary/50 text-white font-black text-lg tracking-tight uppercase"
+                                className="h-16 pl-16 rounded-2xl bg-white/[0.02] border-white/5 focus:border-primary/50 text-white font-black text-lg tracking-tight placeholder:text-gray-800"
                                 required
-                                placeholder="Enter category title..."
+                                placeholder="e.g. Backend Development"
                             />
                         </div>
                     </div>
 
                     {/* Skill Tags Field */}
-                    <div className="space-y-6">
+                    <div className="space-y-8">
                         <div className="relative group">
-                            <label className="absolute -top-3 left-6 px-2 bg-[#0D1117] text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] z-10">CAPABILITY_NODES</label>
+                            <label className="absolute -top-3 left-6 px-3 bg-[#0D1117] text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] z-10">Technologies & Tools</label>
                             <div className="relative">
-                                <Terminal className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 group-focus-within:text-primary transition-colors" />
+                                <Plus className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" />
                                 <Input 
                                     value={skillInput}
                                     onChange={(e) => setSkillInput(e.target.value)}
                                     onKeyDown={handleAddSkill}
-                                    className="h-16 pl-16 rounded-2xl bg-gray-900/50 border-gray-800 focus:border-primary/50 text-white font-black text-sm tracking-widest uppercase"
-                                    placeholder="Execute add_skill [Enter]..."
+                                    className="h-16 pl-16 rounded-2xl bg-white/[0.02] border-white/5 focus:border-primary/50 text-white font-bold text-sm tracking-widest placeholder:text-gray-800"
+                                    placeholder="Press Enter to add tool..."
                                 />
                             </div>
                         </div>
@@ -173,9 +173,9 @@ export default function SkillForm() {
                                         exit={{ scale: 0.8, opacity: 0 }}
                                         key={i}
                                     >
-                                        <Badge className="bg-primary/10 text-primary border-primary/20 flex items-center gap-3 px-4 py-2 rounded-xl font-black text-[11px] tracking-widest uppercase">
+                                        <Badge className="bg-primary/10 text-primary border-primary/20 flex items-center gap-3 px-5 py-2.5 rounded-xl font-black text-[11px] tracking-widest uppercase">
                                             {skill}
-                                            <X className="w-4 h-4 cursor-pointer hover:text-white" onClick={() => handleRemoveSkill(skill)} />
+                                            <X className="w-4 h-4 cursor-pointer hover:text-white transition-colors" onClick={() => handleRemoveSkill(skill)} />
                                         </Badge>
                                     </motion.div>
                                 ))}
@@ -184,24 +184,27 @@ export default function SkillForm() {
                     </div>
 
                     {/* Sort Order Field */}
-                    <div className="relative group max-w-[200px]">
-                        <label className="absolute -top-3 left-6 px-2 bg-[#0D1117] text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] z-10">SEQUENCE_INDEX</label>
+                    <div className="relative group max-w-[240px]">
+                        <label className="absolute -top-3 left-6 px-3 bg-[#0D1117] text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] z-10">Display Priority</label>
                         <div className="relative">
                             <ListOrdered className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" />
                             <Input 
                                 type="number"
                                 value={formData.sort_order}
                                 onChange={(e) => setFormData(prev => ({ ...prev, sort_order: parseInt(e.target.value) || 0 }))}
-                                className="h-14 pl-14 rounded-xl bg-gray-900/50 border-gray-800 text-white font-mono text-sm"
+                                className="h-16 pl-16 rounded-2xl bg-white/[0.02] border-white/5 text-white font-black text-sm tracking-widest"
                             />
                         </div>
                     </div>
                 </div>
 
-                <div className="p-6 bg-primary/5 border border-primary/10 rounded-2xl">
-                    <p className="text-[10px] text-gray-500 font-bold leading-relaxed">
-                        <span className="text-primary uppercase mr-2">Tip_Node:</span>
-                        Skill categories are displayed in the root portfolio organized by the Sequence_Index. Use lower values to prioritize core domain visibility.
+                <div className="p-8 bg-primary/5 border border-primary/10 rounded-[2rem] space-y-2">
+                    <div className="flex items-center gap-3">
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-lg shadow-primary/20" />
+                        <span className="text-[10px] font-black text-primary uppercase tracking-[0.2em]">Usage Tip</span>
+                    </div>
+                    <p className="text-[10px] text-gray-500 font-bold leading-relaxed italic uppercase tracking-wider opacity-80">
+                        Categories are displayed in the portfolio based on their Priority. Lower values appear first in your skill matrix.
                     </p>
                 </div>
             </motion.div>

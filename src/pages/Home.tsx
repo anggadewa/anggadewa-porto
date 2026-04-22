@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import cvPdf from '@/assets/CV_IT_Angga_Dewantoro_2026.pdf';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import {
     Activity,
     Layers,
-    Link as LinkIcon,
-    Mail,
     ArrowRight,
     Cpu,
     Database,
@@ -16,7 +15,19 @@ import {
     Boxes,
     Binary,
     Globe,
-    Search
+    Search,
+    Smartphone,
+    Map,
+    Zap,
+    Workflow,
+    CodeXml,
+    Briefcase,
+    MessageCircle,
+    Mail,
+    User,
+    FileText,
+    Sparkles,
+    GraduationCap
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { getAssetUrl } from '@/lib/assets';
@@ -97,51 +108,85 @@ export default function Home() {
             </div>
 
             <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-                {/* System Header */}
-                <header className="sticky top-0 z-40 w-full backdrop-blur-xl border-b border-border/40 py-4 flex justify-between items-center px-4 bg-background/60">
-                    <div className="flex items-center gap-6">
-                        <div className="flex items-center gap-2 px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20">
-                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-                            <span className="text-[9px] font-black tracking-[0.2em] text-emerald-500 uppercase">Available for Hire</span>
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-6">
-                        <div className="text-xl font-black tracking-tighter text-foreground hover:text-primary transition-all duration-300 cursor-default select-none group">
+                {/* Navigation Header */}
+                <header className="sticky top-4 z-50 w-full">
+                    <nav className="mx-auto max-w-4xl backdrop-blur-xl border border-white/10 py-3 flex justify-between items-center px-8 bg-background/40 rounded-[2rem] shadow-2xl">
+                        <div
+                            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                            className="text-lg font-black tracking-tighter text-foreground hover:text-primary transition-all duration-300 cursor-pointer select-none group"
+                        >
                             .DEW<span className="text-primary group-hover:text-glow transition-all duration-300">()</span>.IS<span className="text-primary group-hover:text-glow transition-all duration-300">()</span>
                         </div>
-                        <div className="h-6 w-[1px] bg-border/40" />
-                        <ThemeToggle />
-                    </div>
+
+                        <div className="hidden md:flex items-center gap-8">
+                            <button
+                                onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })}
+                                className="text-[10px] font-black tracking-[0.2em] uppercase text-muted-foreground hover:text-primary transition-all"
+                            >
+                                Home
+                            </button>
+                            <button
+                                onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+                                className="text-[10px] font-black tracking-[0.2em] uppercase text-muted-foreground hover:text-primary transition-all"
+                            >
+                                About
+                            </button>
+                            <button
+                                onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })}
+                                className="text-[10px] font-black tracking-[0.2em] uppercase text-muted-foreground hover:text-primary transition-all"
+                            >
+                                Skills
+                            </button>
+                            <button
+                                onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                                className="text-[10px] font-black tracking-[0.2em] uppercase text-muted-foreground hover:text-primary transition-all"
+                            >
+                                Projects
+                            </button>
+                            <button
+                                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                                className="text-[10px] font-black tracking-[0.2em] uppercase text-muted-foreground hover:text-primary transition-all"
+                            >
+                                Contact
+                            </button>
+                        </div>
+
+                        <div className="flex items-center gap-4">
+                            <ThemeToggle />
+                            <div className="h-4 w-[1px] bg-border/40 hidden sm:block" />
+                            <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20">
+                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+                                <span className="text-[8px] font-black tracking-[0.2em] text-emerald-500 uppercase">Hiring</span>
+                            </div>
+                        </div>
+                    </nav>
                 </header>
 
-                <main className="py-24 lg:py-40 space-y-48">
+                <main className="pt-4 lg:pt-6 pb-24 lg:pb-32">
                     {/* Hero Protocol */}
-                    <section className="relative">
+                    <section id="home" className="relative">
                         <div className="grid lg:grid-cols-2 gap-16 items-center">
                             <motion.div
                                 variants={containerVariants}
                                 initial="hidden"
                                 whileInView="visible"
                                 viewport={{ once: true }}
-                                className="space-y-12"
+                                className="space-y-8"
                             >
-                                <motion.div variants={itemVariants} className="inline-flex items-center gap-3 px-4 py-2 bg-primary/5 border border-primary/20 rounded-2xl backdrop-blur-sm">
-                                    <Binary className="w-4 h-4 text-primary" />
-                                    <span className="text-[10px] font-black tracking-[0.3em] text-primary uppercase">Fullstack Developer & Team Lead</span>
+                                <motion.div variants={itemVariants} className="space-y-4">
+                                    <div className="inline-flex items-center gap-3 px-4 py-2 bg-primary/5 border border-primary/20 rounded-2xl backdrop-blur-sm">
+                                        <Binary className="w-4 h-4 text-primary" />
+                                        <span className="text-[10px] font-black tracking-[0.3em] text-primary uppercase">Fullstack Developer & Team Lead</span>
+                                    </div>
                                 </motion.div>
 
-                                <motion.div variants={itemVariants} className="space-y-10">
-                                    <div className="space-y-4">
+                                <motion.div variants={itemVariants} className="space-y-6">
+                                    <div className="space-y-2">
                                         <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-foreground tracking-tighter leading-[1.1] uppercase">
                                             Angga <span className="text-primary">Dewa.</span>
                                         </h1>
-                                        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed font-medium">
-                                            Frontend Team Lead with over 5 years of experience in architecting
-                                            scalable web applications. I specialize in bridging the gap between
-                                            complex technical requirements and seamless user experiences,
-                                            leading engineering teams to deliver high-performance solutions
-                                            using React, Flutter, and modern cloud ecosystems.
+                                        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed font-medium italic border-l-2 border-primary/20 pl-6">
+                                            Engineering resilient digital ecosystems through technical rigor and creative intuition. Specialized in high-performance cross-platform solutions.
                                         </p>
                                     </div>
                                 </motion.div>
@@ -154,7 +199,7 @@ export default function Home() {
                                         EXPLORE PROJECTS
                                         <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                     </Button>
-                                    <a href={`${getAssetUrl('cv.pdf')}?v=${Date.now()}`} target="_blank" rel="noopener noreferrer">
+                                    <a href={cvPdf} target="_blank" rel="noopener noreferrer">
                                         <Button variant="outline" className="h-14 px-8 rounded-2xl border-border bg-card/5 hover:bg-card/10 text-foreground text-xs font-black tracking-[0.2em]">
                                             VIEW RESUME
                                         </Button>
@@ -257,8 +302,157 @@ export default function Home() {
                         </div>
                     </section>
 
+                    {/* Identity Disclosure (About Me) */}
+                    <section id="about" className="relative py-20 space-y-20">
+                        <div className="grid lg:grid-cols-12 gap-16 lg:gap-24">
+                            {/* Left Side: About Me Narrative */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8 }}
+                                className="lg:col-span-5 space-y-10"
+                            >
+                                <div className="space-y-6">
+                                    <div className="flex items-center gap-4">
+                                        <div className="h-[2px] w-12 bg-primary" />
+                                        <span className="text-[10px] font-black tracking-[0.4em] text-primary uppercase">About Me</span>
+                                    </div>
+                                    <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter uppercase leading-tight">
+                                        Architecting <span className="text-primary">Digital Excellence.</span>
+                                    </h2>
+                                    <div className="space-y-6 text-base md:text-lg text-muted-foreground leading-relaxed font-medium">
+                                        <p>
+                                            I am a Frontend Team Lead and Flutter Developer with over 4 years of experience delivering end-to-end digital products across mobile, desktop, and web platforms.
+                                        </p>
+                                        <p>
+                                            With a proven track record of shipping 7+ production applications, I specialize in managing the full development lifecycle from user research and UI/UX design to deployment and continuous maintenance.
+                                        </p>
+                                        <div className="p-6 bg-primary/5 border border-primary/10 rounded-[2rem] italic text-sm text-foreground/80 leading-relaxed shadow-inner">
+                                            "Committed to implementing AI-assisted development workflows that significantly accelerate delivery while maintaining peak architectural integrity."
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* Right Side: Experience & Education Timeline */}
+                            <div className="lg:col-span-7 space-y-20">
+                                {/* Experience Section */}
+                                <motion.div
+                                    initial={{ opacity: 0, x: 30 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.8 }}
+                                    className="space-y-10"
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <Briefcase className="w-5 h-5 text-primary" />
+                                        <h3 className="text-xs font-black tracking-[0.3em] text-foreground uppercase">Professional Experience</h3>
+                                    </div>
+                                    <div className="space-y-12 relative before:absolute before:left-0 before:top-0 before:bottom-0 before:w-[1px] before:bg-white/5 pl-8">
+                                        {/* Experience Item 1 */}
+                                        <div className="relative space-y-2 group">
+                                            <div className="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-primary border-4 border-background shadow-[0_0_15px_rgba(106,43,255,0.4)]" />
+                                            <div className="text-[10px] font-black text-primary uppercase tracking-widest">Jun 2024 — Present</div>
+                                            <h4 className="text-lg font-black text-foreground uppercase tracking-tight">Frontend Team Lead</h4>
+                                            <p className="text-[11px] font-bold text-muted-foreground uppercase">Aptaworks // Jakarta</p>
+                                            <p className="text-xs text-muted-foreground leading-relaxed max-w-xl">
+                                                Leading frontend development across multiple concurrent projects. Managing and mentoring a team of up to 6 developers while overseeing technical roadmaps and tech stack decisions.
+                                            </p>
+                                        </div>
+
+                                        {/* Experience Item 2 */}
+                                        <div className="relative space-y-2 group">
+                                            <div className="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-white/10 border-4 border-background group-hover:bg-primary transition-colors" />
+                                            <div className="text-[10px] font-black text-primary/60 uppercase tracking-widest">Mar 2022 — Present</div>
+                                            <h4 className="text-lg font-black text-foreground uppercase tracking-tight">Flutter Developer & UI/UX Designer</h4>
+                                            <p className="text-[11px] font-bold text-muted-foreground uppercase">Aptaworks // Jakarta</p>
+                                            <p className="text-xs text-muted-foreground leading-relaxed max-w-xl">
+                                                Responsible for building 4 interconnected applications for Palm Oil manufacturing operations, deployed across 4 companies and 4 factory locations in Medan.
+                                            </p>
+                                        </div>
+
+                                        {/* Experience Item 3 */}
+                                        <div className="relative space-y-2 opacity-60 hover:opacity-100 transition-opacity">
+                                            <div className="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-white/5 border-4 border-background" />
+                                            <div className="text-[10px] font-black text-primary/40 uppercase tracking-widest">Jan 2026 — Apr 2026</div>
+                                            <h4 className="text-lg font-black text-foreground uppercase tracking-tight">Assistant Mentor (Freelance)</h4>
+                                            <p className="text-[11px] font-bold text-muted-foreground uppercase">Harisenin.com // Remote</p>
+                                        </div>
+
+                                        {/* Experience Item 4 */}
+                                        <div className="relative space-y-2 opacity-60 hover:opacity-100 transition-opacity">
+                                            <div className="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-white/5 border-4 border-background" />
+                                            <div className="text-[10px] font-black text-primary/40 uppercase tracking-widest">Feb 2021 — May 2021</div>
+                                            <h4 className="text-lg font-black text-foreground uppercase tracking-tight">Junior React Native Developer</h4>
+                                            <p className="text-[11px] font-bold text-muted-foreground uppercase">Bali Cipta Inovator // Jakarta</p>
+                                        </div>
+
+                                        {/* Experience Item 5 */}
+                                        <div className="relative space-y-2 opacity-40 hover:opacity-100 transition-opacity">
+                                            <div className="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-white/5 border-4 border-background" />
+                                            <div className="text-[10px] font-black text-primary/30 uppercase tracking-widest">Oct 2019 — Oct 2020</div>
+                                            <h4 className="text-lg font-black text-foreground uppercase tracking-tight">Application Support Engineer</h4>
+                                            <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">PT. Mitra Integrasi Informatika // Jakarta</p>
+                                        </div>
+                                    </div>
+                                </motion.div>
+
+                                {/* Education Section */}
+                                <motion.div
+                                    initial={{ opacity: 0, x: 30 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.8, delay: 0.2 }}
+                                    className="space-y-10"
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <GraduationCap className="w-5 h-5 text-primary" />
+                                        <h3 className="text-xs font-black tracking-[0.3em] text-foreground uppercase">Education</h3>
+                                    </div>
+                                    <div className="grid md:grid-cols-2 gap-8">
+                                        <div className="p-8 bg-card/40 backdrop-blur-2xl border border-border/40 rounded-[2.5rem] space-y-4 hover:border-primary/40 transition-colors group">
+                                            <div className="flex justify-between items-start">
+                                                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                                    <span className="text-xs font-black text-primary">B.Eng</span>
+                                                </div>
+                                                <span className="text-[10px] font-black text-primary uppercase tracking-widest">Graduated 2019</span>
+                                            </div>
+                                            <div className="space-y-1">
+                                                <h4 className="text-base font-black text-foreground uppercase tracking-tight">Information Technology</h4>
+                                                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Gunadarma University</p>
+                                            </div>
+                                            <div className="pt-4 border-t border-white/5">
+                                                <span className="text-[10px] font-black text-muted-foreground/40 uppercase">GPA 3.60 / 4.00</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="p-8 bg-primary/5 border border-primary/20 rounded-[2.5rem] space-y-4 relative overflow-hidden group">
+                                            <div className="absolute top-0 right-0 p-4">
+                                                <div className="px-3 py-1 bg-primary text-[8px] font-black text-white rounded-full uppercase tracking-widest">Upcoming</div>
+                                            </div>
+                                            <div className="flex justify-between items-start">
+                                                <div className="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center">
+                                                    <span className="text-xs font-black text-primary">M.M</span>
+                                                </div>
+                                                <span className="text-[10px] font-black text-primary uppercase tracking-widest">Sep 2026</span>
+                                            </div>
+                                            <div className="space-y-1">
+                                                <h4 className="text-base font-black text-foreground uppercase tracking-tight">Magister Management</h4>
+                                                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Satya Negara Indonesia University</p>
+                                            </div>
+                                            <div className="pt-4 border-t border-primary/10">
+                                                <span className="text-[10px] font-black text-primary/60 uppercase">Enrollment Phase</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </div>
+                        </div>
+                    </section>
+
                     {/* Capability Nodes (Skills) */}
-                    <section className="space-y-16">
+                    <section id="skills" className="py-20 space-y-16">
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
                             <motion.div
                                 initial={{ opacity: 0, x: -20 }}
@@ -304,10 +498,16 @@ export default function Home() {
                                             <div className="relative p-10 bg-card/40 backdrop-blur-xl border border-border/40 rounded-[2.5rem] group-hover:border-primary/40 group-hover:translate-y-[-8px] transition-all duration-500">
                                                 <div className="flex items-start justify-between mb-10">
                                                     <div className="p-4 bg-muted/50 rounded-[1.25rem] border border-border/40 group-hover:border-primary/30 group-hover:bg-primary/5 transition duration-500">
-                                                        {skill.category.toLowerCase().includes('frontend') ? <Cpu className="w-7 h-7 text-primary group-hover:scale-110 transition duration-500" /> :
-                                                            skill.category.toLowerCase().includes('backend') ? <Layers className="w-7 h-7 text-emerald-400 group-hover:scale-110 transition duration-500" /> :
+                                                        {skill.category.toLowerCase().includes('frontend') ? <Globe className="w-7 h-7 text-primary group-hover:scale-110 transition duration-500" /> :
+                                                            skill.category.toLowerCase().includes('backend') ? <Cpu className="w-7 h-7 text-emerald-400 group-hover:scale-110 transition duration-500" /> :
                                                                 skill.category.toLowerCase().includes('design') ? <Palette className="w-7 h-7 text-pink-400 group-hover:scale-110 transition duration-500" /> :
-                                                                    <Database className="w-7 h-7 text-blue-400 group-hover:scale-110 transition duration-500" />}
+                                                                    skill.category.toLowerCase().includes('mobile') ? <Smartphone className="w-7 h-7 text-blue-400 group-hover:scale-110 transition duration-500" /> :
+                                                                        skill.category.toLowerCase().includes('database') ? <Database className="w-7 h-7 text-amber-400 group-hover:scale-110 transition duration-500" /> :
+                                                                            skill.category.toLowerCase().includes('architecture') ? <Layers className="w-7 h-7 text-violet-400 group-hover:scale-110 transition duration-500" /> :
+                                                                                skill.category.toLowerCase().includes('ai') ? <Zap className="w-7 h-7 text-yellow-400 group-hover:scale-110 transition duration-500" /> :
+                                                                                    skill.category.toLowerCase().includes('maps') ? <Map className="w-7 h-7 text-orange-400 group-hover:scale-110 transition duration-500" /> :
+                                                                                        skill.category.toLowerCase().includes('tools') ? <Boxes className="w-7 h-7 text-cyan-400 group-hover:scale-110 transition duration-500" /> :
+                                                                                            <Workflow className="w-7 h-7 text-slate-400 group-hover:scale-110 transition duration-500" />}
                                                     </div>
                                                     <div className="flex flex-col items-end gap-1">
                                                         <Badge variant="outline" className="text-[9px] tracking-[0.2em] font-black uppercase border-emerald-500/30 text-emerald-500 bg-emerald-500/5 h-6">Expertise</Badge>
@@ -328,7 +528,7 @@ export default function Home() {
                         </div>
                     </section>
 
-                    <section id="projects" className="space-y-16 pb-32">
+                    <section id="projects" className="py-20 space-y-16">
                         <div className="flex flex-col gap-10">
                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
                                 <motion.div
@@ -364,8 +564,8 @@ export default function Home() {
                                         key={cat}
                                         onClick={() => setActiveCategory(cat!)}
                                         className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 border ${activeCategory === cat
-                                                ? 'bg-primary border-primary text-primary-foreground shadow-lg shadow-primary/20'
-                                                : 'bg-card/40 border-border/40 text-muted-foreground hover:border-primary/40 hover:text-foreground'
+                                            ? 'bg-primary border-primary text-primary-foreground shadow-lg shadow-primary/20'
+                                            : 'bg-card/40 border-border/40 text-muted-foreground hover:border-primary/40 hover:text-foreground'
                                             }`}
                                     >
                                         {cat}
@@ -457,7 +657,7 @@ export default function Home() {
                 </main>
 
                 {/* Root Signature Footer */}
-                <footer className="py-24 border-t border-border/40 space-y-24">
+                <footer id="contact" className="py-20 border-t border-border/40 space-y-20">
                     <div className="flex flex-col lg:flex-row justify-between items-start gap-20">
                         <div className="space-y-8 max-w-md">
                             <div className="text-3xl font-black text-foreground tracking-tighter uppercase">
@@ -466,15 +666,42 @@ export default function Home() {
                             <p className="text-sm text-muted-foreground leading-relaxed font-medium">
                                 I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.
                             </p>
-                            <div className="flex gap-6">
-                                <a href="https://github.com/anggadewa" target="_blank" rel="noreferrer" className="p-4 bg-white/5 rounded-[1.25rem] border border-white/5 hover:border-primary/40 hover:bg-primary/10 transition-all duration-500 group shadow-lg">
-                                    <LinkIcon className="w-6 h-6 text-muted-foreground group-hover:text-white group-hover:scale-110 transition-all" />
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <a href="https://github.com/anggadewa" target="_blank" rel="noreferrer" className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-primary/40 hover:bg-primary/10 transition-all duration-500 group shadow-lg">
+                                    <div className="p-3 bg-white/5 rounded-xl group-hover:bg-primary/20 transition-colors">
+                                        <CodeXml className="w-5 h-5 text-muted-foreground group-hover:text-white" />
+                                    </div>
+                                    <div>
+                                        <div className="text-[9px] font-black text-primary/60 tracking-widest uppercase">Codebase</div>
+                                        <div className="text-[11px] font-bold text-foreground">GITHUB</div>
+                                    </div>
                                 </a>
-                                <a href="https://linkedin.com/in/anggadewantorokekasih" target="_blank" rel="noreferrer" className="p-4 bg-white/5 rounded-[1.25rem] border border-white/5 hover:border-primary/40 hover:bg-primary/10 transition-all duration-500 group shadow-lg">
-                                    <Globe className="w-6 h-6 text-muted-foreground group-hover:text-white group-hover:scale-110 transition-all" />
+                                <a href="https://linkedin.com/in/anggadewantorokekasih" target="_blank" rel="noreferrer" className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-primary/40 hover:bg-primary/10 transition-all duration-500 group shadow-lg">
+                                    <div className="p-3 bg-white/5 rounded-xl group-hover:bg-primary/20 transition-colors">
+                                        <Briefcase className="w-5 h-5 text-muted-foreground group-hover:text-white" />
+                                    </div>
+                                    <div>
+                                        <div className="text-[9px] font-black text-primary/60 tracking-widest uppercase">Professional</div>
+                                        <div className="text-[11px] font-bold text-foreground">LINKEDIN</div>
+                                    </div>
                                 </a>
-                                <a href="mailto:anggadewa2016@gmail.com" className="p-4 bg-white/5 rounded-[1.25rem] border border-white/5 hover:border-primary/40 hover:bg-primary/10 transition-all duration-500 group shadow-lg">
-                                    <Mail className="w-6 h-6 text-muted-foreground group-hover:text-white group-hover:scale-110 transition-all" />
+                                <a href="https://wa.me/6285172459708" target="_blank" rel="noreferrer" className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-emerald-500/40 hover:bg-emerald-500/10 transition-all duration-500 group shadow-lg">
+                                    <div className="p-3 bg-white/5 rounded-xl group-hover:bg-emerald-500/20 transition-colors">
+                                        <MessageCircle className="w-5 h-5 text-muted-foreground group-hover:text-emerald-400" />
+                                    </div>
+                                    <div>
+                                        <div className="text-[9px] font-black text-emerald-500/60 tracking-widest uppercase">Quick Chat</div>
+                                        <div className="text-[11px] font-bold text-foreground">WHATSAPP</div>
+                                    </div>
+                                </a>
+                                <a href="mailto:anggadewa2016@gmail.com" className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-primary/40 hover:bg-primary/10 transition-all duration-500 group shadow-lg">
+                                    <div className="p-3 bg-white/5 rounded-xl group-hover:bg-primary/20 transition-colors">
+                                        <Mail className="w-5 h-5 text-muted-foreground group-hover:text-white" />
+                                    </div>
+                                    <div>
+                                        <div className="text-[9px] font-black text-primary/60 tracking-widest uppercase">Direct Mail</div>
+                                        <div className="text-[11px] font-bold text-foreground">EMAIL</div>
+                                    </div>
                                 </a>
                             </div>
                         </div>
@@ -490,6 +717,42 @@ export default function Home() {
                                         >
                                             <div className="w-1.5 h-1.5 bg-muted group-hover:bg-primary transition-all rounded-full" />
                                             Home
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button
+                                            onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+                                            className="text-muted-foreground hover:text-primary transition group flex items-center gap-3 uppercase"
+                                        >
+                                            <div className="w-1.5 h-1.5 bg-muted group-hover:bg-primary transition-all rounded-full" />
+                                            About
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button
+                                            onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })}
+                                            className="text-muted-foreground hover:text-primary transition group flex items-center gap-3 uppercase"
+                                        >
+                                            <div className="w-1.5 h-1.5 bg-muted group-hover:bg-primary transition-all rounded-full" />
+                                            Skills
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button
+                                            onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                                            className="text-muted-foreground hover:text-primary transition group flex items-center gap-3 uppercase"
+                                        >
+                                            <div className="w-1.5 h-1.5 bg-muted group-hover:bg-primary transition-all rounded-full" />
+                                            Projects
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button
+                                            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                                            className="text-muted-foreground hover:text-primary transition group flex items-center gap-3 uppercase"
+                                        >
+                                            <div className="w-1.5 h-1.5 bg-muted group-hover:bg-primary transition-all rounded-full" />
+                                            Contact
                                         </button>
                                     </li>
                                 </ul>

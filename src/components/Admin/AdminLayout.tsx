@@ -39,7 +39,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     const currentPath = location.pathname;
 
     return (
-        <div className="min-h-screen bg-[#06080B] text-gray-300 font-mono flex overflow-hidden">
+        <div className="min-h-screen bg-[#06080B] text-gray-300 flex overflow-hidden" style={{ fontFamily: "'Outfit', sans-serif" }}>
             {/* Desktop Sidebar */}
             <aside className="hidden lg:flex w-72 border-r border-gray-800/50 bg-[#0D1117]/80 backdrop-blur-xl flex-col z-50">
                 <div className="p-8 pb-12">
@@ -48,8 +48,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                             <ShieldCheck className="w-5 h-5 text-primary" />
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-[10px] font-black tracking-[0.4em] text-primary/70 uppercase leading-none mb-1">Admin_Terminal</span>
-                            <span className="text-xs font-black tracking-tighter text-white">SYSTEM_OPERATOR</span>
+                            <span className="text-[10px] font-black tracking-[0.4em] text-primary/70 uppercase leading-none mb-1">Control Center</span>
+                            <span className="text-xs font-black tracking-tighter text-white">Master Admin</span>
                         </div>
                     </div>
 
@@ -82,7 +82,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 <div className="mt-auto p-8 space-y-4">
                     <Link to="/">
                         <Button variant="ghost" className="w-full justify-start gap-3 text-gray-500 hover:text-white px-4 h-12 rounded-xl">
-                            <Home className="w-4 h-4" /> root_directory
+                            <Home className="w-4 h-4" /> View Portfolio
                         </Button>
                     </Link>
                     <Button 
@@ -90,7 +90,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                         variant="ghost" 
                         className="w-full justify-start gap-3 text-rose-500/70 hover:text-rose-500 hover:bg-rose-500/5 px-4 h-12 rounded-xl"
                     >
-                        <LogOut className="w-4 h-4" /> terminate_session
+                        <LogOut className="w-4 h-4" /> Sign Out
                     </Button>
                 </div>
             </aside>
@@ -115,8 +115,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
                     <div className="flex items-center gap-4">
                         <div className="hidden sm:flex flex-col items-end">
-                            <span className="text-[10px] font-black text-emerald-500 tracking-[0.2em] uppercase mb-0.5">Online</span>
-                            <span className="text-[9px] text-gray-500 font-bold">NODE_01_STABLE</span>
+                            <span className="text-[10px] font-black text-emerald-500 tracking-[0.2em] uppercase mb-0.5">System Active</span>
+                            <span className="text-[9px] text-gray-500 font-bold tracking-widest uppercase opacity-40">Live Production</span>
                         </div>
                     </div>
                 </header>
@@ -187,7 +187,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                             </nav>
                             <div className="mt-auto space-y-4">
                                 <Button onClick={handleLogout} variant="ghost" className="w-full justify-start gap-4 text-rose-500">
-                                    <LogOut className="w-5 h-5" /> Terminate Session
+                                    <LogOut className="w-5 h-5" /> Sign Out
                                 </Button>
                             </div>
                         </motion.aside>

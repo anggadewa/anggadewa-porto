@@ -10,6 +10,9 @@ export interface Project {
   is_featured: boolean;
   link: string | null;
   github_link: string | null;
+  role: string | null;
+  timeline: string | null;
+  key_features: string[] | null;
   created_at: string;
   updated_at: string;
 }

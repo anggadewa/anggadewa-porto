@@ -66,57 +66,57 @@ export default function ProjectList() {
     );
 
     return (
-        <div className="space-y-8">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-                <div className="space-y-1">
-                    <h1 className="text-3xl font-black text-white tracking-tighter uppercase">Project_Repository</h1>
-                    <p className="text-sm text-gray-500 font-bold tracking-widest uppercase opacity-70">Source_Node_Control</p>
+        <div className="space-y-10">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+                <div className="space-y-2">
+                    <h1 className="text-4xl font-black text-white tracking-tighter uppercase">Project Portfolio</h1>
+                    <p className="text-sm text-gray-500 font-bold tracking-widest uppercase opacity-70 italic">Manage and showcase your best work</p>
                 </div>
                 
                 <div className="flex items-center gap-4">
                     <div className="relative group">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-primary transition-colors" />
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600 group-focus-within:text-primary transition-colors" />
                         <Input 
-                            placeholder="Find_Node..." 
+                            placeholder="Search projects..." 
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-11 h-12 w-full lg:w-64 bg-[#0D1117]/60 border-gray-800 focus:border-primary/50 rounded-xl font-bold text-xs tracking-widest"
+                            className="pl-12 h-14 w-full lg:w-72 bg-[#0D1117]/60 border-white/5 focus:border-primary/50 rounded-2xl font-bold text-xs tracking-widest transition-all shadow-inner"
                         />
                     </div>
                     <Link to="new">
-                        <Button className="h-12 bg-primary hover:bg-primary/90 text-white font-black px-6 rounded-xl shadow-lg shadow-primary/20 gap-2">
-                            <Plus className="w-5 h-5" /> NEW_DATA_SET
+                        <Button className="h-14 bg-primary hover:bg-primary/90 text-white font-black px-8 rounded-2xl shadow-xl shadow-primary/20 gap-3 border-none uppercase text-[10px] tracking-[0.2em]">
+                            <Plus className="w-5 h-5" /> Add Project
                         </Button>
                     </Link>
                 </div>
             </div>
 
-            <div className="bg-[#0D1117]/60 border border-gray-800/50 rounded-[2rem] overflow-hidden backdrop-blur-xl">
+            <div className="bg-[#0D1117]/60 border border-white/5 rounded-[2.5rem] overflow-hidden backdrop-blur-3xl shadow-2xl">
                 <div className="overflow-x-auto custom-scrollbar">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="border-b border-gray-800/50 bg-white/5">
-                                <th className="p-6 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Thumbnail</th>
-                                <th className="p-6 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Node_Title</th>
-                                <th className="p-6 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Category</th>
-                                <th className="p-6 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Visibility</th>
-                                <th className="p-6 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 text-right">Actions</th>
+                            <tr className="border-b border-white/5 bg-white/[0.02]">
+                                <th className="p-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Preview</th>
+                                <th className="p-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Project Details</th>
+                                <th className="p-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Category</th>
+                                <th className="p-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Status</th>
+                                <th className="p-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 text-right">Options</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-800/30">
+                        <tbody className="divide-y divide-white/5">
                             {loading ? (
                                 <tr>
-                                    <td colSpan={5} className="p-20 text-center">
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-                                            <span className="text-xs font-black tracking-widest text-primary animate-pulse uppercase">Syncing_Nodes...</span>
+                                    <td colSpan={5} className="p-24 text-center">
+                                        <div className="flex flex-col items-center gap-6">
+                                            <div className="w-14 h-14 border-4 border-primary border-t-transparent rounded-full animate-spin shadow-lg shadow-primary/20"></div>
+                                            <span className="text-[10px] font-black tracking-[0.4em] text-primary animate-pulse uppercase">Syncing Database...</span>
                                         </div>
                                     </td>
                                 </tr>
                             ) : filteredProjects.length === 0 ? (
                                 <tr>
-                                    <td colSpan={5} className="p-20 text-center text-gray-500 uppercase tracking-widest font-black text-xs">
-                                        No_Nodes_Detected_In_Search
+                                    <td colSpan={5} className="p-24 text-center text-gray-600 uppercase tracking-[0.3em] font-black text-xs italic">
+                                        No matching projects found
                                     </td>
                                 </tr>
                             ) : (
@@ -125,70 +125,72 @@ export default function ProjectList() {
                                         key={project.id}
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
-                                        className="group hover:bg-white/5 transition-colors duration-300"
+                                        className="group hover:bg-white/[0.03] transition-colors duration-500"
                                     >
-                                        <td className="p-6">
+                                        <td className="p-8">
                                             {project.thumbnail ? (
-                                                <div className="w-16 h-10 rounded-lg overflow-hidden border border-gray-800 bg-[#06080B] shadow-inner transform group-hover:scale-105 transition-transform duration-500">
+                                                <div className="w-20 h-12 rounded-xl overflow-hidden border border-white/10 bg-[#06080B] shadow-2xl transform group-hover:scale-110 transition-all duration-700">
                                                     <img 
                                                         src={getAssetUrl(project.thumbnail)}
-                                                        className="w-full h-full object-cover"
+                                                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                                                         alt=""
                                                     />
                                                 </div>
                                             ) : (
-                                                <div className="w-16 h-10 rounded-lg bg-gray-900 border border-gray-800 border-dashed" />
+                                                <div className="w-20 h-12 rounded-xl bg-white/5 border border-white/5 border-dashed flex items-center justify-center">
+                                                    <span className="text-[8px] font-black text-gray-700 uppercase">No Image</span>
+                                                </div>
                                             )}
                                         </td>
-                                        <td className="p-6">
-                                            <div className="flex flex-col">
-                                                <span className="text-sm font-black text-white group-hover:text-primary transition-colors duration-300">{project.title}</span>
-                                                <span className="text-[10px] text-gray-600 font-mono italic">UID_{project.id.toString().padStart(4, '0')}</span>
+                                        <td className="p-8">
+                                            <div className="flex flex-col gap-1">
+                                                <span className="text-sm font-black text-white group-hover:text-primary transition-colors duration-500 uppercase tracking-tight">{project.title}</span>
+                                                <span className="text-[9px] text-gray-600 font-bold tracking-widest uppercase opacity-60">ID #{project.id}</span>
                                             </div>
                                         </td>
-                                        <td className="p-6">
-                                            <Badge variant="outline" className="border-gray-800 bg-gray-900/50 text-[10px] font-black tracking-widest uppercase px-3 py-1 text-gray-400">
+                                        <td className="p-8">
+                                            <Badge variant="outline" className="border-white/10 bg-white/5 text-[9px] font-black tracking-[0.2em] uppercase px-4 py-1.5 text-gray-400 group-hover:border-primary/30 group-hover:text-primary transition-all">
                                                 {project.category}
                                             </Badge>
                                         </td>
-                                        <td className="p-6">
+                                        <td className="p-8">
                                             <div className="flex items-center gap-2">
                                                 {project.is_featured ? (
-                                                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-black uppercase tracking-widest">
-                                                        <Star className="w-3 h-3 fill-amber-500" />
+                                                    <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[9px] font-black uppercase tracking-[0.2em]">
+                                                        <Star className="w-3 h-3 fill-amber-500 shadow-xl" />
                                                         Featured
                                                     </div>
                                                 ) : (
-                                                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gray-800 border border-gray-700 text-gray-500 text-[10px] font-black uppercase tracking-widest">
+                                                    <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/5 text-gray-600 text-[9px] font-black uppercase tracking-[0.2em]">
                                                         Standard
                                                     </div>
                                                 )}
                                             </div>
                                         </td>
-                                        <td className="p-6 text-right">
+                                        <td className="p-8 text-right">
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger asChild>
-                                                    <Button variant="ghost" size="sm" className="h-10 w-10 p-0 text-gray-500 hover:text-white hover:bg-gray-800/50 rounded-xl">
+                                                    <Button variant="ghost" size="sm" className="h-12 w-12 p-0 text-gray-600 hover:text-white hover:bg-white/5 rounded-2xl transition-all">
                                                         <MoreVertical className="w-5 h-5" />
                                                     </Button>
                                                 </DropdownMenuTrigger>
-                                                <DropdownMenuContent align="end" className="w-48 bg-[#0D1117] border-gray-800 rounded-xl p-2 z-[60]">
+                                                <DropdownMenuContent align="end" className="w-56 bg-[#0D1117] border-white/10 rounded-[1.5rem] p-3 z-[60] shadow-2xl backdrop-blur-xl">
                                                     <Link to={`/projects/${project.slug}`} target="_blank">
-                                                        <DropdownMenuItem className="gap-3 rounded-lg py-2.5 cursor-pointer text-gray-300 hover:bg-primary/10 hover:text-primary">
-                                                            <ExternalLink className="w-4 h-4" /> root_access
+                                                        <DropdownMenuItem className="gap-3 rounded-xl py-3.5 cursor-pointer text-[10px] font-black uppercase tracking-widest text-gray-400 hover:bg-primary/10 hover:text-primary transition-all">
+                                                            <ExternalLink className="w-4 h-4" /> View Showcase
                                                         </DropdownMenuItem>
                                                     </Link>
-                                                    <DropdownMenuSeparator className="bg-gray-800" />
+                                                    <DropdownMenuSeparator className="bg-white/5 my-2" />
                                                     <Link to={`edit/${project.id}`}>
-                                                        <DropdownMenuItem className="gap-3 rounded-lg py-2.5 cursor-pointer text-gray-300 hover:bg-primary/10 hover:text-primary">
-                                                            <Pencil className="w-4 h-4" /> edit_module
+                                                        <DropdownMenuItem className="gap-3 rounded-xl py-3.5 cursor-pointer text-[10px] font-black uppercase tracking-widest text-gray-400 hover:bg-primary/10 hover:text-primary transition-all">
+                                                            <Pencil className="w-4 h-4" /> Modify Details
                                                         </DropdownMenuItem>
                                                     </Link>
                                                     <DropdownMenuItem 
                                                         onClick={() => handleDelete(project.id)}
-                                                        className="gap-3 rounded-lg py-2.5 cursor-pointer text-rose-500 hover:bg-rose-500/10 hover:text-rose-500"
+                                                        className="gap-3 rounded-xl py-3.5 cursor-pointer text-[10px] font-black uppercase tracking-widest text-rose-500 hover:bg-rose-500/10 hover:text-rose-500 transition-all"
                                                     >
-                                                        <Trash2 className="w-4 h-4" /> wipe_data
+                                                        <Trash2 className="w-4 h-4" /> Remove Entry
                                                     </DropdownMenuItem>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
@@ -200,11 +202,14 @@ export default function ProjectList() {
                     </table>
                 </div>
 
-                <div className="p-6 border-t border-gray-800/50 flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-gray-600">
-                    <div>Showing {filteredProjects.length} Systems Found</div>
-                    <div className="flex gap-2">
-                        <Button variant="outline" size="sm" className="h-8 border-gray-800 text-gray-500 disabled:opacity-30 rounded-lg" disabled>Prev</Button>
-                        <Button variant="outline" size="sm" className="h-8 border-gray-800 text-gray-500 disabled:opacity-30 rounded-lg" disabled>Next</Button>
+                <div className="p-8 border-t border-white/5 bg-white/[0.01] flex items-center justify-between text-[9px] font-black uppercase tracking-[0.3em] text-gray-600">
+                    <div className="flex items-center gap-3">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/20" />
+                        Showing {filteredProjects.length} Verified Entries
+                    </div>
+                    <div className="flex gap-4">
+                        <Button variant="outline" size="sm" className="h-10 px-6 border-white/5 bg-transparent text-gray-600 hover:text-white hover:bg-white/5 disabled:opacity-20 rounded-xl transition-all" disabled>Previous</Button>
+                        <Button variant="outline" size="sm" className="h-10 px-6 border-white/5 bg-transparent text-gray-600 hover:text-white hover:bg-white/5 disabled:opacity-20 rounded-xl transition-all" disabled>Next</Button>
                     </div>
                 </div>
             </div>
