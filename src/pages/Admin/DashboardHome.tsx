@@ -103,7 +103,7 @@ export default function DashboardHome() {
                         Platform Status: Operational
                     </div>
                     <h1 className="text-5xl lg:text-6xl font-black text-white tracking-tighter leading-none">
-                        Welcome Back, <span className="text-primary italic">Dewa</span>.
+                        Welcome Back, <span className="text-primary italic">Dewa!</span>.
                     </h1>
                     <p className="text-gray-400 max-w-2xl text-lg font-medium leading-relaxed opacity-80">
                         Manage your professional digital presence and refine your portfolio showcase.
