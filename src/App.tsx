@@ -3,6 +3,7 @@ import Home from '@/pages/Home';
 import ProjectDetail from '@/pages/ProjectDetail';
 import Login from '@/pages/Login';
 import AdminDashboard from '@/pages/Admin/Dashboard';
+import NotFound from '@/pages/NotFound';
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <Route path="/projects/:slug" element={<ProjectDetail />} />
       <Route path="/login" element={<Login />} />
       <Route path="/admin/*" element={<AdminDashboard />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
