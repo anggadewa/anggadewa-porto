@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import cvPdf from '@/assets/CV_IT_Angga_Dewantoro_2026.pdf';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -287,6 +287,20 @@ export default function Home() {
 
         fetchData();
     }, []);
+
+    const { hash } = useLocation();
+
+    useEffect(() => {
+        if (hash === '#work' && !loading) {
+            // Wait for data to load and DOM to expand before scrolling
+            setTimeout(() => {
+                const element = document.getElementById('work');
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 300);
+        }
+    }, [hash, loading]);
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -864,7 +878,7 @@ export default function Home() {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                     {projects
                                         .filter(p => activeCategory === 'All' || p.category?.trim().toLowerCase() === activeCategory.toLowerCase())
                                         .map((project, idx) => (
@@ -874,45 +888,46 @@ export default function Home() {
                                                 whileInView={{ opacity: 1, y: 0 }}
                                                 viewport={{ once: true }}
                                                 transition={{ delay: idx * 0.1 }}
-                                                className="group cursor-pointer space-y-8"
+                                                className="group cursor-pointer"
                                             >
-                                                <Link to={`/projects/${project.slug}`} className="block space-y-8">
-                                                    <div className="aspect-[16/10] rounded-[3.5rem] overflow-hidden relative shadow-[0_30px_80px_rgba(0,0,0,0.1)] border-4 border-white">
+                                                <Link to={`/projects/${project.slug}`} className="block p-3 bg-white border border-zinc-150 rounded-[2.5rem] hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)] hover:border-zinc-200 transition-all duration-500 hover:-translate-y-1">
+                                                    <div className="aspect-[4/3] rounded-[2rem] overflow-hidden relative border border-black/5 mb-6">
                                                         {project.thumbnail ? (
                                                             <img
                                                                 src={getAssetUrl(project.thumbnail)}
                                                                 alt={project.title}
-                                                                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                                             />
                                                         ) : (
                                                             <div className="w-full h-full bg-zinc-50 flex items-center justify-center">
-                                                                <Boxes className="w-16 h-16 text-zinc-200" />
+                                                                <Boxes className="w-12 h-12 text-zinc-200" />
                                                             </div>
                                                         )}
                                                         <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors duration-700" />
 
                                                         {/* Floating Badge */}
-                                                        <div className="absolute top-8 left-8">
-                                                            <Badge className="bg-white/90 backdrop-blur-md text-primary border-none text-[9px] font-black tracking-widest uppercase py-2 px-4 rounded-full shadow-lg">
+                                                        <div className="absolute top-4 left-4">
+                                                            <Badge className="bg-white/90 backdrop-blur-md text-primary border-none text-[9px] font-black tracking-widest uppercase py-1.5 px-3 rounded-full shadow-sm">
                                                                 {project.category}
                                                             </Badge>
                                                         </div>
                                                     </div>
-                                                    <div className="px-4 flex justify-between items-center">
-                                                        <div className="space-y-2">
-                                                            <h3 className="text-3xl font-black text-foreground uppercase tracking-tight group-hover:text-primary transition-colors">
+                                                    
+                                                    <div className="px-4 pb-4 flex justify-between items-center">
+                                                        <div className="space-y-1.5 pr-4">
+                                                            <h3 className="text-xl font-black text-foreground uppercase tracking-tight group-hover:text-primary transition-colors line-clamp-1">
                                                                 {project.title}
                                                             </h3>
-                                                            <div className="flex items-center gap-3">
+                                                            <div className="flex flex-wrap items-center gap-2">
                                                                 {project.tech_stack?.slice(0, 3).map((tech, i) => (
-                                                                    <span key={i} className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                                                                    <span key={i} className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">
                                                                         {tech}{i < 2 && i < project.tech_stack!.length - 1 ? " • " : ""}
                                                                     </span>
                                                                 ))}
                                                             </div>
                                                         </div>
-                                                        <div className="w-16 h-16 rounded-full border-2 border-zinc-100 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-500 shadow-sm">
-                                                            <ArrowRight className="w-6 h-6 text-foreground group-hover:text-white transition-all -rotate-45 group-hover:rotate-0" />
+                                                        <div className="w-12 h-12 shrink-0 rounded-full border border-zinc-200 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-500 shadow-sm">
+                                                            <ArrowRight className="w-5 h-5 text-foreground group-hover:text-white transition-all -rotate-45 group-hover:rotate-0" />
                                                         </div>
                                                     </div>
                                                 </Link>

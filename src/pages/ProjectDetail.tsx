@@ -12,7 +12,8 @@ import {
     Calendar,
     User,
     Layers,
-    Layout
+    Layout,
+    FileText
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { getAssetUrl } from '@/lib/assets';
@@ -93,199 +94,199 @@ export default function ProjectDetail() {
     }
 
     return (
-        <div className="relative min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary pb-32">
-            {/* Background Vibe */}
+        <div className="relative min-h-screen bg-zinc-50 text-zinc-900 pb-32 font-sans selection:bg-primary/20 selection:text-primary">
+            {/* Elegant Background Vibe */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
-                <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary/5 blur-[150px] rounded-full" />
-                <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-500/5 blur-[150px] rounded-full" />
+                <div className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] bg-primary/5 blur-[120px] rounded-full" />
+                <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-500/5 blur-[120px] rounded-full" />
                 <div 
-                    className="absolute inset-0 opacity-[0.02]" 
+                    className="absolute inset-0 opacity-[0.03]" 
                     style={{
-                        backgroundImage: `radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)`,
+                        backgroundImage: `radial-gradient(circle at 1px 1px, black 1px, transparent 0)`,
                         backgroundSize: '40px 40px'
                     }}
                 />
             </div>
 
-            <div className="relative max-w-6xl mx-auto px-6 lg:px-8">
-                {/* Modern Breadcrumb / Navigation */}
-                <header className="py-10 flex justify-between items-center">
-                    <Link to="/">
-                        <button className="flex items-center gap-4 px-6 py-3 bg-card/40 backdrop-blur-xl border border-border/40 rounded-2xl text-[10px] font-black tracking-[0.2em] uppercase text-muted-foreground hover:text-primary hover:border-primary/40 transition-all group">
+            <div className="relative max-w-7xl mx-auto px-6 lg:px-12">
+                {/* Modern Navigation */}
+                <header className="py-12 flex justify-between items-center">
+                    <Link to="/#work">
+                        <button className="flex items-center gap-3 px-6 py-3.5 bg-white border border-zinc-200 hover:border-primary/40 shadow-sm hover:shadow-lg rounded-full text-xs font-black tracking-widest uppercase text-zinc-600 hover:text-primary transition-all duration-300 group">
                             <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                             Back to Gallery
                         </button>
                     </Link>
-                    <div className="hidden sm:flex items-center gap-3 px-6 py-2.5 bg-primary/5 rounded-full border border-primary/10">
-                        <Layout className="w-3 h-3 text-primary" />
-                        <span className="text-[9px] font-black tracking-[0.2em] text-primary uppercase">Case Study // {project.slug}</span>
+                    <div className="hidden sm:flex items-center gap-3 px-6 py-3 bg-white border border-zinc-200 rounded-full shadow-sm">
+                        <Layout className="w-4 h-4 text-primary" />
+                        <span className="text-xs font-black tracking-widest text-zinc-800 uppercase">Case Study // {project.slug}</span>
                     </div>
                 </header>
 
-                <main className="mt-12 space-y-24">
-                    {/* Project Hero */}
+                <main className="mt-8 pb-10">
                     <motion.div 
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="space-y-12"
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="space-y-20 md:space-y-32"
                     >
-                        <div className="space-y-6 max-w-4xl">
-                            <div className="flex items-center gap-4">
-                                <div className="h-[2px] w-12 bg-primary" />
-                                <span className="text-[10px] font-black tracking-[0.4em] text-primary uppercase">{project.category || 'Standard Project'}</span>
+                        {/* 1. Hero Section (Centered & Majestic) */}
+                        <div className="flex flex-col items-center text-center space-y-8 max-w-5xl mx-auto pt-10">
+                            <div className="px-6 py-2 bg-primary/5 border border-primary/10 rounded-full">
+                                <span className="text-xs font-black tracking-[0.3em] text-primary uppercase">{project.category || 'Case Study'}</span>
                             </div>
-                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-foreground tracking-tighter uppercase leading-[0.9]">
+                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-zinc-950 tracking-tighter uppercase leading-[0.9]">
                                 {project.title}
                             </h1>
-                        </div>
+                            
+                            {/* Sleek Metadata Bar */}
+                            <div className="flex flex-wrap justify-center gap-8 md:gap-16 pt-8 pb-4">
+                                {[
+                                    { label: 'Role', value: project.role || 'Lead Developer' },
+                                    { label: 'Timeline', value: project.timeline || '2023 - 2024' },
+                                    { label: 'Core Tech', value: project.tech_stack?.[0] || 'Modern Stack' },
+                                ].map((item, idx) => (
+                                    <div key={idx} className="flex flex-col items-center gap-2">
+                                        <span className="text-[10px] font-black text-zinc-400 tracking-[0.2em] uppercase">{item.label}</span>
+                                        <span className="text-sm md:text-base font-black text-zinc-900 uppercase tracking-tight">{item.value}</span>
+                                    </div>
+                                ))}
+                            </div>
 
-                        {/* Metadata Grid */}
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div className="p-6 bg-card/40 backdrop-blur-xl border border-border/40 rounded-3xl space-y-3 group hover:border-primary/40 transition-colors">
-                                <div className="p-2 bg-primary/5 rounded-lg w-fit group-hover:bg-primary/10 transition-colors">
-                                    <User className="w-4 h-4 text-primary" />
-                                </div>
-                                <div>
-                                    <div className="text-[9px] font-black text-muted-foreground/60 tracking-widest uppercase mb-1">My Role</div>
-                                    <div className="text-[11px] font-bold text-foreground uppercase tracking-tight">{project.role || 'Lead Developer'}</div>
-                                </div>
-                            </div>
-                            <div className="p-6 bg-card/40 backdrop-blur-xl border border-border/40 rounded-3xl space-y-3 group hover:border-primary/40 transition-colors">
-                                <div className="p-2 bg-emerald-500/5 rounded-lg w-fit group-hover:bg-emerald-500/10 transition-colors">
-                                    <Cpu className="w-4 h-4 text-emerald-500" />
-                                </div>
-                                <div>
-                                    <div className="text-[9px] font-black text-muted-foreground/60 tracking-widest uppercase mb-1">Technology</div>
-                                    <div className="text-[11px] font-bold text-foreground uppercase tracking-tight">{project.tech_stack?.[0] || 'Modern Stack'}</div>
-                                </div>
-                            </div>
-                            <div className="p-6 bg-card/40 backdrop-blur-xl border border-border/40 rounded-3xl space-y-3 group hover:border-primary/40 transition-colors">
-                                <div className="p-2 bg-violet-500/5 rounded-lg w-fit group-hover:bg-violet-500/10 transition-colors">
-                                    <Calendar className="w-4 h-4 text-violet-500" />
-                                </div>
-                                <div>
-                                    <div className="text-[9px] font-black text-muted-foreground/60 tracking-widest uppercase mb-1">Timeline</div>
-                                    <div className="text-[11px] font-bold text-foreground uppercase tracking-tight">{project.timeline || '2023 - 2024'}</div>
-                                </div>
-                            </div>
-                            <div className="p-6 bg-card/40 backdrop-blur-xl border border-border/40 rounded-3xl space-y-3 group hover:border-primary/40 transition-colors">
-                                <div className="p-2 bg-amber-500/5 rounded-lg w-fit group-hover:bg-amber-500/10 transition-colors">
-                                    <Layers className="w-4 h-4 text-amber-500" />
-                                </div>
-                                <div>
-                                    <div className="text-[9px] font-black text-muted-foreground/60 tracking-widest uppercase mb-1">Category</div>
-                                    <div className="text-[11px] font-bold text-foreground uppercase tracking-tight">{project.category || 'Software'}</div>
-                                </div>
+                            {/* Action Links */}
+                            <div className="flex flex-wrap justify-center gap-4 pt-4">
+                                {project.link && (
+                                    <a href={project.link} target="_blank" rel="noreferrer">
+                                        <Button className="h-14 px-8 rounded-full bg-primary hover:bg-primary/90 text-white text-xs font-black tracking-widest group shadow-lg shadow-primary/20 transition-all duration-300 hover:-translate-y-1 uppercase">
+                                            Launch Project <ExternalLink className="ml-2 w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />
+                                        </Button>
+                                    </a>
+                                )}
+                                {project.github_link && (
+                                    <a href={project.github_link} target="_blank" rel="noreferrer">
+                                        <Button variant="outline" className="h-14 px-8 rounded-full border-zinc-200 bg-white hover:bg-zinc-50 text-zinc-900 text-xs font-black tracking-widest group shadow-sm transition-all duration-300 hover:-translate-y-1 uppercase">
+                                            Source Code <CodeXml className="ml-2 w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+                                        </Button>
+                                    </a>
+                                )}
                             </div>
                         </div>
 
-                        {/* Project Links */}
-                        <div className="flex flex-wrap gap-4 pt-4">
-                            {project.link && (
-                                <a href={project.link} target="_blank" rel="noreferrer" className="w-full sm:w-auto">
-                                    <Button className="w-full sm:w-auto h-16 px-10 rounded-2xl bg-primary hover:bg-primary/90 text-white text-[11px] font-black tracking-[0.2em] group shadow-xl shadow-primary/20 border-none transition-all hover:-translate-y-1 uppercase">
-                                        Launch Project <ExternalLink className="ml-4 w-4 h-4 group-hover:rotate-45 transition-transform" />
-                                    </Button>
-                                </a>
-                            )}
-                            {project.github_link && (
-                                <a href={project.github_link} target="_blank" rel="noreferrer" className="w-full sm:w-auto">
-                                    <Button variant="outline" className="w-full sm:w-auto h-16 px-10 rounded-2xl border-border/40 bg-card/40 hover:bg-card/60 text-foreground text-[11px] font-black tracking-[0.2em] group transition-all hover:-translate-y-1 uppercase">
-                                        Source Code <CodeXml className="ml-4 w-4 h-4 group-hover:scale-110 transition-transform" />
-                                    </Button>
-                                </a>
-                            )}
-                        </div>
-
-                        {/* Showcase Gallery */}
+                        {/* 2. Hero Image Gallery */}
                         {project.images && project.images.length > 0 && (
-                            <div className="pt-12">
-                                <div className="bg-card/40 backdrop-blur-xl border border-border/40 rounded-[2.5rem] overflow-hidden shadow-2xl">
-                                    <div className="p-4 sm:p-10">
-                                        <div className="flex overflow-x-auto gap-8 snap-x snap-mandatory pb-8 scroll-smooth custom-scrollbar">
-                                            {project.images.map((img, i) => (
-                                                <div 
-                                                    key={i} 
-                                                    onClick={() => setSelectedImage(img)}
-                                                    className="flex-none w-[90%] sm:w-[80%] snap-center relative aspect-video overflow-hidden rounded-3xl border border-border/40 cursor-pointer group/item hover:border-primary/40 transition-all duration-500 shadow-lg"
-                                                >
-                                                    <img 
-                                                        src={getAssetUrl(img)} 
-                                                        alt={`Showcase ${i + 1}`}
-                                                        className="w-full h-full object-cover transition-all duration-1000 group-hover/item:scale-105"
-                                                    />
-                                                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/item:opacity-100 transition-all flex items-center justify-center backdrop-blur-[2px]">
-                                                        <div className="bg-white/10 backdrop-blur-md px-8 py-4 rounded-2xl border border-white/20 text-[10px] font-black text-white tracking-[0.3em] uppercase">
-                                                            Expand View
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ))}
+                            <div className="max-w-6xl mx-auto w-full">
+                                {/* First image as massive hero */}
+                                <div 
+                                    onClick={() => setSelectedImage(project.images![0])}
+                                    className="relative aspect-video w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-zinc-200 shadow-[0_20px_60px_rgba(0,0,0,0.08)] cursor-pointer group bg-zinc-100"
+                                >
+                                    <img 
+                                        src={getAssetUrl(project.images![0])} 
+                                        alt="Hero Showcase"
+                                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-[1.02]"
+                                    />
+                                    <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+                                        <div className="bg-white/90 backdrop-blur-md px-8 py-4 rounded-full border border-white/50 text-xs font-black text-zinc-900 tracking-widest uppercase shadow-2xl scale-95 group-hover:scale-100 transition-all duration-500">
+                                            Expand View
                                         </div>
                                     </div>
                                 </div>
+
+                                {/* Remaining images in a grid below */}
+                                {project.images.length > 1 && (
+                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-6">
+                                        {project.images.slice(1).map((img, i) => (
+                                            <div 
+                                                key={i} 
+                                                onClick={() => setSelectedImage(img)}
+                                                className="relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-zinc-200 shadow-sm cursor-pointer group hover:shadow-xl transition-all duration-500 hover:-translate-y-1 bg-zinc-100"
+                                            >
+                                                <img 
+                                                    src={getAssetUrl(img)} 
+                                                    alt={`Showcase ${i + 2}`}
+                                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                                />
+                                                <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         )}
 
-                        {/* Project Deep Dive */}
-                        <div className="grid lg:grid-cols-3 gap-16 pt-12">
-                            <div className="lg:col-span-2 space-y-10">
-                                <div className="space-y-6">
-                                    <div className="text-[11px] font-black tracking-[0.3em] text-primary uppercase">Documentation</div>
-                                    <div className="bg-card/40 backdrop-blur-xl p-8 md:p-16 rounded-[2.5rem] border border-border/40 prose prose-invert prose-p:text-muted-foreground prose-p:leading-relaxed prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tight max-w-none shadow-xl">
-                                        <div dangerouslySetInnerHTML={createHighlightedMarkup(project.description)} />
-                                    </div>
-                                </div>
+                        {/* 3. The Story & Documentation (Center column flow to prevent empty side space) */}
+                        <div className="max-w-4xl mx-auto bg-white p-8 md:p-16 rounded-[3rem] border border-zinc-200 shadow-[0_20px_60px_rgba(0,0,0,0.04)] relative">
+                            <div className="absolute -top-6 left-10 md:left-16 w-14 h-14 bg-primary rounded-2xl flex items-center justify-center shadow-xl shadow-primary/30 rotate-3 transition-transform hover:rotate-6">
+                                <FileText className="w-6 h-6 text-white -rotate-3" />
                             </div>
+                            <h3 className="text-xl md:text-2xl font-black tracking-widest text-zinc-900 uppercase mb-10 mt-4">The Story</h3>
+                            <div className="prose prose-zinc md:prose-lg prose-p:text-zinc-600 prose-p:leading-[1.8] prose-p:text-[1.05rem] prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tight max-w-none">
+                                <div dangerouslySetInnerHTML={createHighlightedMarkup(project.description)} />
+                            </div>
+                        </div>
 
-                            <div className="space-y-12">
-                                <div className="space-y-8">
-                                    <div className="text-[11px] font-black tracking-[0.3em] text-primary uppercase">Tech Stack</div>
-                                    <div className="flex flex-wrap gap-2">
-                                        {project.tech_stack?.map((tech, i) => (
-                                            <span key={i} className="px-5 py-3 bg-white/5 border border-white/5 rounded-2xl text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-white hover:border-white/10 transition-all">
-                                                {tech}
-                                            </span>
-                                        ))}
+                        {/* 4. Tech Stack & Features Bento Grid (Ensures no awkward whitespace) */}
+                        <div className="max-w-6xl mx-auto grid md:grid-cols-12 gap-8">
+                            
+                            {/* Key Features (Left/Wide) */}
+                            <div className="md:col-span-7 bg-white p-8 md:p-14 rounded-[3rem] border border-zinc-200 shadow-[0_20px_60px_rgba(0,0,0,0.04)] relative overflow-hidden group hover:border-zinc-300 transition-all duration-500">
+                                <div className="absolute top-0 right-0 w-80 h-80 bg-primary/5 blur-[100px] rounded-full group-hover:bg-primary/10 transition-colors duration-700" />
+                                <div className="flex items-center gap-5 mb-12 relative z-10">
+                                    <div className="w-14 h-14 rounded-2xl bg-primary/5 border border-primary/10 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                                        <Zap className="w-6 h-6 text-primary" />
                                     </div>
+                                    <h4 className="text-lg md:text-xl font-black text-zinc-900 uppercase tracking-[0.2em]">Key Features</h4>
                                 </div>
-
-                                <div className="p-8 bg-primary/5 border border-primary/10 rounded-[2rem] space-y-8">
-                                    <div className="flex items-center gap-3">
-                                        <Zap className="w-5 h-5 text-primary" />
-                                        <h4 className="text-[11px] font-black text-foreground uppercase tracking-widest">Key Features & Insights</h4>
-                                    </div>
-                                    
+                                <div className="relative z-10">
                                     {project.key_features && project.key_features.length > 0 ? (
-                                        <ul className="space-y-6">
+                                        <ul className="space-y-8">
                                             {project.key_features.map((feature, i) => (
-                                                <li key={i} className="flex gap-4 group">
-                                                    <div className="shrink-0 w-1.5 h-1.5 rounded-full bg-primary mt-1.5 group-hover:scale-150 transition-transform" />
-                                                    <p className="text-[11px] text-muted-foreground leading-relaxed font-medium italic">
+                                                <li key={i} className="flex gap-6 items-start group/item">
+                                                    <div className="shrink-0 w-8 h-8 rounded-full bg-zinc-50 border border-zinc-200 flex items-center justify-center mt-0.5 group-hover/item:border-primary/30 group-hover/item:bg-primary/5 transition-all duration-300">
+                                                        <div className="w-2 h-2 rounded-full bg-primary" />
+                                                    </div>
+                                                    <p className="text-[1.05rem] text-zinc-600 leading-relaxed font-medium">
                                                         {feature}
                                                     </p>
                                                 </li>
                                             ))}
                                         </ul>
                                     ) : (
-                                        <p className="text-[11px] text-muted-foreground leading-relaxed italic">
-                                            This project pushed the boundaries of my expertise in {project.category || 'modern development'} and reinforced my commitment to high-performance architecture.
+                                        <p className="text-base text-zinc-500 leading-relaxed font-medium italic">
+                                            This project features advanced architecture focused on scalable performance and superior user experience.
                                         </p>
                                     )}
                                 </div>
                             </div>
+
+                            {/* Tech Stack (Right/Narrow) */}
+                            <div className="md:col-span-5 bg-white p-8 md:p-14 rounded-[3rem] border border-zinc-200 shadow-[0_20px_60px_rgba(0,0,0,0.04)] hover:border-zinc-300 transition-all duration-500 group">
+                                <div className="flex items-center gap-5 mb-12">
+                                    <div className="w-14 h-14 rounded-2xl bg-zinc-50 border border-zinc-100 flex items-center justify-center group-hover:bg-zinc-100 transition-colors">
+                                        <Cpu className="w-6 h-6 text-zinc-900" />
+                                    </div>
+                                    <h4 className="text-lg md:text-xl font-black text-zinc-900 uppercase tracking-[0.2em]">Tech Stack</h4>
+                                </div>
+                                <div className="flex flex-wrap gap-3">
+                                    {project.tech_stack?.map((tech, i) => (
+                                        <span key={i} className="px-6 py-3.5 bg-zinc-50 border border-zinc-200 rounded-full text-xs font-black uppercase tracking-widest text-zinc-600 hover:text-primary hover:border-primary/30 hover:bg-primary/5 hover:-translate-y-0.5 transition-all cursor-default">
+                                            {tech}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+
                         </div>
                     </motion.div>
                 </main>
 
                 {/* Simplified Professional Footer */}
-                <footer className="mt-40 py-16 border-t border-border/40 flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/40">
+                <footer className="mt-32 py-12 border-t border-zinc-200 flex flex-col md:flex-row justify-between items-center gap-6 text-xs font-black uppercase tracking-[0.2em] text-zinc-400">
                     <div>&copy; {new Date().getFullYear()} Angga Dewa // Built for Excellence</div>
-                    <div className="flex items-center gap-8">
-                        <Link to="/" className="hover:text-primary transition-colors tracking-widest">Home</Link>
-                        <span className="opacity-20">//</span>
-                        <a href="mailto:anggadewa2016@gmail.com" className="hover:text-primary transition-colors tracking-widest">Contact</a>
+                    <div className="flex items-center gap-6">
+                        <Link to="/" className="hover:text-primary transition-colors">Home</Link>
+                        <span className="opacity-30">//</span>
+                        <a href="mailto:anggadewa2016@gmail.com" className="hover:text-primary transition-colors">Contact</a>
                     </div>
                 </footer>
             </div>
@@ -297,26 +298,27 @@ export default function ProjectDetail() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-3xl p-6"
+                        className="fixed inset-0 z-[100] flex items-center justify-center bg-zinc-950/95 backdrop-blur-3xl p-6 md:p-12"
                         onClick={() => setSelectedImage(null)}
                     >
                         <motion.div 
-                            initial={{ scale: 0.95, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.95, opacity: 0 }}
+                            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                            transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
                             className="relative max-w-7xl w-full flex flex-col items-center justify-center"
                             onClick={(e) => e.stopPropagation()}
                         >
                             <Button 
                                 variant="ghost" 
                                 onClick={() => setSelectedImage(null)}
-                                className="absolute -top-16 right-0 w-12 h-12 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white"
+                                className="absolute -top-16 right-0 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition-all hover:rotate-90"
                             >
-                                <X className="w-6 h-6" />
+                                <X className="w-5 h-5" />
                             </Button>
                             <img 
                                 src={getAssetUrl(selectedImage)} 
-                                className="w-auto h-auto max-w-full max-h-[80vh] object-contain rounded-3xl shadow-2xl border border-white/10"
+                                className="w-auto h-auto max-w-full max-h-[85vh] object-contain rounded-3xl shadow-[0_30px_100px_rgba(0,0,0,0.5)] border border-white/10"
                                 alt="High Resolution Preview"
                             />
                         </motion.div>

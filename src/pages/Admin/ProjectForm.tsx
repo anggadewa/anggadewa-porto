@@ -183,15 +183,15 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-8">
                 <div className="flex items-center gap-6">
                     <Link to="/admin/projects">
-                        <Button variant="ghost" size="sm" className="h-14 w-14 rounded-2xl text-gray-500 hover:text-white bg-white/5 border border-white/5 hover:border-white/10 transition-all">
+                        <Button variant="ghost" size="sm" className="h-14 w-14 rounded-2xl text-zinc-500 hover:text-zinc-900 bg-white border border-zinc-200 hover:border-zinc-300 transition-all shadow-sm">
                             <ChevronLeft className="w-6 h-6" />
                         </Button>
                     </Link>
                     <div className="space-y-1">
-                        <h1 className="text-4xl font-black text-white tracking-tighter uppercase">
+                        <h1 className="text-4xl font-black text-zinc-900 tracking-tighter uppercase">
                             {id ? 'Modify Project' : 'Create Project'}
                         </h1>
-                        <p className="text-[10px] font-black tracking-[0.3em] text-gray-500 uppercase opacity-60 italic">Configure project documentation and media assets</p>
+                        <p className="text-[10px] font-black tracking-[0.3em] text-zinc-400 uppercase italic">Configure project documentation and media assets</p>
                     </div>
                 </div>
 
@@ -199,7 +199,7 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
                     <Button 
                         onClick={handleSubmit}
                         disabled={saving}
-                        className="h-16 bg-primary hover:bg-primary/90 text-white font-black px-12 rounded-2xl shadow-2xl shadow-primary/20 gap-4 border-none text-[11px] tracking-[0.2em] uppercase transition-all hover:-translate-y-1"
+                        className="h-16 bg-primary hover:bg-primary/90 text-white font-black px-12 rounded-2xl shadow-lg shadow-primary/20 gap-4 border-none text-[11px] tracking-[0.2em] uppercase transition-all hover:-translate-y-1"
                     >
                         {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                         Publish Changes
@@ -213,14 +213,14 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-[#0D1117]/60 border border-white/5 rounded-[2.5rem] p-10 lg:p-14 space-y-12 shadow-2xl"
+                        className="bg-white border border-zinc-200 rounded-[2.5rem] p-10 lg:p-14 space-y-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
                     >
                         <div className="space-y-10">
                             {/* Title Field */}
                             <div className="relative group">
-                                <label className="absolute -top-3 left-6 px-3 bg-[#0D1117] text-[10px] font-black text-primary uppercase tracking-[0.2em] z-10">Project Title</label>
+                                <label className="absolute -top-3 left-6 px-3 bg-white text-[10px] font-black text-primary uppercase tracking-[0.2em] z-10">Project Title</label>
                                 <div className="relative">
-                                    <Type className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 group-focus-within:text-primary transition-colors" />
+                                    <Type className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400 group-focus-within:text-primary transition-colors" />
                                     <Input 
                                         value={formData.title}
                                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -231,7 +231,7 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
                                                 slug: title.toLowerCase().replace(/\s+/g, '-')
                                             }));
                                         }}
-                                        className="h-16 pl-16 rounded-2xl bg-white/[0.02] border-white/5 focus:border-primary/50 text-white font-black text-lg tracking-tight placeholder:text-gray-800"
+                                        className="h-16 pl-16 rounded-2xl bg-zinc-50 border-zinc-200 focus:border-primary/50 focus:bg-white text-zinc-900 font-black text-lg tracking-tight placeholder:text-zinc-400 transition-all shadow-sm"
                                         required
                                         placeholder="e.g. Modern E-Commerce Platform"
                                     />
@@ -241,25 +241,25 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
                             {/* Role & Timeline Grid */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="relative group">
-                                    <label className="absolute -top-3 left-6 px-3 bg-[#0D1117] text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] z-10">Your Role</label>
+                                    <label className="absolute -top-3 left-6 px-3 bg-white text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em] z-10">Your Role</label>
                                     <div className="relative">
-                                        <Code2 className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 group-focus-within:text-primary transition-colors" />
+                                        <Code2 className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400 group-focus-within:text-primary transition-colors" />
                                         <Input 
                                             value={formData.role || ''}
                                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(prev => ({ ...prev, role: e.target.value }))}
-                                            className="h-16 pl-16 rounded-2xl bg-white/[0.02] border-white/5 focus:border-primary/50 text-white font-bold text-sm uppercase tracking-widest placeholder:text-gray-800"
+                                            className="h-16 pl-16 rounded-2xl bg-zinc-50 border-zinc-200 focus:border-primary/50 focus:bg-white text-zinc-900 font-bold text-sm uppercase tracking-widest placeholder:text-zinc-400 shadow-sm transition-all"
                                             placeholder="e.g. Lead Fullstack"
                                         />
                                     </div>
                                 </div>
                                 <div className="relative group">
-                                    <label className="absolute -top-3 left-6 px-3 bg-[#0D1117] text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] z-10">Timeline</label>
+                                    <label className="absolute -top-3 left-6 px-3 bg-white text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em] z-10">Timeline</label>
                                     <div className="relative">
-                                        <Calendar className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 group-focus-within:text-primary transition-colors" />
+                                        <Calendar className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400 group-focus-within:text-primary transition-colors" />
                                         <Input 
                                             value={formData.timeline || ''}
                                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(prev => ({ ...prev, timeline: e.target.value }))}
-                                            className="h-16 pl-16 rounded-2xl bg-white/[0.02] border-white/5 focus:border-primary/50 text-white font-bold text-sm uppercase tracking-widest placeholder:text-gray-800"
+                                            className="h-16 pl-16 rounded-2xl bg-zinc-50 border-zinc-200 focus:border-primary/50 focus:bg-white text-zinc-900 font-bold text-sm uppercase tracking-widest placeholder:text-zinc-400 shadow-sm transition-all"
                                             placeholder="e.g. 2023 - 2024"
                                         />
                                     </div>
@@ -268,11 +268,11 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
 
                             {/* Description Field */}
                             <div className="relative group">
-                                <label className="absolute -top-3 left-6 px-3 bg-[#0D1117] text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] z-10">Project Overview (HTML Supported)</label>
+                                <label className="absolute -top-3 left-6 px-3 bg-white text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em] z-10">Project Overview (HTML Supported)</label>
                                 <textarea 
                                     value={formData.description}
                                     onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                                    className="w-full h-80 rounded-3xl bg-white/[0.02] border border-white/5 focus:border-primary/50 p-8 pt-10 text-gray-300 text-sm leading-relaxed outline-none transition-all resize-none custom-scrollbar shadow-inner"
+                                    className="w-full h-80 rounded-3xl bg-zinc-50 border border-zinc-200 focus:border-primary/50 focus:bg-white p-8 pt-10 text-zinc-600 text-sm leading-relaxed outline-none transition-all resize-none custom-scrollbar shadow-sm"
                                     placeholder="Provide a comprehensive breakdown of the project goals, challenges, and solutions..."
                                 />
                             </div>
@@ -280,14 +280,14 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
                             {/* Key Features List */}
                             <div className="space-y-6">
                                 <div className="relative group">
-                                    <label className="absolute -top-3 left-6 px-3 bg-[#0D1117] text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] z-10">Key Features & Highlights</label>
+                                    <label className="absolute -top-3 left-6 px-3 bg-white text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em] z-10">Key Features & Highlights</label>
                                     <div className="relative">
-                                        <Plus className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" />
+                                        <Plus className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400 group-focus-within:text-primary transition-colors" />
                                         <Input 
                                             value={featureInput}
                                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFeatureInput(e.target.value)}
                                             onKeyDown={handleAddFeature}
-                                            className="h-16 pl-16 rounded-2xl bg-white/[0.02] border-white/5 focus:border-primary/50 text-white font-bold text-sm tracking-widest placeholder:text-gray-800"
+                                            className="h-16 pl-16 rounded-2xl bg-zinc-50 border-zinc-200 focus:border-primary/50 focus:bg-white text-zinc-900 font-bold text-sm tracking-widest placeholder:text-zinc-400 shadow-sm transition-all"
                                             placeholder="Add a key feature and press Enter..."
                                         />
                                     </div>
@@ -300,13 +300,13 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
                                                 animate={{ x: 0, opacity: 1 }}
                                                 exit={{ x: 20, opacity: 0 }}
                                                 key={i}
-                                                className="flex items-center justify-between p-4 bg-white/5 border border-white/5 rounded-2xl group/item"
+                                                className="flex items-center justify-between p-4 bg-white border border-zinc-200 rounded-2xl group/item shadow-sm"
                                             >
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-lg shadow-primary/20" />
-                                                    <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest italic">{feature}</span>
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_10px_rgba(106,43,255,0.4)]" />
+                                                    <span className="text-[11px] font-bold text-zinc-600 uppercase tracking-widest italic">{feature}</span>
                                                 </div>
-                                                <X className="w-4 h-4 text-gray-600 cursor-pointer hover:text-rose-500 transition-colors" onClick={() => handleRemoveFeature(feature)} />
+                                                <X className="w-4 h-4 text-zinc-400 cursor-pointer hover:text-rose-500 transition-colors" onClick={() => handleRemoveFeature(feature)} />
                                             </motion.div>
                                         ))}
                                     </AnimatePresence>
@@ -320,22 +320,22 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="bg-[#0D1117]/60 border border-white/5 rounded-[2.5rem] p-10 lg:p-14 space-y-10 shadow-2xl"
+                        className="bg-white border border-zinc-200 rounded-[2.5rem] p-10 lg:p-14 space-y-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
                     >
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-4">
-                                <div className="p-3 bg-blue-500/10 rounded-2xl">
+                                <div className="p-3 bg-blue-50 border border-blue-100 rounded-2xl">
                                     <LayoutPanelTop className="w-6 h-6 text-blue-500" />
                                 </div>
                                 <div>
-                                    <h3 className="text-sm font-black text-white uppercase tracking-widest">Visual Assets</h3>
-                                    <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1 opacity-60 italic">Project gallery images</p>
+                                    <h3 className="text-sm font-black text-zinc-900 uppercase tracking-widest">Visual Assets</h3>
+                                    <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest mt-1 italic">Project gallery images</p>
                                 </div>
                             </div>
                             <Button 
                                 type="button" 
                                 variant="ghost" 
-                                className="h-12 px-6 rounded-xl text-[10px] font-black text-primary uppercase gap-3 bg-primary/5 hover:bg-primary/10 transition-all"
+                                className="h-12 px-6 rounded-xl text-[10px] font-black text-primary uppercase gap-3 bg-primary/5 hover:bg-primary/10 border border-primary/10 transition-all"
                                 onClick={() => document.getElementById('gallery-upload')?.click()}
                             >
                                 <Plus className="w-4 h-4" /> Upload Media
@@ -349,14 +349,14 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
                                 <motion.div 
                                     layout
                                     key={i} 
-                                    className="relative aspect-video rounded-[2rem] overflow-hidden border border-white/5 group shadow-2xl"
+                                    className="relative aspect-video rounded-[2rem] overflow-hidden border border-zinc-200 bg-zinc-100 group shadow-sm"
                                 >
                                     <img src={getAssetUrl(img)} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000" alt="" />
                                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                         <button 
                                             type="button"
                                             onClick={() => handleRemoveImage(img, 'gallery')}
-                                            className="bg-rose-500 p-4 rounded-full text-white hover:scale-110 active:scale-95 transition-all shadow-2xl shadow-rose-500/40"
+                                            className="bg-rose-500 p-4 rounded-full text-white hover:scale-110 active:scale-95 transition-all shadow-lg shadow-rose-500/40"
                                         >
                                             <X className="w-6 h-6" />
                                         </button>
@@ -366,9 +366,9 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
                             <button 
                                 type="button"
                                 onClick={() => document.getElementById('gallery-upload')?.click()}
-                                className="aspect-video rounded-[2rem] border-2 border-dashed border-white/5 flex flex-col items-center justify-center gap-4 text-gray-700 hover:text-primary hover:border-primary/20 transition-all bg-white/[0.02]"
+                                className="aspect-video rounded-[2rem] border-2 border-dashed border-zinc-200 flex flex-col items-center justify-center gap-4 text-zinc-400 hover:text-primary hover:border-primary/30 transition-all bg-zinc-50 hover:bg-primary/5"
                             >
-                                <div className="w-16 h-16 rounded-3xl bg-white/5 flex items-center justify-center shadow-inner">
+                                <div className="w-16 h-16 rounded-3xl bg-white border border-zinc-100 flex items-center justify-center shadow-sm">
                                     <Plus className="w-8 h-8" />
                                 </div>
                                 <span className="text-[10px] font-black uppercase tracking-[0.2em]">Add Gallery Image</span>
@@ -382,18 +382,18 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
                     <motion.div 
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="bg-[#0D1117]/60 border border-white/5 rounded-[2.5rem] p-10 space-y-12 shadow-2xl"
+                        className="bg-white border border-zinc-200 rounded-[2.5rem] p-10 space-y-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
                     >
                         <div className="space-y-10">
                             {/* Category Field */}
                             <div className="relative group">
-                                <label className="absolute -top-3 left-6 px-3 bg-[#0D1117] text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] z-10">Project Category</label>
+                                <label className="absolute -top-3 left-6 px-3 bg-white text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em] z-10">Project Category</label>
                                 <div className="relative">
-                                    <LayoutPanelTop className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
+                                    <LayoutPanelTop className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 group-focus-within:text-primary transition-colors" />
                                     <Input 
                                         value={formData.category}
                                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(prev => ({ ...prev, category: e.target.value }))}
-                                        className="h-16 pl-14 rounded-2xl bg-white/[0.02] border-white/5 focus:border-primary/50 text-white font-black text-[11px] tracking-[0.2em] uppercase"
+                                        className="h-16 pl-14 rounded-2xl bg-zinc-50 border-zinc-200 focus:border-primary/50 focus:bg-white text-zinc-900 font-black text-[11px] tracking-[0.2em] uppercase transition-all shadow-sm"
                                         placeholder="e.g. MOBILE APP"
                                     />
                                 </div>
@@ -402,14 +402,14 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
                             {/* Tech Stack Tags */}
                             <div className="space-y-6">
                                 <div className="relative group">
-                                    <label className="absolute -top-3 left-6 px-3 bg-[#0D1117] text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] z-10">Tech Stack Modules</label>
+                                    <label className="absolute -top-3 left-6 px-3 bg-white text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em] z-10">Tech Stack Modules</label>
                                     <div className="relative">
-                                        <Code2 className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
+                                        <Code2 className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 group-focus-within:text-primary transition-colors" />
                                         <Input 
                                             value={techInput}
                                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTechInput(e.target.value)}
                                             onKeyDown={handleAddTech}
-                                            className="h-16 pl-14 rounded-2xl bg-white/[0.02] border-white/5 focus:border-primary/50 text-white font-black text-[11px] tracking-[0.2em] uppercase"
+                                            className="h-16 pl-14 rounded-2xl bg-zinc-50 border-zinc-200 focus:border-primary/50 focus:bg-white text-zinc-900 font-black text-[11px] tracking-[0.2em] uppercase transition-all shadow-sm"
                                             placeholder="Add tech & press Enter"
                                         />
                                     </div>
@@ -423,9 +423,9 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
                                                 exit={{ scale: 0.8, opacity: 0 }}
                                                 key={i}
                                             >
-                                                <Badge className="bg-primary/10 text-primary border-primary/20 flex items-center gap-3 px-4 py-2 rounded-xl font-black text-[10px] tracking-widest uppercase">
+                                                <Badge className="bg-primary/5 text-primary border-primary/10 flex items-center gap-3 px-4 py-2 rounded-xl font-black text-[10px] tracking-widest uppercase">
                                                     {tech}
-                                                    <X className="w-3.5 h-3.5 cursor-pointer hover:text-white transition-colors" onClick={() => handleRemoveTech(tech)} />
+                                                    <X className="w-3.5 h-3.5 cursor-pointer hover:text-zinc-900 transition-colors" onClick={() => handleRemoveTech(tech)} />
                                                 </Badge>
                                             </motion.div>
                                         ))}
@@ -434,19 +434,19 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
                             </div>
 
                             {/* Status Toggles */}
-                            <div className="pt-6 border-t border-white/5 space-y-4">
+                            <div className="pt-6 border-t border-zinc-100 space-y-4">
                                 <button 
                                     type="button"
                                     onClick={() => setFormData(prev => ({ ...prev, is_featured: !prev.is_featured }))}
                                     className={cn(
-                                        "w-full h-16 px-8 rounded-2xl border flex items-center justify-between transition-all duration-700 shadow-xl",
+                                        "w-full h-16 px-8 rounded-2xl border flex items-center justify-between transition-all duration-500",
                                         formData.is_featured 
-                                            ? "bg-amber-500/10 border-amber-500/30 text-amber-500 shadow-amber-500/5" 
-                                            : "bg-white/[0.02] border-white/5 text-gray-700"
+                                            ? "bg-amber-50 border-amber-200 text-amber-600 shadow-sm" 
+                                            : "bg-zinc-50 border-zinc-200 text-zinc-500 hover:border-zinc-300"
                                     )}
                                 >
                                     <span className="text-[10px] font-black uppercase tracking-[0.2em]">Featured Showcase</span>
-                                    <Star className={cn("w-6 h-6 transition-all duration-700", formData.is_featured && "fill-amber-500 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]")} />
+                                    <Star className={cn("w-6 h-6 transition-all duration-500", formData.is_featured && "fill-amber-500 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]")} />
                                 </button>
                             </div>
                         </div>
@@ -457,21 +457,21 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="bg-[#0D1117]/60 border border-white/5 rounded-[2.5rem] p-10 space-y-10 shadow-2xl"
+                        className="bg-white border border-zinc-200 rounded-[2.5rem] p-10 space-y-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
                     >
                         <div className="flex items-center gap-4">
-                            <div className="p-3 bg-emerald-500/10 rounded-2xl">
+                            <div className="p-3 bg-emerald-50 border border-emerald-100 rounded-2xl">
                                 <ImageIcon className="w-6 h-6 text-emerald-500" />
                             </div>
                             <div>
-                                <h3 className="text-sm font-black text-white uppercase tracking-widest">Master Cover</h3>
-                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1 opacity-60 italic">Project thumbnail</p>
+                                <h3 className="text-sm font-black text-zinc-900 uppercase tracking-widest">Master Cover</h3>
+                                <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest mt-1 italic">Project thumbnail</p>
                             </div>
                         </div>
 
                         <div className={cn(
-                            "relative aspect-[4/3] rounded-[2rem] overflow-hidden border-2 border-dashed transition-all duration-700 shadow-inner",
-                            formData.thumbnail ? "border-emerald-500/30" : "border-white/5 bg-white/[0.02]"
+                            "relative aspect-[4/3] rounded-[2rem] overflow-hidden border-2 border-dashed transition-all duration-500 bg-zinc-50",
+                            formData.thumbnail ? "border-emerald-500/30" : "border-zinc-200"
                         )}>
                             {formData.thumbnail ? (
                                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full h-full group">
@@ -480,7 +480,7 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
                                         <button 
                                             type="button"
                                             onClick={() => handleRemoveImage(formData.thumbnail!, 'thumbnail')}
-                                            className="bg-rose-500 p-5 rounded-full text-white shadow-2xl shadow-rose-500/40 transform active:scale-95 transition-all"
+                                            className="bg-rose-500 p-5 rounded-full text-white shadow-lg shadow-rose-500/40 transform active:scale-95 transition-all"
                                         >
                                             <X className="w-8 h-8" />
                                         </button>
@@ -490,23 +490,23 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
                                 <button 
                                     type="button" 
                                     onClick={() => document.getElementById('thumb-upload')?.click()}
-                                    className="w-full h-full flex flex-col items-center justify-center gap-5 text-gray-700 hover:text-emerald-500 transition-all group"
+                                    className="w-full h-full flex flex-col items-center justify-center gap-5 text-zinc-400 hover:text-emerald-500 hover:border-emerald-500/30 transition-all group"
                                 >
-                                    <div className="w-20 h-20 rounded-[1.5rem] bg-white/5 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-all shadow-inner">
-                                        <Plus className="w-10 h-10" />
+                                    <div className="w-20 h-20 rounded-[1.5rem] bg-white border border-zinc-100 shadow-sm flex items-center justify-center group-hover:bg-emerald-50 group-hover:border-emerald-100 transition-all">
+                                        <Plus className="w-10 h-10 group-hover:text-emerald-500 transition-colors" />
                                     </div>
-                                    <span className="text-[10px] font-black uppercase tracking-[0.2em]">Select Cover Node</span>
+                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] group-hover:text-emerald-600">Select Cover Node</span>
                                 </button>
                             )}
                         </div>
                         <input id="thumb-upload" type="file" className="hidden" accept="image/*" onChange={e => handleFileUpload(e, 'thumbnail')} />
 
-                        <div className="p-6 bg-emerald-500/5 border border-emerald-500/10 rounded-[1.5rem] space-y-2">
+                        <div className="p-6 bg-emerald-50 border border-emerald-100 rounded-[1.5rem] space-y-2">
                             <div className="flex items-center gap-2">
                                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                <span className="text-[9px] font-black text-emerald-500/70 tracking-widest uppercase">Asset Requirements</span>
+                                <span className="text-[9px] font-black text-emerald-600 tracking-widest uppercase">Asset Requirements</span>
                             </div>
-                            <span className="text-[9px] text-gray-500 leading-relaxed block italic font-medium">Recommended: 1200x800px. High priority project showcase cover.</span>
+                            <span className="text-[9px] text-zinc-500 leading-relaxed block italic font-medium">Recommended: 1200x800px. High priority project showcase cover.</span>
                         </div>
                     </motion.div>
                 </div>

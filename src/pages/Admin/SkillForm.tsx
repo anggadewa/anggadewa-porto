@@ -104,22 +104,22 @@ export default function SkillForm() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-8">
                 <div className="flex items-center gap-6">
                     <Link to="/admin/skills">
-                        <Button variant="ghost" size="sm" className="h-14 w-14 rounded-2xl text-gray-500 hover:text-white bg-white/5 border border-white/5 hover:border-white/10 transition-all">
+                        <Button variant="ghost" size="sm" className="h-14 w-14 rounded-2xl text-zinc-500 hover:text-zinc-900 bg-white border border-zinc-200 hover:border-zinc-300 transition-all shadow-sm">
                             <ChevronLeft className="w-6 h-6" />
                         </Button>
                     </Link>
                     <div className="space-y-1">
-                        <h1 className="text-4xl font-black text-white tracking-tighter uppercase">
+                        <h1 className="text-4xl font-black text-zinc-900 tracking-tighter uppercase">
                             {id ? 'Update Category' : 'Define Category'}
                         </h1>
-                        <p className="text-[10px] font-black tracking-[0.3em] text-gray-500 uppercase opacity-60 italic">Configure skill groupings and visibility</p>
+                        <p className="text-[10px] font-black tracking-[0.3em] text-zinc-400 uppercase italic">Configure skill groupings and visibility</p>
                     </div>
                 </div>
 
                 <Button 
                     onClick={handleSubmit}
                     disabled={saving}
-                    className="h-16 bg-primary hover:bg-primary/90 text-white font-black px-12 rounded-2xl shadow-2xl shadow-primary/20 gap-4 border-none text-[11px] tracking-[0.2em] uppercase transition-all hover:-translate-y-1"
+                    className="h-16 bg-primary hover:bg-primary/90 text-white font-black px-12 rounded-2xl shadow-lg shadow-primary/20 gap-4 border-none text-[11px] tracking-[0.2em] uppercase transition-all hover:-translate-y-1"
                 >
                     {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                     Save Category
@@ -129,18 +129,18 @@ export default function SkillForm() {
             <motion.div 
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-[#0D1117]/60 border border-white/5 rounded-[2.5rem] p-10 lg:p-14 space-y-12 shadow-2xl"
+                className="bg-white border border-zinc-200 rounded-[2.5rem] p-10 lg:p-14 space-y-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
             >
                 <div className="space-y-12">
                     {/* Category Field */}
                     <div className="relative group">
-                        <label className="absolute -top-3 left-6 px-3 bg-[#0D1117] text-[10px] font-black text-primary uppercase tracking-[0.2em] z-10">Category Name</label>
+                        <label className="absolute -top-3 left-6 px-3 bg-white text-[10px] font-black text-primary uppercase tracking-[0.2em] z-10">Category Name</label>
                         <div className="relative">
-                            <Layers className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 group-focus-within:text-primary transition-colors" />
+                            <Layers className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400 group-focus-within:text-primary transition-colors" />
                             <Input 
                                 value={formData.category}
                                 onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
-                                className="h-16 pl-16 rounded-2xl bg-white/[0.02] border-white/5 focus:border-primary/50 text-white font-black text-lg tracking-tight placeholder:text-gray-800"
+                                className="h-16 pl-16 rounded-2xl bg-zinc-50 border-zinc-200 focus:border-primary/50 focus:bg-white text-zinc-900 font-black text-lg tracking-tight placeholder:text-zinc-400 transition-all shadow-sm"
                                 required
                                 placeholder="e.g. Backend Development"
                             />
@@ -150,14 +150,14 @@ export default function SkillForm() {
                     {/* Skill Tags Field */}
                     <div className="space-y-8">
                         <div className="relative group">
-                            <label className="absolute -top-3 left-6 px-3 bg-[#0D1117] text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] z-10">Technologies & Tools</label>
+                            <label className="absolute -top-3 left-6 px-3 bg-white text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em] z-10">Technologies & Tools</label>
                             <div className="relative">
-                                <Plus className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" />
+                                <Plus className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400 group-focus-within:text-primary transition-colors" />
                                 <Input 
                                     value={skillInput}
                                     onChange={(e) => setSkillInput(e.target.value)}
                                     onKeyDown={handleAddSkill}
-                                    className="h-16 pl-16 rounded-2xl bg-white/[0.02] border-white/5 focus:border-primary/50 text-white font-bold text-sm tracking-widest placeholder:text-gray-800"
+                                    className="h-16 pl-16 rounded-2xl bg-zinc-50 border-zinc-200 focus:border-primary/50 focus:bg-white text-zinc-900 font-bold text-sm tracking-widest placeholder:text-zinc-400 transition-all shadow-sm"
                                     placeholder="Press Enter to add tool..."
                                 />
                             </div>
@@ -173,9 +173,9 @@ export default function SkillForm() {
                                         exit={{ scale: 0.8, opacity: 0 }}
                                         key={i}
                                     >
-                                        <Badge className="bg-primary/10 text-primary border-primary/20 flex items-center gap-3 px-5 py-2.5 rounded-xl font-black text-[11px] tracking-widest uppercase">
+                                        <Badge className="bg-primary/5 text-primary border-primary/10 flex items-center gap-3 px-5 py-2.5 rounded-xl font-black text-[11px] tracking-widest uppercase">
                                             {skill}
-                                            <X className="w-4 h-4 cursor-pointer hover:text-white transition-colors" onClick={() => handleRemoveSkill(skill)} />
+                                            <X className="w-4 h-4 cursor-pointer hover:text-zinc-900 transition-colors" onClick={() => handleRemoveSkill(skill)} />
                                         </Badge>
                                     </motion.div>
                                 ))}
@@ -185,14 +185,14 @@ export default function SkillForm() {
 
                     {/* Sort Order Field */}
                     <div className="relative group max-w-[240px]">
-                        <label className="absolute -top-3 left-6 px-3 bg-[#0D1117] text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] z-10">Display Priority</label>
+                        <label className="absolute -top-3 left-6 px-3 bg-white text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em] z-10">Display Priority</label>
                         <div className="relative">
-                            <ListOrdered className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" />
+                            <ListOrdered className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400 group-focus-within:text-primary transition-colors" />
                             <Input 
                                 type="number"
                                 value={formData.sort_order}
                                 onChange={(e) => setFormData(prev => ({ ...prev, sort_order: parseInt(e.target.value) || 0 }))}
-                                className="h-16 pl-16 rounded-2xl bg-white/[0.02] border-white/5 text-white font-black text-sm tracking-widest"
+                                className="h-16 pl-16 rounded-2xl bg-zinc-50 border-zinc-200 focus:border-primary/50 focus:bg-white text-zinc-900 font-black text-sm tracking-widest transition-all shadow-sm"
                             />
                         </div>
                     </div>
@@ -200,10 +200,10 @@ export default function SkillForm() {
 
                 <div className="p-8 bg-primary/5 border border-primary/10 rounded-[2rem] space-y-2">
                     <div className="flex items-center gap-3">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-lg shadow-primary/20" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_10px_rgba(106,43,255,0.4)]" />
                         <span className="text-[10px] font-black text-primary uppercase tracking-[0.2em]">Usage Tip</span>
                     </div>
-                    <p className="text-[10px] text-gray-500 font-bold leading-relaxed italic uppercase tracking-wider opacity-80">
+                    <p className="text-[10px] text-zinc-500 font-bold leading-relaxed italic uppercase tracking-wider">
                         Categories are displayed in the portfolio based on their Priority. Lower values appear first in your skill matrix.
                     </p>
                 </div>
