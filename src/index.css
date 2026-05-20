@@ -94,3 +94,18 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #6D28D9;
 }
+
+/* Glitch Effect for Global Bug Invasion */
+.glitch-active {
+    animation: global-glitch 0.3s cubic-bezier(.25, .46, .45, .94) both 3;
+    overflow: hidden;
+}
+
+@keyframes global-glitch {
+    0% { transform: translate(0) }
+    20% { transform: translate(-2px, 2px) }
+    40% { transform: translate(-2px, -2px) }
+    60% { transform: translate(2px, 2px) }
+    80% { transform: translate(2px, -2px) }
+    100% { transform: translate(0) }
+}

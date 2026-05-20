@@ -36,6 +36,7 @@ import { stripHtml, cn } from '@/lib/utils';
 import { Project, Skill } from '@/types';
 import { Tooltip } from '@/components/ui/tooltip-custom';
 import { ThemeToggle } from '@/components/theme-toggle';
+import MiniGame from '@/components/MiniGame';
 
 // Custom SVG Icons for maximum reliability
 const GitHubIcon = ({ className }: { className?: string }) => (
@@ -936,6 +937,10 @@ export default function Home() {
                                 </div>
                             </div>
                         </section>
+
+                        {/* Interactive Mini Game */}
+                        <MiniGame />
+
                     </main>
 
                     {/* Footer Signature */}
