@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -13,7 +13,10 @@ import {
     User,
     Layers,
     Layout,
-    FileText
+    FileText,
+    ZoomIn,
+    ZoomOut,
+    RotateCcw
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { getAssetUrl } from '@/lib/assets';
@@ -25,6 +28,78 @@ export default function ProjectDetail() {
     const [loading, setLoading] = useState(true);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     
+    // Zoom & Pan state
+    const [zoom, setZoom] = useState(1);
+    const [pan, setPan] = useState({ x: 0, y: 0 });
+    const [isDragging, setIsDragging] = useState(false);
+    const dragStart = useRef({ x: 0, y: 0 });
+    const panStart = useRef({ x: 0, y: 0 });
+
+    const resetView = useCallback(() => {
+        setZoom(1);
+        setPan({ x: 0, y: 0 });
+    }, []);
+
+    const handleOpenImage = (img: string) => {
+        resetView();
+        setSelectedImage(img);
+    };
+
+    const handleCloseImage = () => {
+        setSelectedImage(null);
+        resetView();
+    };
+
+    const handleZoomIn = () => setZoom(prev => Math.min(prev + 0.5, 5));
+    const handleZoomOut = () => {
+        setZoom(prev => {
+            const next = Math.max(prev - 0.5, 1);
+            if (next === 1) setPan({ x: 0, y: 0 });
+            return next;
+        });
+    };
+
+    const handleWheel = useCallback((e: React.WheelEvent) => {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -0.3 : 0.3;
+        setZoom(prev => {
+            const next = Math.max(1, Math.min(prev + delta, 5));
+            if (next === 1) setPan({ x: 0, y: 0 });
+            return next;
+        });
+    }, []);
+
+    const handleDoubleClick = () => {
+        if (zoom > 1) {
+            resetView();
+        } else {
+            setZoom(2.5);
+        }
+    };
+
+    const handlePointerDown = (e: React.PointerEvent) => {
+        if (zoom <= 1) return;
+        e.preventDefault();
+        setIsDragging(true);
+        dragStart.current = { x: e.clientX, y: e.clientY };
+        panStart.current = { ...pan };
+        (e.target as HTMLElement).setPointerCapture(e.pointerId);
+    };
+
+    const handlePointerMove = (e: React.PointerEvent) => {
+        if (!isDragging) return;
+        const dx = e.clientX - dragStart.current.x;
+        const dy = e.clientY - dragStart.current.y;
+        setPan({
+            x: panStart.current.x + dx,
+            y: panStart.current.y + dy,
+        });
+    };
+
+    const handlePointerUp = () => {
+        setIsDragging(false);
+    };
+
     useEffect(() => {
         async function fetchProject() {
             if (!slug) return;
@@ -177,7 +252,7 @@ export default function ProjectDetail() {
                             <div className="max-w-6xl mx-auto w-full">
                                 {/* First image as massive hero */}
                                 <div 
-                                    onClick={() => setSelectedImage(project.images![0])}
+                                    onClick={() => handleOpenImage(project.images![0])}
                                     className="relative aspect-video w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-zinc-200 shadow-[0_20px_60px_rgba(0,0,0,0.08)] cursor-pointer group bg-zinc-100"
                                 >
                                     <img 
@@ -186,7 +261,8 @@ export default function ProjectDetail() {
                                         className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-[1.02]"
                                     />
                                     <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-                                        <div className="bg-white/90 backdrop-blur-md px-8 py-4 rounded-full border border-white/50 text-xs font-black text-zinc-900 tracking-widest uppercase shadow-2xl scale-95 group-hover:scale-100 transition-all duration-500">
+                                        <div className="bg-white/90 backdrop-blur-md px-8 py-4 rounded-full border border-white/50 text-xs font-black text-zinc-900 tracking-widest uppercase shadow-2xl scale-95 group-hover:scale-100 transition-all duration-500 flex items-center gap-3">
+                                            <ZoomIn className="w-4 h-4" />
                                             Expand View
                                         </div>
                                     </div>
@@ -198,7 +274,7 @@ export default function ProjectDetail() {
                                         {project.images.slice(1).map((img, i) => (
                                             <div 
                                                 key={i} 
-                                                onClick={() => setSelectedImage(img)}
+                                                onClick={() => handleOpenImage(img)}
                                                 className="relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-zinc-200 shadow-sm cursor-pointer group hover:shadow-xl transition-all duration-500 hover:-translate-y-1 bg-zinc-100"
                                             >
                                                 <img 
@@ -291,40 +367,85 @@ export default function ProjectDetail() {
                 </footer>
             </div>
 
-            {/* Lightbox Modal */}
+            {/* Lightbox Modal with Zoom & Pan */}
             <AnimatePresence>
                 {selectedImage && (
                     <motion.div 
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[100] flex items-center justify-center bg-zinc-950/95 backdrop-blur-3xl p-6 md:p-12"
-                        onClick={() => setSelectedImage(null)}
+                        className="fixed inset-0 z-[100] flex items-center justify-center bg-zinc-950/95 backdrop-blur-3xl"
+                        onClick={handleCloseImage}
                     >
-                        <motion.div 
-                            initial={{ scale: 0.95, opacity: 0, y: 20 }}
-                            animate={{ scale: 1, opacity: 1, y: 0 }}
-                            exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                            transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
-                            className="relative max-w-7xl w-full flex flex-col items-center justify-center"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            <Button 
-                                variant="ghost" 
-                                onClick={() => setSelectedImage(null)}
-                                className="absolute -top-16 right-0 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition-all hover:rotate-90"
+                        {/* Top Controls Bar */}
+                        <div className="absolute top-6 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full px-2 py-2 shadow-2xl" onClick={e => e.stopPropagation()}>
+                            <button
+                                onClick={handleZoomIn}
+                                className="w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all"
+                                title="Zoom In"
+                            >
+                                <ZoomIn className="w-5 h-5" />
+                            </button>
+                            <div className="px-3 text-[10px] font-black text-white/60 tracking-widest uppercase min-w-[60px] text-center">
+                                {Math.round(zoom * 100)}%
+                            </div>
+                            <button
+                                onClick={handleZoomOut}
+                                className="w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all"
+                                title="Zoom Out"
+                            >
+                                <ZoomOut className="w-5 h-5" />
+                            </button>
+                            <div className="w-px h-6 bg-white/20 mx-1" />
+                            <button
+                                onClick={resetView}
+                                className="w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all"
+                                title="Reset View"
+                            >
+                                <RotateCcw className="w-4 h-4" />
+                            </button>
+                            <div className="w-px h-6 bg-white/20 mx-1" />
+                            <button
+                                onClick={handleCloseImage}
+                                className="w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all"
+                                title="Close"
                             >
                                 <X className="w-5 h-5" />
-                            </Button>
+                            </button>
+                        </div>
+
+                        {/* Zoom hint */}
+                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[9px] font-black text-white/30 tracking-[0.3em] uppercase pointer-events-none">
+                            Scroll to Zoom • Double-click to Toggle • Drag to Pan
+                        </div>
+
+                        {/* Image Container */}
+                        <div 
+                            className="relative w-full h-full flex items-center justify-center overflow-hidden p-6 md:p-12"
+                            onWheel={handleWheel}
+                            onClick={e => e.stopPropagation()}
+                        >
                             <img 
                                 src={getAssetUrl(selectedImage)} 
-                                className="w-auto h-auto max-w-full max-h-[85vh] object-contain rounded-3xl shadow-[0_30px_100px_rgba(0,0,0,0.5)] border border-white/10"
+                                className="max-w-full max-h-[85vh] object-contain rounded-3xl shadow-[0_30px_100px_rgba(0,0,0,0.5)] border border-white/10 select-none"
                                 alt="High Resolution Preview"
+                                draggable={false}
+                                onDoubleClick={handleDoubleClick}
+                                onPointerDown={handlePointerDown}
+                                onPointerMove={handlePointerMove}
+                                onPointerUp={handlePointerUp}
+                                onPointerCancel={handlePointerUp}
+                                style={{
+                                    transform: `scale(${zoom}) translate(${pan.x / zoom}px, ${pan.y / zoom}px)`,
+                                    transition: isDragging ? 'none' : 'transform 0.3s ease-out',
+                                    cursor: zoom > 1 ? (isDragging ? 'grabbing' : 'grab') : 'zoom-in',
+                                }}
                             />
-                        </motion.div>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
         </div>
     );
 }
+
