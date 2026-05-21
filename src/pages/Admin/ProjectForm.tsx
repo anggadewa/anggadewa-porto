@@ -20,6 +20,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import ComboboxInput from '@/components/ui/combobox-input';
 import { getAssetUrl } from '@/lib/assets';
 import { cn } from '@/lib/utils';
 
@@ -49,6 +50,45 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
 
     const [techInput, setTechInput] = useState('');
     const [featureInput, setFeatureInput] = useState('');
+    const [categoryOptions, setCategoryOptions] = useState<string[]>([]);
+    const [techOptions, setTechOptions] = useState<string[]>([]);
+
+    // Fetch existing categories and tech stacks from database
+    useEffect(() => {
+        async function fetchOptions() {
+            // Fetch unique categories
+            const { data: catData } = await supabase
+                .from('projects')
+                .select('category');
+            if (catData) {
+                const uniqueCats = [...new Set(
+                    catData
+                        .map(p => p.category?.trim())
+                        .filter(Boolean)
+                        .map(c => c!.toUpperCase())
+                )];
+                setCategoryOptions(uniqueCats.sort());
+            }
+
+            // Fetch unique tech stack items
+            const { data: techData } = await supabase
+                .from('projects')
+                .select('tech_stack');
+            if (techData) {
+                const allTech: string[] = [];
+                techData.forEach(p => {
+                    if (Array.isArray(p.tech_stack)) {
+                        p.tech_stack.forEach((t: string) => {
+                            if (t?.trim()) allTech.push(t.trim().toUpperCase());
+                        });
+                    }
+                });
+                const uniqueTech = [...new Set(allTech)];
+                setTechOptions(uniqueTech.sort());
+            }
+        }
+        fetchOptions();
+    }, []);
 
     useEffect(() => {
         if (id) {
@@ -387,32 +427,42 @@ export default function ProjectForm({ onSave }: ProjectFormProps) {
                         <div className="space-y-10">
                             {/* Category Field */}
                             <div className="relative group">
-                                <label className="absolute -top-3 left-6 px-3 bg-white text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em] z-10">Project Category</label>
-                                <div className="relative">
-                                    <LayoutPanelTop className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 group-focus-within:text-primary transition-colors" />
-                                    <Input 
-                                        value={formData.category}
-                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(prev => ({ ...prev, category: e.target.value }))}
-                                        className="h-16 pl-14 rounded-2xl bg-zinc-50 border-zinc-200 focus:border-primary/50 focus:bg-white text-zinc-900 font-black text-[11px] tracking-[0.2em] uppercase transition-all shadow-sm"
-                                        placeholder="e.g. MOBILE APP"
-                                    />
-                                </div>
+                                <label className="absolute -top-3 left-6 px-3 bg-white text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em] z-20">Project Category</label>
+                                <ComboboxInput
+                                    value={formData.category || ''}
+                                    onChange={(val) => setFormData(prev => ({ ...prev, category: val }))}
+                                    options={categoryOptions}
+                                    placeholder="e.g. MOBILE APP"
+                                    icon={<LayoutPanelTop className="w-4 h-4" />}
+                                />
                             </div>
 
                             {/* Tech Stack Tags */}
                             <div className="space-y-6">
                                 <div className="relative group">
-                                    <label className="absolute -top-3 left-6 px-3 bg-white text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em] z-10">Tech Stack Modules</label>
-                                    <div className="relative">
-                                        <Code2 className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 group-focus-within:text-primary transition-colors" />
-                                        <Input 
-                                            value={techInput}
-                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTechInput(e.target.value)}
-                                            onKeyDown={handleAddTech}
-                                            className="h-16 pl-14 rounded-2xl bg-zinc-50 border-zinc-200 focus:border-primary/50 focus:bg-white text-zinc-900 font-black text-[11px] tracking-[0.2em] uppercase transition-all shadow-sm"
-                                            placeholder="Add tech & press Enter"
-                                        />
-                                    </div>
+                                    <label className="absolute -top-3 left-6 px-3 bg-white text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em] z-20">Tech Stack Modules</label>
+                                    <ComboboxInput
+                                        value={techInput}
+                                        onChange={(val) => {
+                                            // If selected from dropdown, add immediately
+                                            const existsInOptions = techOptions.some(o => o.toLowerCase() === val.toLowerCase());
+                                            if (existsInOptions && !(formData.tech_stack || []).some(t => t.toLowerCase() === val.toLowerCase())) {
+                                                setFormData(prev => ({ ...prev, tech_stack: [...(prev.tech_stack || []), val] }));
+                                                setTechInput('');
+                                            } else {
+                                                setTechInput(val);
+                                            }
+                                        }}
+                                        onEnter={(val) => {
+                                            if (!(formData.tech_stack || []).includes(val)) {
+                                                setFormData(prev => ({ ...prev, tech_stack: [...(prev.tech_stack || []), val] }));
+                                            }
+                                            setTechInput('');
+                                        }}
+                                        options={techOptions.filter(t => !(formData.tech_stack || []).some(st => st.toLowerCase() === t.toLowerCase()))}
+                                        placeholder="Add tech & press Enter"
+                                        icon={<Code2 className="w-4 h-4" />}
+                                    />
                                 </div>
                                 <div className="flex flex-wrap gap-2">
                                     <AnimatePresence>
