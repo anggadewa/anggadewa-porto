@@ -20,8 +20,8 @@
         "paths": {
             "@/*": ["src/*"]
         },
-        "types": ["vite/client"]
+        "types": ["vite/client", "node"]
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts", "*.ts"],
+    "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts", "api/**/*.ts", "*.ts"],
     "exclude": ["node_modules", "vendor", "public", "_laravel_backup"]
 }
