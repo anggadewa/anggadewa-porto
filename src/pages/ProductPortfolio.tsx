@@ -448,7 +448,6 @@ export default function ProductPortfolio() {
                 {[
                     { icon: GitHubIcon, href: "https://github.com/anggadewa", color: "hover:bg-[#24292e] hover:shadow-[0_0_20px_rgba(36,41,46,0.5)]" },
                     { icon: LinkedInIcon, href: "https://linkedin.com/in/anggadewantorokekasih", color: "hover:bg-[#0077b5] hover:shadow-[0_0_20px_rgba(0,119,181,0.5)]" },
-                    { icon: Smartphone, href: "https://wa.me/6285172459708", color: "hover:bg-[#25D366] hover:shadow-[0_0_20px_rgba(37,211,102,0.5)]" },
                     { icon: Mail, href: "mailto:anggadewa2016@gmail.com", color: "hover:bg-primary hover:shadow-[0_0_20px_rgba(var(--primary),0.5)]" }
                 ].map((social, index) => (
                     <motion.a
@@ -517,7 +516,7 @@ export default function ProductPortfolio() {
                             Dev
                         </Link>
                         <Button
-                            onClick={() => window.open('https://wa.me/6285172459708', '_blank')}
+                            onClick={() => { window.location.href = 'mailto:anggadewa2016@gmail.com'; }}
                             className={cn(
                                 "hidden h-11 rounded-full px-8 text-[11px] font-black uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 sm:flex",
                                 isScrolled
@@ -1527,7 +1526,7 @@ export default function ProductPortfolio() {
                                 </div>
 
                                 <Button
-                                    onClick={() => window.open('https://wa.me/6285172459708', '_blank')}
+                                    onClick={() => { window.location.href = 'mailto:anggadewa2016@gmail.com'; }}
                                     className="h-16 w-full rounded-2xl text-xs font-black uppercase tracking-[0.1em] shadow-2xl shadow-primary/40 transition-all hover:scale-[1.02] active:scale-95 sm:h-20 sm:rounded-[2rem] sm:text-sm sm:tracking-[0.2em]"
                                 >
                                     Start a Conversation

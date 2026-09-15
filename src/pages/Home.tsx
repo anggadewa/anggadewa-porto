@@ -356,7 +356,6 @@ export default function Home() {
                     {[
                         { icon: GitHubIcon, href: "https://github.com/anggadewa", color: "hover:bg-[#24292e] hover:shadow-[0_0_20px_rgba(36,41,46,0.5)]" },
                         { icon: LinkedInIcon, href: "https://linkedin.com/in/anggadewantorokekasih", color: "hover:bg-[#0077b5] hover:shadow-[0_0_20px_rgba(0,119,181,0.5)]" },
-                        { icon: Smartphone, href: "https://wa.me/6285172459708", color: "hover:bg-[#25D366] hover:shadow-[0_0_20px_rgba(37,211,102,0.5)]" },
                         { icon: Mail, href: "mailto:anggadewa2016@gmail.com", color: "hover:bg-primary hover:shadow-[0_0_20px_rgba(var(--primary),0.5)]" }
                     ].map((social, i) => (
                         <motion.a
@@ -432,7 +431,7 @@ export default function Home() {
                                     Product
                                 </Link>
                                 <Button
-                                    onClick={() => window.open('https://wa.me/6285172459708', '_blank')}
+                                    onClick={() => { window.location.href = 'mailto:anggadewa2016@gmail.com'; }}
                                     className={cn(
                                         "hidden sm:flex h-11 px-8 rounded-full text-[10px] font-black tracking-[0.2em] uppercase transition-all hover:scale-105 active:scale-95",
                                         isScrolled
@@ -1283,7 +1282,7 @@ export default function Home() {
                                     </div>
 
                                     <Button
-                                        onClick={() => window.open('https://wa.me/6285172459708', '_blank')}
+                                        onClick={() => { window.location.href = 'mailto:anggadewa2016@gmail.com'; }}
                                         className="w-full h-16 sm:h-20 rounded-2xl sm:rounded-[2rem] bg-primary hover:bg-primary/90 text-white text-xs sm:text-sm font-black tracking-[0.1em] sm:tracking-[0.2em] uppercase shadow-2xl shadow-primary/40 transition-all hover:scale-[1.02] active:scale-95"
                                     >
                                         Start a Conversation
