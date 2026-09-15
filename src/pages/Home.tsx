@@ -418,8 +418,8 @@ export default function Home() {
                             </div>
 
                             <div className="flex items-center gap-4">
-                                <Link
-                                    to="/product"
+                                <a
+                                    href="https://product.anggadewa.my.id" target="_blank" rel="noopener noreferrer"
                                     className={cn(
                                         "hidden sm:flex h-11 items-center gap-2 px-5 rounded-full text-[10px] font-black tracking-[0.18em] uppercase transition-all hover:scale-105 active:scale-95 border",
                                         isScrolled
@@ -429,7 +429,7 @@ export default function Home() {
                                 >
                                     <Compass className="w-3.5 h-3.5" />
                                     Product
-                                </Link>
+                                </a>
                                 <Button
                                     onClick={() => { window.location.href = 'mailto:anggadewa2016@gmail.com'; }}
                                     className={cn(
@@ -484,14 +484,14 @@ export default function Home() {
                                             transition={{ delay: 1.1 }}
                                             className="absolute right-[-8rem] top-[-2.75rem] z-20 hidden w-[21rem] cursor-grab items-center gap-3 rounded-[2rem] border border-white/25 bg-white/10 p-2 pr-4 shadow-[0_18px_55px_rgba(0,0,0,0.18)] backdrop-blur-xl active:cursor-grabbing lg:flex xl:right-[-11rem]"
                                         >
-                                            <Link
-                                                to="/product"
+                                            <a
+                                                href="https://product.anggadewa.my.id" target="_blank" rel="noopener noreferrer"
                                                 className="group inline-flex h-12 shrink-0 items-center gap-3 rounded-[1.5rem] bg-white px-5 text-[10px] font-black uppercase tracking-[0.18em] text-primary shadow-[0_12px_30px_rgba(255,255,255,0.18)] transition-all hover:scale-[1.03] hover:bg-white/95 active:scale-95"
                                             >
                                                 <Compass className="w-4 h-4 transition-transform group-hover:rotate-45" />
                                                 Product
                                                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                                            </Link>
+                                            </a>
                                             <span className="text-left text-[8px] font-black uppercase leading-relaxed tracking-[0.18em] text-white/60">
                                                 Research, PRD, cases, and validation
                                             </span>
@@ -503,14 +503,14 @@ export default function Home() {
                                             transition={{ delay: 1.1 }}
                                             className="mt-8 flex justify-center md:hidden"
                                         >
-                                            <Link
-                                                to="/product"
+                                            <a
+                                                href="https://product.anggadewa.my.id" target="_blank" rel="noopener noreferrer"
                                                 className="group inline-flex h-13 items-center gap-3 rounded-full bg-white px-6 py-4 text-[10px] font-black uppercase tracking-[0.18em] text-primary shadow-[0_18px_45px_rgba(255,255,255,0.2)] transition-all active:scale-95"
                                             >
                                                 <Compass className="w-4 h-4" />
                                                 Product Area
                                                 <ArrowRight className="w-4 h-4" />
-                                            </Link>
+                                            </a>
                                         </motion.div>
 
                                         <motion.div

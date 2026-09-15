@@ -335,7 +335,7 @@ function DevPortfolioCard() {
             }}
             className="absolute bottom-[10%] left-[5%] hidden w-60 cursor-grab select-none touch-none rounded-[2rem] border border-white/25 bg-white/15 p-5 text-white shadow-2xl backdrop-blur-2xl active:cursor-grabbing lg:block"
         >
-            <Link to="/" className="group block">
+            <a href="https://anggadewa.my.id" target="_blank" rel="noopener noreferrer" className="group block">
                 <div className="flex items-center justify-between gap-5">
                     <div className="flex items-center gap-4">
                         <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/30 bg-white/20">
@@ -348,7 +348,7 @@ function DevPortfolioCard() {
                     </div>
                     <ArrowRight className="h-4 w-4 -rotate-45 transition-transform group-hover:rotate-0" />
                 </div>
-            </Link>
+            </a>
         </motion.div>
     );
 }
@@ -364,7 +364,7 @@ export default function ProductPortfolio() {
     const [documents, setDocuments] = useState<ProductDocumentRecord[]>([]);
     const [documentsLoading, setDocumentsLoading] = useState(true);
     const productCaseBase = typeof window !== 'undefined' && window.location.hostname.startsWith('product.') ? '/cases' : '/product/cases';
-    const devPortfolioPath = typeof window !== 'undefined' && window.location.hostname.startsWith('product.') ? 'https://dewa.dev' : '/';
+    const devPortfolioPath = typeof window !== 'undefined' && window.location.hostname.startsWith('product.') ? 'https://anggadewa.my.id' : '/';
 
     useEffect(() => {
         const targetId = location.hash.replace('#', '');
