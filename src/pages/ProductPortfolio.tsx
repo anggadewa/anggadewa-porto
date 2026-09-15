@@ -364,7 +364,6 @@ export default function ProductPortfolio() {
     const [documents, setDocuments] = useState<ProductDocumentRecord[]>([]);
     const [documentsLoading, setDocumentsLoading] = useState(true);
     const productCaseBase = typeof window !== 'undefined' && window.location.hostname.startsWith('product.') ? '/cases' : '/product/cases';
-    const devPortfolioPath = typeof window !== 'undefined' && window.location.hostname.startsWith('product.') ? 'https://anggadewa.my.id' : '/';
 
     useEffect(() => {
         const targetId = location.hash.replace('#', '');
@@ -503,8 +502,9 @@ export default function ProductPortfolio() {
                         ))}
                     </div>
                     <div className="flex items-center gap-4">
-                        <Link
-                            to="/"
+                        <a
+                            href="https://anggadewa.my.id" target="_blank"
+                            rel="noopener noreferrer"
                             className={cn(
                                 "hidden h-11 items-center gap-2 rounded-full border px-5 text-[11px] font-black uppercase tracking-[0.18em] transition-all hover:scale-105 active:scale-95 sm:flex",
                                 isScrolled
@@ -514,7 +514,7 @@ export default function ProductPortfolio() {
                         >
                             <CodeXml className="h-3.5 w-3.5" />
                             Dev
-                        </Link>
+                        </a>
                         <Button
                             onClick={() => { window.location.href = 'mailto:anggadewa2016@gmail.com'; }}
                             className={cn(
@@ -847,12 +847,12 @@ export default function ProductPortfolio() {
                                 ))}
                             </div>
 
-	                            <Link to={devPortfolioPath} className="inline-flex pt-5">
+	                            <a href="https://anggadewa.my.id" target="_blank" rel="noopener noreferrer" className="inline-flex pt-5">
 	                                <Button className="group h-14 rounded-full bg-white px-8 text-[10px] font-black uppercase tracking-[0.22em] text-zinc-950 hover:bg-primary hover:text-white">
 	                                    View Full Developer Profile
 	                                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
 	                                </Button>
-	                            </Link>
+	                            </a>
                         </motion.div>
 
                         <motion.div
