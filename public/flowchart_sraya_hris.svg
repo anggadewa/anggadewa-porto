@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1180" viewBox="0 0 1600 1180" role="img" aria-labelledby="title desc">
+  <title id="title">SRAYA HRIS Platform Flowchart</title>
+  <desc id="desc">Flowchart showing SRAYA HRIS workflow from SSO login, session and permission bootstrap, branch context, dashboard, recruitment, profile, employee, employment workflows, leaves, approvals, organization, assets, trash bin, and audit-safe operational review.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff1f2"/>
+      <stop offset="0.52" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#f8fafc"/>
+    </linearGradient>
+    <linearGradient id="primary" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9f1239"/>
+      <stop offset="1" stop-color="#4c0519"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2 2 L12 7 L2 12 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="1180" rx="56" fill="url(#bg)"/>
+
+  <g transform="translate(100 84)" font-family="Inter, Arial, sans-serif">
+    <text x="0" y="0" fill="#111827" font-size="52" font-weight="900" letter-spacing="0">SRAYA HRIS</text>
+    <text x="0" y="42" fill="#64748b" font-size="20" font-weight="700" letter-spacing="2">PEOPLE OPERATIONS, PERMISSION, APPROVAL, AND ASSET WORKFLOW</text>
+  </g>
+
+  <g font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800" text-anchor="middle">
+    <g filter="url(#shadow)">
+      <rect x="95" y="190" width="285" height="116" rx="28" fill="#ffffff" stroke="#fecdd3"/>
+      <text x="238" y="238" fill="#111827">SSO Login</text>
+      <text x="238" y="270" fill="#64748b" font-size="15" font-weight="700">session recovery</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="480" y="190" width="285" height="116" rx="28" fill="#ffffff" stroke="#fecdd3"/>
+      <text x="623" y="238" fill="#111827">Permission Bootstrap</text>
+      <text x="623" y="270" fill="#64748b" font-size="15" font-weight="700">menu and route access</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="865" y="190" width="285" height="116" rx="28" fill="#ffffff" stroke="#fecdd3"/>
+      <text x="1008" y="238" fill="#111827">Branch Context</text>
+      <text x="1008" y="270" fill="#64748b" font-size="15" font-weight="700">organization scope</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1250" y="190" width="255" height="116" rx="28" fill="#ffffff" stroke="#fecdd3"/>
+      <text x="1378" y="238" fill="#111827">Dashboard</text>
+      <text x="1378" y="270" fill="#64748b" font-size="15" font-weight="700">real API metrics</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="250" y="420" width="1100" height="132" rx="32" fill="url(#primary)"/>
+      <text x="800" y="470" fill="#ffffff">HRIS Workflow Core</text>
+      <text x="800" y="508" fill="#ffe4e6" font-size="16" font-weight="700">recruitment, profile, employee, movement, leaves, approval, company, assets, and trash recovery</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="95" y="675" width="300" height="132" rx="30" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="245" y="722" fill="#111827">Recruitment</text>
+      <text x="245" y="754" fill="#64748b" font-size="15" font-weight="700">candidate workspace</text>
+      <text x="245" y="782" fill="#64748b" font-size="15" font-weight="700">CV history</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="455" y="675" width="300" height="132" rx="30" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="605" y="722" fill="#111827">Profile &amp; Employee</text>
+      <text x="605" y="754" fill="#64748b" font-size="15" font-weight="700">people records</text>
+      <text x="605" y="782" fill="#64748b" font-size="15" font-weight="700">separate workspaces</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="815" y="675" width="300" height="132" rx="30" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="965" y="722" fill="#111827">Employment Flow</text>
+      <text x="965" y="754" fill="#64748b" font-size="15" font-weight="700">promotion, mutation</text>
+      <text x="965" y="782" fill="#64748b" font-size="15" font-weight="700">demotion, layoff</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1175" y="675" width="330" height="132" rx="30" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="1340" y="722" fill="#111827">Approval &amp; Leaves</text>
+      <text x="1340" y="754" fill="#64748b" font-size="15" font-weight="700">view, approve, reject</text>
+      <text x="1340" y="782" fill="#64748b" font-size="15" font-weight="700">permission-aware actions</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="165" y="920" width="310" height="116" rx="28" fill="#ffffff" stroke="#fda4af"/>
+      <text x="320" y="968" fill="#111827">Company</text>
+      <text x="320" y="1000" fill="#64748b" font-size="15" font-weight="700">branch, department, job</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="535" y="920" width="310" height="116" rx="28" fill="#ffffff" stroke="#fda4af"/>
+      <text x="690" y="968" fill="#111827">Asset Management</text>
+      <text x="690" y="1000" fill="#64748b" font-size="15" font-weight="700">asset, rental, repairment</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="905" y="920" width="250" height="116" rx="28" fill="#ffffff" stroke="#fda4af"/>
+      <text x="1030" y="968" fill="#111827">Trash Bin</text>
+      <text x="1030" y="1000" fill="#64748b" font-size="15" font-weight="700">scoped recovery</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1215" y="920" width="285" height="116" rx="28" fill="#ffffff" stroke="#fda4af"/>
+      <text x="1358" y="968" fill="#111827">Audit-Safe Review</text>
+      <text x="1358" y="1000" fill="#64748b" font-size="15" font-weight="700">validated API states</text>
+    </g>
+  </g>
+
+  <g fill="none" stroke="#64748b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)">
+    <path d="M380 248 H480"/>
+    <path d="M765 248 H865"/>
+    <path d="M1150 248 H1250"/>
+    <path d="M1378 306 V360 C1378 400 1285 420 1195 420"/>
+    <path d="M800 552 V610 C800 645 605 645 605 675"/>
+    <path d="M600 552 C450 590 245 625 245 675"/>
+    <path d="M930 552 C955 600 965 628 965 675"/>
+    <path d="M1070 552 C1225 600 1340 628 1340 675"/>
+    <path d="M395 741 H455"/>
+    <path d="M755 741 H815"/>
+    <path d="M1115 741 H1175"/>
+    <path d="M605 807 C570 870 430 885 320 920"/>
+    <path d="M965 807 C930 870 790 890 690 920"/>
+    <path d="M1340 807 C1295 870 1120 895 1030 920"/>
+    <path d="M1155 978 H1215"/>
+  </g>
+
+  <g transform="translate(100 1080)" font-family="Inter, Arial, sans-serif">
+    <rect x="0" y="0" width="1400" height="1" fill="#e2e8f0"/>
+    <text x="0" y="42" fill="#64748b" font-size="16" font-weight="700">Product rule: SRAYA HRIS preserves legacy permission and API behavior while rebuilding the frontend into feature-first, real-data, skeleton-loading, empty-state-aware modules.</text>
+  </g>
+</svg>

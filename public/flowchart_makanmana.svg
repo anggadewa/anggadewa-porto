@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1180" viewBox="0 0 1600 1180" role="img" aria-labelledby="title desc">
+  <title id="title">MakanMana Food Ordering Flowchart</title>
+  <desc id="desc">Flowchart showing MakanMana workflow from Supabase phone login, role routing, user ordering, menu and favorites, cart checkout, active order tracking, Teman Makan group ordering, split bill OCR, Tardut request, OB dashboard, assignment, location tracking, history, menu, and category management.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffbeb"/>
+      <stop offset="0.5" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#fff7ed"/>
+    </linearGradient>
+    <linearGradient id="primary" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#ea580c"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2 2 L12 7 L2 12 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="1180" rx="56" fill="url(#bg)"/>
+
+  <g transform="translate(100 84)" font-family="Inter, Arial, sans-serif">
+    <text x="0" y="0" fill="#111827" font-size="52" font-weight="900" letter-spacing="0">MakanMana</text>
+    <text x="0" y="42" fill="#64748b" font-size="20" font-weight="700" letter-spacing="2">MOBILE FOOD ORDERING, GROUP MEAL, SPLIT BILL, AND OB OPERATIONS FLOW</text>
+  </g>
+
+  <g font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800" text-anchor="middle">
+    <g filter="url(#shadow)">
+      <rect x="95" y="190" width="285" height="116" rx="28" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="238" y="238" fill="#111827">Phone Login</text>
+      <text x="238" y="270" fill="#64748b" font-size="15" font-weight="700">Supabase Auth</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="480" y="190" width="285" height="116" rx="28" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="623" y="238" fill="#111827">Role Routing</text>
+      <text x="623" y="270" fill="#64748b" font-size="15" font-weight="700">user or OB dashboard</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="865" y="190" width="285" height="116" rx="28" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="1008" y="238" fill="#111827">Menu Discovery</text>
+      <text x="1008" y="270" fill="#64748b" font-size="15" font-weight="700">search, category, favorite</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1250" y="190" width="255" height="116" rx="28" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="1378" y="238" fill="#111827">Cart Checkout</text>
+      <text x="1378" y="270" fill="#64748b" font-size="15" font-weight="700">quantity and submit</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="250" y="420" width="1100" height="132" rx="32" fill="url(#primary)"/>
+      <text x="800" y="470" fill="#ffffff">Meal Coordination Core</text>
+      <text x="800" y="508" fill="#ffedd5" font-size="16" font-weight="700">personal order, active order, community inspiration, group room, split bill OCR, Tardut request</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="95" y="675" width="300" height="132" rx="30" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="245" y="722" fill="#111827">Active Orders</text>
+      <text x="245" y="754" fill="#64748b" font-size="15" font-weight="700">status and history</text>
+      <text x="245" y="782" fill="#64748b" font-size="15" font-weight="700">order card view</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="455" y="675" width="300" height="132" rx="30" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="605" y="722" fill="#111827">Teman Makan</text>
+      <text x="605" y="754" fill="#64748b" font-size="15" font-weight="700">shared room</text>
+      <text x="605" y="782" fill="#64748b" font-size="15" font-weight="700">realtime group order</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="815" y="675" width="300" height="132" rx="30" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="965" y="722" fill="#111827">Split Bill OCR</text>
+      <text x="965" y="754" fill="#64748b" font-size="15" font-weight="700">receipt scan</text>
+      <text x="965" y="782" fill="#64748b" font-size="15" font-weight="700">food and shared items</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1175" y="675" width="330" height="132" rx="30" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="1340" y="722" fill="#111827">Tardut Request</text>
+      <text x="1340" y="754" fill="#64748b" font-size="15" font-weight="700">cash request flow</text>
+      <text x="1340" y="782" fill="#64748b" font-size="15" font-weight="700">OB follow up</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="165" y="920" width="310" height="116" rx="28" fill="#ffffff" stroke="#fdba74"/>
+      <text x="320" y="968" fill="#111827">OB Dashboard</text>
+      <text x="320" y="1000" fill="#64748b" font-size="15" font-weight="700">orders, Tardut, history</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="535" y="920" width="310" height="116" rx="28" fill="#ffffff" stroke="#fdba74"/>
+      <text x="690" y="968" fill="#111827">Assignment</text>
+      <text x="690" y="1000" fill="#64748b" font-size="15" font-weight="700">OB 1, OB 2, unassigned</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="905" y="920" width="250" height="116" rx="28" fill="#ffffff" stroke="#fdba74"/>
+      <text x="1030" y="968" fill="#111827">Tracking Map</text>
+      <text x="1030" y="1000" fill="#64748b" font-size="15" font-weight="700">realtime location</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1215" y="920" width="285" height="116" rx="28" fill="#ffffff" stroke="#fdba74"/>
+      <text x="1358" y="968" fill="#111827">Menu Admin</text>
+      <text x="1358" y="1000" fill="#64748b" font-size="15" font-weight="700">food and categories</text>
+    </g>
+  </g>
+
+  <g fill="none" stroke="#64748b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)">
+    <path d="M380 248 H480"/>
+    <path d="M765 248 H865"/>
+    <path d="M1150 248 H1250"/>
+    <path d="M1378 306 V360 C1378 400 1285 420 1195 420"/>
+    <path d="M800 552 V610 C800 645 605 645 605 675"/>
+    <path d="M600 552 C450 590 245 625 245 675"/>
+    <path d="M930 552 C955 600 965 628 965 675"/>
+    <path d="M1070 552 C1225 600 1340 628 1340 675"/>
+    <path d="M395 741 H455"/>
+    <path d="M755 741 H815"/>
+    <path d="M1115 741 H1175"/>
+    <path d="M245 807 C255 865 290 890 320 920"/>
+    <path d="M1340 807 C1200 870 820 890 690 920"/>
+    <path d="M690 920 C760 865 940 865 1030 920"/>
+    <path d="M690 978 H905"/>
+    <path d="M1155 978 H1215"/>
+  </g>
+
+  <g transform="translate(100 1080)" font-family="Inter, Arial, sans-serif">
+    <rect x="0" y="0" width="1400" height="1" fill="#e2e8f0"/>
+    <text x="0" y="42" fill="#64748b" font-size="16" font-weight="700">Product rule: MakanMana connects office meal decisions, ordering, group coordination, split bill parsing, cash requests, OB assignment, and realtime tracking through Supabase-backed mobile workflows.</text>
+  </g>
+</svg>

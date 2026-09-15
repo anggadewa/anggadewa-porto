@@ -28,7 +28,9 @@ import {
     FileText,
     Sparkles,
     GraduationCap,
-    Download
+    Download,
+    Compass,
+    ChevronDown
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { getAssetUrl } from '@/lib/assets';
@@ -220,6 +222,8 @@ export default function Home() {
     const [activeCategory, setActiveCategory] = useState('All');
     const [projectSearch, setProjectSearch] = useState('');
     const [skillSearch, setSkillSearch] = useState('');
+    const [activeSkillIndex, setActiveSkillIndex] = useState(0);
+    const [activeProjectIndex, setActiveProjectIndex] = useState(0);
     const [isScrolled, setIsScrolled] = useState(false);
     const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -263,6 +267,19 @@ export default function Home() {
         if (c === 'figma') return 'Figma';
         return p.category?.trim();
     }).filter(Boolean)))];
+
+    const filteredSkills = skills.filter(skill =>
+        skill.category.toLowerCase().includes(skillSearch.toLowerCase()) ||
+        skill.items?.some(item => item.toLowerCase().includes(skillSearch.toLowerCase()))
+    );
+
+    useEffect(() => {
+        setActiveSkillIndex(0);
+    }, [skillSearch]);
+
+    useEffect(() => {
+        setActiveProjectIndex(0);
+    }, [activeCategory]);
 
     useEffect(() => {
         async function fetchData() {
@@ -362,7 +379,7 @@ export default function Home() {
 
                 <div className="relative">
                     {/* Navigation Header - Modern Pill */}
-                    <header className="fixed top-8 left-1/2 -translate-x-1/2 z-[100] w-full max-w-2xl px-6">
+                    <header className="fixed top-8 left-1/2 -translate-x-1/2 z-[100] w-full max-w-4xl px-6">
                         <nav className={cn(
                             "py-3 px-8 rounded-full flex justify-between items-center transition-all duration-500",
                             isScrolled
@@ -382,8 +399,8 @@ export default function Home() {
                                 )}>.DEV</span>
                             </div>
 
-                            <div className="hidden md:flex items-center gap-10">
-                                {['Work', 'About', 'Stack', 'Contact'].map((item) => (
+                            <div className="hidden md:flex items-center gap-8">
+                                {['About', 'Stack', 'Work', 'Contact'].map((item) => (
                                     <button
                                         key={item}
                                         onClick={() => document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })}
@@ -402,6 +419,18 @@ export default function Home() {
                             </div>
 
                             <div className="flex items-center gap-4">
+                                <Link
+                                    to="/product"
+                                    className={cn(
+                                        "hidden sm:flex h-11 items-center gap-2 px-5 rounded-full text-[10px] font-black tracking-[0.18em] uppercase transition-all hover:scale-105 active:scale-95 border",
+                                        isScrolled
+                                            ? "bg-zinc-950 text-white border-zinc-950 shadow-[0_10px_30px_rgba(0,0,0,0.16)]"
+                                            : "bg-white/10 text-white border-white/25 hover:bg-white hover:text-primary backdrop-blur-md"
+                                    )}
+                                >
+                                    <Compass className="w-3.5 h-3.5" />
+                                    Product
+                                </Link>
                                 <Button
                                     onClick={() => window.open('https://wa.me/6285172459708', '_blank')}
                                     className={cn(
@@ -419,12 +448,12 @@ export default function Home() {
 
                     <main className="w-full relative">
                         {/* Hero: Vibrant Bento Style */}
-                        <section id="home" className="relative min-h-screen w-screen left-1/2 -translate-x-1/2 flex items-center justify-center overflow-hidden bg-primary px-6">
+                        <section id="home" className="relative min-h-screen w-screen left-1/2 -translate-x-1/2 flex items-center justify-center overflow-hidden bg-primary px-6 pb-28">
                             {/* Decorative background elements */}
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1)_1px,transparent_1px)] [background-size:40px_40px] opacity-20" />
                             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/20 to-transparent pointer-events-none" />
 
-                            <div className="max-w-7xl mx-auto w-full relative z-10 pt-20">
+                            <div className="max-w-7xl mx-auto w-full relative z-10 pb-14 pt-32 md:pt-36">
                                 <div className="flex flex-col items-center text-center">
                                     <motion.div
                                         initial={{ opacity: 0, y: 20 }}
@@ -446,6 +475,44 @@ export default function Home() {
                                             <span className="text-transparent stroke-text">PORTFOLIO</span><br />
                                             DEV
                                         </motion.h1>
+
+                                        <motion.div
+                                            drag
+                                            dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                                            whileHover={{ scale: 1.05, rotate: -3 }}
+                                            initial={{ opacity: 0, y: -10, scale: 0.96 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            transition={{ delay: 1.1 }}
+                                            className="absolute right-[-8rem] top-[-2.75rem] z-20 hidden w-[21rem] cursor-grab items-center gap-3 rounded-[2rem] border border-white/25 bg-white/10 p-2 pr-4 shadow-[0_18px_55px_rgba(0,0,0,0.18)] backdrop-blur-xl active:cursor-grabbing lg:flex xl:right-[-11rem]"
+                                        >
+                                            <Link
+                                                to="/product"
+                                                className="group inline-flex h-12 shrink-0 items-center gap-3 rounded-[1.5rem] bg-white px-5 text-[10px] font-black uppercase tracking-[0.18em] text-primary shadow-[0_12px_30px_rgba(255,255,255,0.18)] transition-all hover:scale-[1.03] hover:bg-white/95 active:scale-95"
+                                            >
+                                                <Compass className="w-4 h-4 transition-transform group-hover:rotate-45" />
+                                                Product
+                                                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                                            </Link>
+                                            <span className="text-left text-[8px] font-black uppercase leading-relaxed tracking-[0.18em] text-white/60">
+                                                Research, PRD, cases, and validation
+                                            </span>
+                                        </motion.div>
+
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 14 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 1.1 }}
+                                            className="mt-8 flex justify-center md:hidden"
+                                        >
+                                            <Link
+                                                to="/product"
+                                                className="group inline-flex h-13 items-center gap-3 rounded-full bg-white px-6 py-4 text-[10px] font-black uppercase tracking-[0.18em] text-primary shadow-[0_18px_45px_rgba(255,255,255,0.2)] transition-all active:scale-95"
+                                            >
+                                                <Compass className="w-4 h-4" />
+                                                Product Area
+                                                <ArrowRight className="w-4 h-4" />
+                                            </Link>
+                                        </motion.div>
 
                                         <motion.div
                                             drag
@@ -497,15 +564,26 @@ export default function Home() {
                             </div>
 
                             {/* Scroll Indicator - fixed so it's never obscured by hero text */}
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
+                            <motion.button
+                                type="button"
+                                onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+                                initial={{ opacity: 0, x: "-50%", y: 8 }}
+                                animate={{ opacity: 1, x: "-50%", y: 0 }}
                                 transition={{ delay: 2.5 }}
-                                className="fixed bottom-[4px] left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-[100] pointer-events-none"
+                                whileHover={{ y: -4 }}
+                                whileTap={{ scale: 0.96 }}
+                                className="absolute bottom-7 left-1/2 z-[40] flex flex-col items-center gap-4 text-white/70 transition-colors hover:text-white"
                             >
-                                <span className="text-[7px] font-black text-white/70 uppercase tracking-[0.6em]">Scroll to Explore</span>
-                                <div className="w-[1px] h-10 bg-gradient-to-b from-white/60 to-transparent" />
-                            </motion.div>
+                                <span className="text-[7px] font-black uppercase tracking-[0.55em]">Scroll to Explore</span>
+                                <span className="relative flex h-14 w-7 items-start justify-center rounded-full border border-white/25 bg-white/10 p-1 shadow-[0_14px_45px_rgba(0,0,0,0.12)] backdrop-blur-xl">
+                                    <motion.span
+                                        animate={{ y: [0, 24, 0], opacity: [1, 0.3, 1] }}
+                                        transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                                        className="h-2 w-2 rounded-full bg-white shadow-[0_0_16px_rgba(255,255,255,0.85)]"
+                                    />
+                                    <ChevronDown className="absolute bottom-1.5 h-3.5 w-3.5" />
+                                </span>
+                            </motion.button>
                         </section>
 
                         {/* Identity Disclosure (About & Services) */}
@@ -701,15 +779,15 @@ export default function Home() {
 
                                                 <div className="flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2 sm:gap-1 text-left sm:text-right w-full sm:w-auto border-t sm:border-none border-white/10 pt-4 sm:pt-0 relative z-10 flex-shrink-0">
                                                     <div className="flex items-center gap-2">
-                                                        <span className="px-2 py-0.5 bg-primary/20 text-primary text-[9px] font-black rounded-md uppercase tracking-widest animate-pulse">
-                                                            Upcoming
+                                                        <span className="px-2 py-0.5 bg-primary/20 text-primary text-[9px] font-black rounded-md uppercase tracking-widest">
+                                                            In Progress
                                                         </span>
                                                         <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">
-                                                            Sep 2026
+                                                            Sep 2026 - Present
                                                         </span>
                                                     </div>
                                                     <span className="text-xs font-black text-primary tracking-wider">
-                                                        Enrollment Phase
+                                                        Graduate Program Ongoing
                                                     </span>
                                                 </div>
                                                 {/* Decorative subtle background glow */}
@@ -721,156 +799,269 @@ export default function Home() {
                             </div>
                         </section>
 
-                        {/* Technical Stack (Bento Style) */}
-                        <section id="stack" className="py-24 bg-zinc-50/50">
-                            <div className="max-w-7xl mx-auto px-6 lg:px-12 space-y-24">
-                                <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
+                        {/* Technical Stack */}
+                        <section id="stack" className="relative overflow-hidden bg-white px-6 py-24 lg:px-12">
+                            <div className="mx-auto max-w-7xl space-y-16">
+                                <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
                                     <div className="space-y-6">
-                                        <span className="text-[11px] font-black tracking-[0.4em] text-primary uppercase block">Technical Stack</span>
-                                        <h2 className="text-6xl font-black text-foreground uppercase tracking-tight leading-[0.9]">
-                                            The tools I use to <br />
-                                            <span className="text-primary italic">bring ideas to life.</span>
+                                        <span className="block text-[11px] font-black uppercase tracking-[0.4em] text-primary">Technical Stack</span>
+                                        <h2 className="max-w-3xl text-5xl font-black uppercase leading-[0.86] tracking-tight text-zinc-950 md:text-7xl">
+                                            Stack I use to <br />
+                                            <span className="text-primary italic">ship real product.</span>
                                         </h2>
                                     </div>
-                                    <div className="relative group max-w-sm w-full">
-                                        <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
-                                        <input
-                                            type="text"
-                                            placeholder="Filter expertise..."
-                                            value={skillSearch}
-                                            onChange={(e) => setSkillSearch(e.target.value)}
-                                            className="w-full bg-white border-2 border-zinc-100 rounded-[2rem] py-5 pl-14 pr-8 text-sm font-bold focus:outline-none focus:border-primary/20 focus:ring-8 focus:ring-primary/5 transition-all"
-                                        />
+                                    <div className="flex flex-col gap-5 lg:items-end">
+                                        <p className="max-w-xl text-base font-semibold leading-relaxed text-zinc-500 md:text-right md:text-lg">
+                                            My stack is shaped by mobile delivery, product UX, backend contracts, and operational reliability, not just tool collecting.
+                                        </p>
+                                        <div className="relative w-full max-w-md">
+                                            <Search className="pointer-events-none absolute left-6 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-400" />
+                                            <input
+                                                type="text"
+                                                placeholder="Search stack, tool, or capability"
+                                                value={skillSearch}
+                                                onChange={(e) => setSkillSearch(e.target.value)}
+                                                className="h-14 w-full rounded-full border border-zinc-200 bg-white pl-14 pr-5 text-sm font-bold text-zinc-700 outline-none transition-all placeholder:text-zinc-400 focus:border-primary focus:ring-4 focus:ring-primary/10"
+                                            />
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    {skills
-                                        .filter(skill =>
-                                            skill.category.toLowerCase().includes(skillSearch.toLowerCase()) ||
-                                            skill.items?.some(item => item.toLowerCase().includes(skillSearch.toLowerCase()))
-                                        )
-                                        .map((skill, idx) => {
-                                            const colors = getCategoryColors(skill.category);
-                                            const meta = getCategoryMetadata(skill.category, idx);
-                                            return (
+                                <div className="grid items-start gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+                                    <div className="space-y-4">
+                                        <motion.div
+                                        initial={{ opacity: 0, y: 24 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true, margin: "-80px" }}
+                                        transition={{ duration: 0.7 }}
+                                        className="relative overflow-hidden rounded-[2rem] bg-zinc-950 p-4 text-white shadow-[0_24px_70px_rgba(0,0,0,0.18)]"
+                                    >
+                                        <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-3">
+                                            <div className="flex items-center gap-2">
+                                                <span className="h-3 w-3 rounded-full bg-red-400" />
+                                                <span className="h-3 w-3 rounded-full bg-yellow-300" />
+                                                <span className="h-3 w-3 rounded-full bg-green-400" />
+                                            </div>
+                                            <span className="text-[10px] font-black uppercase tracking-[0.24em] text-white/35">dewa-dev-stack.ts</span>
+                                        </div>
+
+                                        <div className="space-y-4 font-mono text-[13px] leading-relaxed">
+                                            <motion.div
+                                                initial={{ opacity: 0, x: -16 }}
+                                                whileInView={{ opacity: 1, x: 0 }}
+                                                viewport={{ once: true }}
+                                                transition={{ delay: 0.1 }}
+                                            >
+                                                <span className="text-primary">const</span> role = <span className="text-emerald-300">"Frontend Team Lead"</span>;
+                                            </motion.div>
+                                            <motion.div
+                                                initial={{ opacity: 0, x: -16 }}
+                                                whileInView={{ opacity: 1, x: 0 }}
+                                                viewport={{ once: true }}
+                                                transition={{ delay: 0.2 }}
+                                            >
+                                                <span className="text-primary">ship</span>({"{"}
+                                                <div className="ml-5 space-y-1.5 border-l border-white/10 pl-4">
+                                                    <div>mobile: <span className="text-emerald-300">"Flutter, Dart, React Native"</span>,</div>
+                                                    <div>frontend: <span className="text-emerald-300">"React, TypeScript, Tailwind"</span>,</div>
+                                                    <div>backend: <span className="text-emerald-300">"Laravel, Golang, Supabase"</span>,</div>
+                                                    <div>quality: <span className="text-emerald-300">"Architecture, UX, delivery"</span></div>
+                                                </div>
+                                                {"}"});
+                                            </motion.div>
+                                        </div>
+
+                                        <div className="mt-6 grid grid-cols-3 overflow-hidden rounded-2xl border border-white/10">
+                                            {[
+                                                ['5+', 'Years'],
+                                                ['42+', 'Projects'],
+                                                ['6', 'Team Led']
+                                            ].map(([value, label]) => (
+                                                <div key={label} className="border-r border-white/10 p-3 last:border-r-0">
+                                                    <div className="text-2xl font-black tracking-tight">{value}</div>
+                                                    <div className="mt-1 text-[9px] font-black uppercase tracking-[0.2em] text-white/35">{label}</div>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] p-3">
+                                            <div className="mb-2 flex items-center justify-between text-[9px] font-black uppercase tracking-[0.22em] text-white/35">
+                                                <span>Build Pipeline</span>
+                                                <span>Live</span>
+                                            </div>
+                                            <div className="h-2 overflow-hidden rounded-full bg-white/10">
                                                 <motion.div
-                                                    key={skill.id}
-                                                    initial={{ opacity: 0, y: 30 }}
-                                                    whileInView={{ opacity: 1, y: 0 }}
+                                                    className="h-full rounded-full bg-primary"
+                                                    initial={{ width: "12%" }}
+                                                    whileInView={{ width: "92%" }}
                                                     viewport={{ once: true }}
-                                                    transition={{ duration: 0.5, delay: idx * 0.05 }}
-                                                    onMouseMove={handleMouseMove}
-                                                    onMouseLeave={handleMouseLeave}
-                                                    style={{
-                                                        transition: 'transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s',
-                                                        transformStyle: 'preserve-3d'
-                                                    }}
-                                                    className="group relative p-[1.5px] rounded-[2rem] bg-zinc-100/80 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.012)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.04)] transition-all duration-300 z-10"
-                                                >
-                                                    {/* Dynamic Mouse Spotlight Glow for the Border */}
-                                                    <div
-                                                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0"
-                                                        style={{
-                                                            background: `radial-gradient(150px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), ${colors.borderGlow}, transparent)`
-                                                        }}
-                                                    />
+                                                    transition={{ duration: 1.4, ease: "easeOut" }}
+                                                />
+                                            </div>
+                                        </div>
+                                        </motion.div>
 
-                                                    {/* Inner Card Body */}
-                                                    <div className="relative bg-white/95 backdrop-blur-xl rounded-[1.9rem] p-7 flex flex-col justify-between gap-6 min-h-[250px] h-full overflow-hidden z-10">
-                                                        {/* Blueprint Dot Grid Pattern Background */}
-                                                        <div className="absolute inset-0 bg-[radial-gradient(#e4e4e7_1.2px,transparent_1.2px)] [background-size:16px_16px] opacity-[0.25] group-hover:opacity-[0.45] transition-opacity duration-500 pointer-events-none z-0" />
+                                    </div>
 
-                                                        {/* Decorative top ambient color blur */}
-                                                        <div className={cn("absolute -top-10 -left-10 w-20 h-20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none bg-gradient-to-br z-0", colors.gradient)} />
+                                    <div className="relative min-h-[500px] overflow-visible pr-8 pt-4">
+                                        {filteredSkills.length > 0 ? (() => {
+                                            const normalizedIndex = activeSkillIndex % filteredSkills.length;
+                                            const orderedSkills = filteredSkills.map((_, order) => filteredSkills[(normalizedIndex + order) % filteredSkills.length]);
+                                            const activeSkill = orderedSkills[0];
+                                            const meta = getCategoryMetadata(activeSkill.category, normalizedIndex);
+                                            const cat = activeSkill.category.toLowerCase();
+                                            const Icon = cat.includes('mobile') ? Smartphone :
+                                                cat.includes('frontend') ? Globe :
+                                                    cat.includes('backend') ? Binary :
+                                                        cat.includes('ai') ? Sparkles :
+                                                            cat.includes('design') || cat.includes('prototype') ? Palette :
+                                                                cat.includes('database') ? Database :
+                                                                    cat.includes('tool') || cat.includes('method') ? Workflow :
+                                                                        cat.includes('architecture') ? Layers :
+                                                                            cat.includes('map') || cat.includes('ocr') ? Map :
+                                                                                Zap;
 
-                                                        {/* Top Section */}
-                                                        <div className="flex flex-col gap-4 z-10" style={{ transform: 'translateZ(10px)' }}>
-                                                            {/* Header Row */}
-                                                            <div className="flex items-center justify-between gap-4">
-                                                                <div className="flex items-center gap-3.5">
-                                                                    <div className={cn("w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-sm border border-zinc-100/80", colors.iconBg)}>
-                                                                        {skill.category.toLowerCase().includes('mobile') ? <Smartphone className={cn("w-5 h-5 transition-all duration-500 group-hover:rotate-12", colors.text)} /> :
-                                                                            skill.category.toLowerCase().includes('frontend') ? <Globe className={cn("w-5 h-5 transition-all duration-500 group-hover:rotate-12", colors.text)} /> :
-                                                                                skill.category.toLowerCase().includes('backend') ? <Binary className={cn("w-5 h-5 transition-all duration-500 group-hover:rotate-12", colors.text)} /> :
-                                                                                    skill.category.toLowerCase().includes('ai') ? <Sparkles className={cn("w-5 h-5 transition-all duration-500 group-hover:rotate-12", colors.text)} /> :
-                                                                                        skill.category.toLowerCase().includes('design') || skill.category.toLowerCase().includes('prototype') ? <Palette className={cn("w-5 h-5 transition-all duration-500 group-hover:rotate-12", colors.text)} /> :
-                                                                                            skill.category.toLowerCase().includes('database') ? <Database className={cn("w-5 h-5 transition-all duration-500 group-hover:rotate-12", colors.text)} /> :
-                                                                                                skill.category.toLowerCase().includes('tool') || skill.category.toLowerCase().includes('method') ? <Workflow className={cn("w-5 h-5 transition-all duration-500 group-hover:rotate-12", colors.text)} /> :
-                                                                                                    skill.category.toLowerCase().includes('architecture') ? <Layers className={cn("w-5 h-5 transition-all duration-500 group-hover:rotate-12", colors.text)} /> :
-                                                                                                        skill.category.toLowerCase().includes('map') || skill.category.toLowerCase().includes('ocr') ? <Map className={cn("w-5 h-5 transition-all duration-500 group-hover:rotate-12", colors.text)} /> :
-                                                                                                            <Zap className={cn("w-5 h-5 transition-all duration-500 group-hover:rotate-12", colors.text)} />}
-                                                                    </div>
-                                                                    <div className="flex flex-col">
-                                                                        <h4 className="text-[14px] font-black text-zinc-800 tracking-tight uppercase group-hover:text-zinc-950 transition-colors duration-300">{skill.category}</h4>
-                                                                        <span className="text-[9px] font-black tracking-widest text-zinc-400 uppercase">Tech Index {meta.num} • {meta.label}</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="flex items-center gap-2">
-                                                                    <span className="text-[8px] font-black tracking-widest text-zinc-300">TOTAL</span>
-                                                                    <span className={cn("text-[9px] font-black tracking-wider py-0.5 px-2.5 rounded-md uppercase border transition-all duration-300", colors.badge)}>
-                                                                        {skill.items?.length || 0} Tech
+                                            return (
+                                                <div className="relative h-full min-h-[500px]">
+                                                    {orderedSkills.slice(1, 4).map((skill, layer) => (
+                                                        <motion.div
+                                                            key={`${skill.id}-${layer}`}
+                                                            className="absolute left-8 right-0 top-0 rounded-[2rem] border border-zinc-200 bg-white shadow-[0_24px_70px_rgba(0,0,0,0.08)]"
+                                                            initial={false}
+                                                            animate={{
+                                                                y: 24 + layer * 26,
+                                                                x: 28 + layer * 24,
+                                                                rotate: 2.5 + layer * 1.5,
+                                                                scale: 0.98 - layer * 0.035,
+                                                                opacity: 0.86 - layer * 0.18
+                                                            }}
+                                                            transition={{ duration: 0.45, ease: "easeOut" }}
+                                                            style={{ height: 365, zIndex: 3 - layer }}
+                                                        >
+                                                            <div className="flex h-full flex-col justify-between p-6">
+                                                                <div className="flex items-center justify-between">
+                                                                    <span className="text-[10px] font-black uppercase tracking-[0.24em] text-primary/70">
+                                                                        Up Next
+                                                                    </span>
+                                                                    <span className="rounded-full border border-zinc-200 px-3 py-1 text-[9px] font-black uppercase tracking-[0.18em] text-zinc-400">
+                                                                        {skill.items?.length || 0} tools
                                                                     </span>
                                                                 </div>
+                                                                <div>
+                                                                    <div className="text-2xl font-black uppercase leading-none tracking-tight text-zinc-300">
+                                                                        {skill.category}
+                                                                    </div>
+                                                                    <div className="mt-5 h-2 w-24 rounded-full bg-zinc-100" />
+                                                                </div>
+                                                            </div>
+                                                        </motion.div>
+                                                    ))}
+
+                                                    <AnimatePresence mode="wait">
+                                                        <motion.div
+                                                            key={activeSkill.id}
+                                                            initial={{ opacity: 0, x: 90, rotate: 3, scale: 0.96 }}
+                                                            animate={{ opacity: 1, x: 0, rotate: 0, scale: 1 }}
+                                                            exit={{ opacity: 0, x: -90, rotate: -4, scale: 0.96 }}
+                                                            transition={{ duration: 0.42, ease: "easeOut" }}
+                                                            className="relative z-10 overflow-hidden rounded-[2rem] border border-zinc-200 bg-white p-7 shadow-[0_30px_80px_rgba(0,0,0,0.1)]"
+                                                        >
+                                                            <div className="flex items-start justify-between gap-6">
+                                                                <div className="flex items-start gap-4">
+                                                                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-zinc-950 text-white">
+                                                                        <Icon className="h-6 w-6" />
+                                                                    </div>
+                                                                    <div>
+                                                                        <div className="text-[10px] font-black uppercase tracking-[0.24em] text-primary">Tech Index {meta.num}</div>
+                                                                        <h3 className="mt-2 text-3xl font-black uppercase leading-none tracking-tight text-zinc-950">{activeSkill.category}</h3>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="rounded-full border border-zinc-200 px-4 py-2 text-[9px] font-black uppercase tracking-[0.18em] text-zinc-500">
+                                                                    {activeSkill.items?.length || 0} tools
+                                                                </div>
                                                             </div>
 
-                                                            {/* Elegant Dynamic Progress Bar */}
-                                                            <div className="relative w-full h-[3px] bg-zinc-100 overflow-hidden rounded-full">
-                                                                <div
-                                                                    className={cn("absolute top-0 left-0 h-full w-12 bg-gradient-to-r transition-all duration-700 ease-out group-hover:w-full", colors.bar)}
-                                                                />
+                                                            <p className="mt-7 text-base font-semibold leading-relaxed text-zinc-500">
+                                                                {meta.desc}
+                                                            </p>
+
+                                                            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                                                                {activeSkill.items?.slice(0, 8).map((item, i) => (
+                                                                    <motion.div
+                                                                        key={item}
+                                                                        initial={{ opacity: 0, y: 10 }}
+                                                                        animate={{ opacity: 1, y: 0 }}
+                                                                        transition={{ delay: i * 0.035 }}
+                                                                        className="rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-[10px] font-black uppercase tracking-[0.16em] text-zinc-700"
+                                                                    >
+                                                                        {item}
+                                                                    </motion.div>
+                                                                ))}
                                                             </div>
-                                                        </div>
 
-                                                        {/* Description Copy */}
-                                                        <p className="z-10 text-[11px] font-bold text-zinc-500/90 leading-relaxed pl-1" style={{ transform: 'translateZ(12px)' }}>
-                                                            {meta.desc}
-                                                        </p>
-
-                                                        {/* Skill Tags */}
-                                                        <div className="flex flex-wrap gap-2 pt-1 z-10" style={{ transform: 'translateZ(15px)' }}>
-                                                            {skill.items?.map((item, i) => (
-                                                                <span
-                                                                    key={i}
-                                                                    className={cn(
-                                                                        "px-3.5 py-1.5 bg-white border border-zinc-150 rounded-xl text-[9px] font-black uppercase tracking-wider text-zinc-500 cursor-default shadow-sm transition-all duration-300",
-                                                                        colors.tagHover
-                                                                    )}
+                                                            <div className="mt-8 flex flex-col gap-4 border-t border-zinc-200 pt-5 sm:flex-row sm:items-center sm:justify-between">
+                                                                <div className="flex items-center gap-2">
+                                                                    {filteredSkills.map((skill, index) => (
+                                                                        <button
+                                                                            key={skill.id}
+                                                                            type="button"
+                                                                            onClick={() => setActiveSkillIndex(index)}
+                                                                            className={cn(
+                                                                                "h-2.5 rounded-full transition-all",
+                                                                                index === normalizedIndex ? "w-8 bg-primary" : "w-2.5 bg-zinc-300 hover:bg-zinc-400"
+                                                                            )}
+                                                                            aria-label={`Show ${skill.category}`}
+                                                                        />
+                                                                    ))}
+                                                                </div>
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => setActiveSkillIndex((current) => (current + 1) % filteredSkills.length)}
+                                                                    className="group inline-flex h-12 items-center justify-center gap-3 rounded-full bg-zinc-950 px-6 text-[10px] font-black uppercase tracking-[0.2em] text-white transition-all hover:-translate-y-0.5 hover:bg-primary hover:shadow-[0_16px_35px_rgba(0,80,255,0.22)]"
                                                                 >
-                                                                    {item}
-                                                                </span>
-                                                            ))}
-                                                        </div>
-
-                                                        {/* Decorative bottom-right glow inside card */}
-                                                        <div className={cn("absolute -right-10 -bottom-10 w-24 h-24 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none bg-gradient-to-br z-0", colors.gradient)} />
-                                                    </div>
-                                                </motion.div>
+                                                                    Next Stack
+                                                                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                                                                </button>
+                                                            </div>
+                                                        </motion.div>
+                                                    </AnimatePresence>
+                                                </div>
                                             );
-                                        })}
+                                        })() : (
+                                            <div className="flex min-h-[360px] items-center justify-center rounded-[2rem] border border-dashed border-zinc-300 bg-zinc-50 text-center">
+                                                <div>
+                                                    <div className="text-lg font-black uppercase text-zinc-950">No stack found</div>
+                                                    <p className="mt-2 text-sm font-semibold text-zinc-500">Try another keyword.</p>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </section>
 
                         {/* Featured Works (Projects) */}
-                        <section id="work" className="py-24 bg-white">
-                            <div className="max-w-7xl mx-auto px-6 lg:px-12 space-y-32">
-                                <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
+                        <section id="work" className="bg-white px-6 py-24 lg:px-12">
+                            <div className="mx-auto max-w-7xl space-y-16">
+                                <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
                                     <div className="space-y-6">
-                                        <span className="text-[11px] font-black tracking-[0.4em] text-primary uppercase block">Recent Work</span>
-                                        <h2 className="text-6xl font-black text-foreground uppercase tracking-tight leading-[0.9]">Selected <br /><span className="text-primary italic">Projects.</span></h2>
+                                        <span className="block text-[11px] font-black uppercase tracking-[0.4em] text-primary">Recent Work</span>
+                                        <h2 className="text-5xl font-black uppercase leading-[0.9] tracking-tight text-zinc-950 md:text-7xl">
+                                            Selected <br />
+                                            <span className="text-primary italic">Projects.</span>
+                                        </h2>
                                     </div>
 
-                                    <div className="flex flex-wrap gap-3">
+                                    <div className="flex flex-wrap gap-2 rounded-[2rem] border border-zinc-200 bg-zinc-50 p-2">
                                         {categories.map((cat) => (
                                             <button
                                                 key={cat}
                                                 onClick={() => setActiveCategory(cat!)}
                                                 className={cn(
-                                                    "px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all",
+                                                    "h-11 rounded-full px-6 text-[10px] font-black uppercase tracking-widest transition-all",
                                                     activeCategory === cat
-                                                        ? "bg-primary text-white shadow-2xl shadow-primary/30 scale-105"
-                                                        : "bg-white border-2 border-zinc-100 text-muted-foreground hover:border-primary/20"
+                                                        ? "bg-primary text-white shadow-[0_12px_30px_rgba(0,80,255,0.22)]"
+                                                        : "text-zinc-500 hover:bg-white hover:text-zinc-950"
                                                 )}
                                             >
                                                 {cat}
@@ -879,62 +1070,170 @@ export default function Home() {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                    {projects
-                                        .filter(p => activeCategory === 'All' || p.category?.trim().toLowerCase() === activeCategory.toLowerCase())
-                                        .map((project, idx) => (
+                                {(() => {
+                                    const visibleProjects = projects.filter(p => activeCategory === 'All' || p.category?.trim().toLowerCase() === activeCategory.toLowerCase());
+                                    const selectedProject = visibleProjects[Math.min(activeProjectIndex, visibleProjects.length - 1)];
+
+                                    if (!selectedProject) {
+                                        return (
+                                            <div className="rounded-[2rem] border border-dashed border-zinc-300 bg-zinc-50 p-12 text-center">
+                                                <div className="text-2xl font-black uppercase text-zinc-950">No project found</div>
+                                                <p className="mt-3 text-sm font-semibold text-zinc-500">Try another category.</p>
+                                            </div>
+                                        );
+                                    }
+
+                                    return (
+                                        <div className="grid items-start gap-6 lg:grid-cols-[1.05fr_0.95fr]">
                                             <motion.div
-                                                key={project.id}
-                                                initial={{ opacity: 0, y: 30 }}
-                                                whileInView={{ opacity: 1, y: 0 }}
-                                                viewport={{ once: true }}
-                                                transition={{ delay: idx * 0.1 }}
-                                                className="group cursor-pointer"
+                                                initial={{ opacity: 0, scale: 0.98, y: 20 }}
+                                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                                transition={{ duration: 0.45, ease: "easeOut" }}
+                                                className="relative flex min-h-[650px] flex-col overflow-hidden rounded-[2.5rem] bg-zinc-950 p-4 text-white shadow-[0_32px_90px_rgba(0,0,0,0.16)] lg:h-[650px]"
                                             >
-                                                <Link to={`/projects/${project.slug}`} className="block p-3 bg-white border border-zinc-150 rounded-[2.5rem] hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)] hover:border-zinc-200 transition-all duration-500 hover:-translate-y-1">
-                                                    <div className="aspect-[4/3] rounded-[2rem] overflow-hidden relative border border-black/5 mb-6">
-                                                        {project.thumbnail ? (
-                                                            <img
-                                                                src={getAssetUrl(project.thumbnail)}
-                                                                alt={project.title}
-                                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                                <div className="mb-4 flex items-center justify-between px-2">
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="h-3 w-3 rounded-full bg-red-400" />
+                                                        <span className="h-3 w-3 rounded-full bg-yellow-300" />
+                                                        <span className="h-3 w-3 rounded-full bg-green-400" />
+                                                    </div>
+                                                    <span className="text-[10px] font-black uppercase tracking-[0.24em] text-white/35">
+                                                        Project Preview {String(activeProjectIndex + 1).padStart(2, '0')}
+                                                    </span>
+                                                </div>
+
+                                                <Link to={`/projects/${selectedProject.slug}`} className="group flex min-h-0 flex-1 flex-col">
+                                                    <div className="relative h-[360px] shrink-0 overflow-hidden rounded-[2rem] bg-zinc-900 lg:h-[385px]">
+                                                        {selectedProject.thumbnail ? (
+                                                            <motion.img
+                                                                key={selectedProject.thumbnail}
+                                                                src={getAssetUrl(selectedProject.thumbnail)}
+                                                                alt={selectedProject.title}
+                                                                className="h-full w-full object-cover opacity-90"
+                                                                initial={{ scale: 1.025, opacity: 0.82 }}
+                                                                animate={{ scale: 1, opacity: 0.9 }}
+                                                                transition={{ duration: 0.35, ease: "easeOut" }}
                                                             />
                                                         ) : (
-                                                            <div className="w-full h-full bg-zinc-50 flex items-center justify-center">
-                                                                <Boxes className="w-12 h-12 text-zinc-200" />
+                                                            <div className="flex h-full w-full items-center justify-center">
+                                                                <Boxes className="h-16 w-16 text-white/20" />
                                                             </div>
                                                         )}
-                                                        <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors duration-700" />
+                                                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/10 to-transparent" />
+                                                        <div className="absolute left-5 top-5 rounded-full bg-white px-4 py-2 text-[9px] font-black uppercase tracking-widest text-primary">
+                                                            {selectedProject.category}
+                                                        </div>
+                                                        <motion.div
+                                                            className="absolute bottom-5 right-5 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white"
+                                                            whileHover={{ rotate: 45, scale: 1.05 }}
+                                                        >
+                                                            <ArrowRight className="h-6 w-6" />
+                                                        </motion.div>
+                                                    </div>
 
-                                                        {/* Floating Badge */}
-                                                        <div className="absolute top-4 left-4">
-                                                            <Badge className="bg-white/90 backdrop-blur-md text-primary border-none text-[9px] font-black tracking-widest uppercase py-1.5 px-3 rounded-full shadow-sm">
-                                                                {project.category}
-                                                            </Badge>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div className="px-4 pb-4 flex justify-between items-center">
-                                                        <div className="space-y-1.5 pr-4">
-                                                            <h3 className="text-xl font-black text-foreground uppercase tracking-tight group-hover:text-primary transition-colors line-clamp-1">
-                                                                {project.title}
+                                                    <motion.div
+                                                        key={selectedProject.id}
+                                                        initial={{ opacity: 0.75, y: 6 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        transition={{ duration: 0.25, ease: "easeOut" }}
+                                                        className="grid min-h-[185px] flex-1 gap-6 p-5 md:grid-cols-[1fr_auto] md:items-end"
+                                                    >
+                                                        <div>
+                                                            <div className="mb-3 text-[10px] font-black uppercase tracking-[0.28em] text-primary">Open Case</div>
+                                                            <h3 className="line-clamp-2 text-4xl font-black uppercase leading-none tracking-tight transition-colors group-hover:text-primary md:text-6xl">
+                                                                {selectedProject.title}
                                                             </h3>
-                                                            <div className="flex flex-wrap items-center gap-2">
-                                                                {project.tech_stack?.slice(0, 3).map((tech, i) => (
-                                                                    <span key={i} className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">
-                                                                        {tech}{i < 2 && i < project.tech_stack!.length - 1 ? " • " : ""}
-                                                                    </span>
-                                                                ))}
-                                                            </div>
                                                         </div>
-                                                        <div className="w-12 h-12 shrink-0 rounded-full border border-zinc-200 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-500 shadow-sm">
-                                                            <ArrowRight className="w-5 h-5 text-foreground group-hover:text-white transition-all -rotate-45 group-hover:rotate-0" />
+                                                        <div className="flex max-w-md flex-wrap gap-2 md:justify-end">
+                                                            {selectedProject.tech_stack?.slice(0, 6).map((tech) => (
+                                                                <span key={tech} className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-[9px] font-black uppercase tracking-[0.16em] text-white/65">
+                                                                    {tech}
+                                                                </span>
+                                                            ))}
                                                         </div>
-                                                    </div>
+                                                    </motion.div>
                                                 </Link>
                                             </motion.div>
-                                        ))}
-                                </div>
+
+                                            <div className="rounded-[2.5rem] border border-zinc-200 bg-zinc-50 p-3">
+                                                <div className="mb-3 flex items-center justify-between px-3 py-2">
+                                                    <span className="text-[10px] font-black uppercase tracking-[0.24em] text-primary">Project Switcher</span>
+                                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">{visibleProjects.length} Works</span>
+                                                </div>
+                                                <div className="grid max-h-[590px] gap-3 overflow-y-auto pr-1 custom-scrollbar">
+                                                    {visibleProjects.map((project, idx) => {
+                                                        const isActive = idx === activeProjectIndex;
+
+                                                        return (
+                                                            <motion.div
+                                                                key={`${project.id}-${activeCategory}`}
+                                                                onMouseEnter={() => setActiveProjectIndex(idx)}
+                                                                initial={{ opacity: 0, x: 24 }}
+                                                                whileInView={{ opacity: 1, x: 0 }}
+                                                                viewport={{ once: true }}
+                                                                transition={{ duration: 0.35, delay: idx * 0.04 }}
+                                                            >
+                                                                <Link
+                                                                    to={`/projects/${project.slug}`}
+                                                                    onFocus={() => setActiveProjectIndex(idx)}
+                                                                    className={cn(
+                                                                        "group grid w-full grid-cols-[5rem_1fr_auto] items-center gap-4 rounded-[1.4rem] border p-2.5 text-left transition-all duration-300",
+                                                                        isActive
+                                                                            ? "border-primary bg-white shadow-[0_18px_45px_rgba(0,80,255,0.12)]"
+                                                                            : "border-transparent bg-white/70 hover:border-zinc-200 hover:bg-white"
+                                                                    )}
+                                                                >
+                                                                    <div className="relative aspect-[4/3] overflow-hidden rounded-[1rem] bg-zinc-100">
+                                                                        {project.thumbnail ? (
+                                                                            <img
+                                                                                src={getAssetUrl(project.thumbnail)}
+                                                                                alt={project.title}
+                                                                                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                                                            />
+                                                                        ) : (
+                                                                            <div className="flex h-full w-full items-center justify-center">
+                                                                                <Boxes className="h-7 w-7 text-zinc-300" />
+                                                                            </div>
+                                                                        )}
+                                                                    </div>
+                                                                    <div className="min-w-0">
+                                                                        <div className="flex items-center gap-2">
+                                                                            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-primary">
+                                                                                {String(idx + 1).padStart(2, '0')}
+                                                                            </span>
+                                                                            <span className="text-[9px] font-black uppercase tracking-[0.18em] text-zinc-400">
+                                                                                {project.category}
+                                                                            </span>
+                                                                        </div>
+                                                                        <div className={cn(
+                                                                            "mt-2 line-clamp-2 text-lg font-black uppercase leading-none tracking-tight transition-colors",
+                                                                            isActive ? "text-primary" : "text-zinc-950"
+                                                                        )}>
+                                                                            {project.title}
+                                                                        </div>
+                                                                        <div className="mt-2 flex flex-wrap gap-1.5">
+                                                                            {project.tech_stack?.slice(0, 3).map((tech) => (
+                                                                                <span key={tech} className="text-[8px] font-black uppercase tracking-[0.16em] text-zinc-400">
+                                                                                    {tech}
+                                                                                </span>
+                                                                            ))}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className={cn(
+                                                                        "flex h-10 w-10 items-center justify-center rounded-full border transition-all",
+                                                                        isActive ? "border-primary bg-primary text-white" : "border-zinc-200 text-zinc-950 group-hover:border-primary group-hover:text-primary"
+                                                                    )}>
+                                                                        <ArrowRight className="h-4 w-4 -rotate-45 transition-transform group-hover:rotate-0" />
+                                                                    </div>
+                                                                </Link>
+                                                            </motion.div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })()}
                             </div>
                         </section>
 
@@ -1003,7 +1302,7 @@ export default function Home() {
 
                             <div className="mt-40 pt-16 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-12">
                                 <div className="text-[11px] font-black text-zinc-600 uppercase tracking-widest">
-                                    © {new Date().getFullYear()} DEWA.DEV — Crafted with passion & Vibe Coding
+                                    © {new Date().getFullYear()} DEWA.DEV — Crafted with passion & love
                                 </div>
                                 <div className="flex gap-12 text-[11px] font-black text-zinc-600 uppercase tracking-widest">
                                     <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-primary transition-colors">Back to Top</button>

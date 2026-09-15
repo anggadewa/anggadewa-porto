@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120" role="img" aria-labelledby="title desc">
+  <title id="title">SRAYA Grading Ramp Operational Flowchart</title>
+  <desc id="desc">Flowchart showing SRAYA Grading Ramp workflow from login, ramp server discovery, truck queue, sortation input, photo validation, local draft, final confirmation, multipart submit, and app update.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="0.5" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#fff7ed"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ef4444"/>
+      <stop offset="1" stop-color="#991b1b"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2 2 L12 7 L2 12 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="1120" rx="56" fill="url(#bg)"/>
+
+  <g transform="translate(100 84)" font-family="Inter, Arial, sans-serif">
+    <text x="0" y="0" fill="#111827" font-size="52" font-weight="900" letter-spacing="0">SRAYA Grading Ramp</text>
+    <text x="0" y="42" fill="#64748b" font-size="20" font-weight="700" letter-spacing="2">RAMP SORTATION WORKFLOW AND DATA SAFETY MAP</text>
+  </g>
+
+  <g font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800" text-anchor="middle">
+    <g filter="url(#shadow)">
+      <rect x="95" y="190" width="250" height="110" rx="28" fill="#ffffff" stroke="#fecaca"/>
+      <text x="220" y="238" fill="#111827">Login Operator</text>
+      <text x="220" y="270" fill="#64748b" font-size="15" font-weight="700">auth and session</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="445" y="190" width="270" height="110" rx="28" fill="#ffffff" stroke="#fecaca"/>
+      <text x="580" y="238" fill="#111827">Server Discovery</text>
+      <text x="580" y="270" fill="#64748b" font-size="15" font-weight="700">mDNS or cached URL</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="815" y="190" width="270" height="110" rx="28" fill="#ffffff" stroke="#fecaca"/>
+      <text x="950" y="238" fill="#111827">Truck Queue</text>
+      <text x="950" y="270" fill="#64748b" font-size="15" font-weight="700">status SORTING only</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1185" y="190" width="320" height="110" rx="28" fill="#ffffff" stroke="#fecaca"/>
+      <text x="1345" y="238" fill="#111827">Open Intake Transaction</text>
+      <text x="1345" y="270" fill="#64748b" font-size="15" font-weight="700">single sortation context</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="245" y="405" width="1110" height="132" rx="32" fill="url(#red)"/>
+      <text x="800" y="456" fill="#ffffff">Sortation Input</text>
+      <text x="800" y="493" fill="#fee2e2" font-size="16" font-weight="700">fruit type, brondolan, Dura, deductions, return weights, Pulangkan Semua, notes</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="140" y="665" width="330" height="134" rx="30" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="305" y="712" fill="#111827">Photo Evidence</text>
+      <text x="305" y="744" fill="#64748b" font-size="15" font-weight="700">buah and plat required</text>
+      <text x="305" y="772" fill="#64748b" font-size="15" font-weight="700">pulangan conditional</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="515" y="665" width="330" height="134" rx="30" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="680" y="712" fill="#111827">Local Draft</text>
+      <text x="680" y="744" fill="#64748b" font-size="15" font-weight="700">draft_sortation_intakeId</text>
+      <text x="680" y="772" fill="#64748b" font-size="15" font-weight="700">restore on reopen</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="890" y="665" width="330" height="134" rx="30" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="1055" y="712" fill="#111827">Final Confirmation</text>
+      <text x="1055" y="744" fill="#64748b" font-size="15" font-weight="700">review values and photos</text>
+      <text x="1055" y="772" fill="#64748b" font-size="15" font-weight="700">warn returned-all state</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1265" y="665" width="250" height="134" rx="30" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="1390" y="712" fill="#111827">Submit</text>
+      <text x="1390" y="744" fill="#64748b" font-size="15" font-weight="700">multipart FormData</text>
+      <text x="1390" y="772" fill="#64748b" font-size="15" font-weight="700">clear draft on success</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="330" y="910" width="390" height="112" rx="28" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="525" y="957" fill="#111827">Update APK</text>
+      <text x="525" y="989" fill="#64748b" font-size="15" font-weight="700">/app-versions filter RampGrading</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="880" y="910" width="390" height="112" rx="28" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="1075" y="957" fill="#111827">Operational Result</text>
+      <text x="1075" y="989" fill="#64748b" font-size="15" font-weight="700">traceable sortation report</text>
+    </g>
+  </g>
+
+  <g fill="none" stroke="#64748b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)">
+    <path d="M345 245 H445"/>
+    <path d="M715 245 H815"/>
+    <path d="M1085 245 H1185"/>
+    <path d="M1345 300 V350 C1345 387 1300 405 1240 405"/>
+    <path d="M800 537 V610 C800 640 680 640 680 665"/>
+    <path d="M640 537 C465 585 305 610 305 665"/>
+    <path d="M960 537 C1020 590 1055 615 1055 665"/>
+    <path d="M1120 537 C1290 585 1390 610 1390 665"/>
+    <path d="M470 732 H515"/>
+    <path d="M845 732 H890"/>
+    <path d="M1220 732 H1265"/>
+    <path d="M525 910 C525 850 610 830 680 799"/>
+    <path d="M1390 799 C1370 875 1245 895 1075 910"/>
+  </g>
+
+  <g transform="translate(100 1054)" font-family="Inter, Arial, sans-serif">
+    <rect x="0" y="0" width="1400" height="1" fill="#e2e8f0"/>
+    <text x="0" y="42" fill="#64748b" font-size="16" font-weight="700">Product rule: the operator starts from an active SORTING truck, saves draft only by intent, validates required photos before submit, and sends isReturnedAll through the multipart sortation payload.</text>
+  </g>
+</svg>

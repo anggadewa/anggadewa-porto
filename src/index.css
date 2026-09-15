@@ -95,6 +95,24 @@
     background: #6D28D9;
 }
 
+.carousel-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 80, 255, 0.28) transparent;
+}
+.carousel-scrollbar::-webkit-scrollbar {
+    height: 3px;
+}
+.carousel-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.carousel-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 80, 255, 0.24);
+    border-radius: 999px;
+}
+.carousel-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 80, 255, 0.42);
+}
+
 /* Glitch Effect for Global Bug Invasion */
 .glitch-active {
     animation: global-glitch 0.3s cubic-bezier(.25, .46, .45, .94) both 3;

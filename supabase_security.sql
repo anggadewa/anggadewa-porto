@@ -10,12 +10,18 @@
 -- Force Enable RLS on all data tables
 ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
 ALTER TABLE skills ENABLE ROW LEVEL SECURITY;
+ALTER TABLE product_case_studies ENABLE ROW LEVEL SECURITY;
+ALTER TABLE product_documents ENABLE ROW LEVEL SECURITY;
 
 -- Clean slate: Drop any previously created overlapping policies
 DROP POLICY IF EXISTS "Enable public read access on projects" ON projects;
 DROP POLICY IF EXISTS "Enable full access for authenticated users on projects" ON projects;
 DROP POLICY IF EXISTS "Enable public read access on skills" ON skills;
 DROP POLICY IF EXISTS "Enable full access for authenticated users on skills" ON skills;
+DROP POLICY IF EXISTS "Enable public read access on product case studies" ON product_case_studies;
+DROP POLICY IF EXISTS "Enable admin full access to product case studies" ON product_case_studies;
+DROP POLICY IF EXISTS "Enable public read access on product documents" ON product_documents;
+DROP POLICY IF EXISTS "Enable admin full access to product documents" ON product_documents;
 
 -- PROJECTS POLICY: Public users can only view data (SELECT)
 CREATE POLICY "Enable public read access on projects" 
@@ -36,6 +42,28 @@ USING (true);
 -- SKILLS POLICY: Only authenticated (Admin) sessions can write/delete
 CREATE POLICY "Enable full access for authenticated users on skills" 
 ON skills FOR ALL 
+USING (auth.role() = 'authenticated')
+WITH CHECK (auth.role() = 'authenticated');
+
+-- PRODUCT CASE STUDIES POLICY: Public users can only view published case studies
+CREATE POLICY "Enable public read access on product case studies"
+ON product_case_studies FOR SELECT
+USING (is_published = true);
+
+-- PRODUCT CASE STUDIES POLICY: Only authenticated (Admin) sessions can write/delete
+CREATE POLICY "Enable admin full access to product case studies"
+ON product_case_studies FOR ALL
+USING (auth.role() = 'authenticated')
+WITH CHECK (auth.role() = 'authenticated');
+
+-- PRODUCT DOCUMENTS POLICY: Public users can only view published documents
+CREATE POLICY "Enable public read access on product documents"
+ON product_documents FOR SELECT
+USING (is_published = true);
+
+-- PRODUCT DOCUMENTS POLICY: Only authenticated (Admin) sessions can write/delete
+CREATE POLICY "Enable admin full access to product documents"
+ON product_documents FOR ALL
 USING (auth.role() = 'authenticated')
 WITH CHECK (auth.role() = 'authenticated');
 

@@ -4,6 +4,7 @@ import { supabase } from '@/lib/supabase';
 import { 
     LayoutDashboard, 
     Briefcase, 
+    Boxes,
     Terminal, 
     LogOut, 
     Home, 
@@ -23,6 +24,7 @@ interface AdminLayoutProps {
 const navItems = [
     { label: 'Dashboard', path: '/admin', icon: LayoutDashboard },
     { label: 'Projects', path: '/admin/projects', icon: Briefcase },
+    { label: 'Product', path: '/admin/product', icon: Boxes },
     { label: 'Skills', path: '/admin/skills', icon: Terminal },
 ];
 

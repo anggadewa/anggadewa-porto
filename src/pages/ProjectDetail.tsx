@@ -16,7 +16,8 @@ import {
     FileText,
     ZoomIn,
     ZoomOut,
-    RotateCcw
+    RotateCcw,
+    ChevronRight
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { getAssetUrl } from '@/lib/assets';
@@ -27,6 +28,7 @@ export default function ProjectDetail() {
     const [project, setProject] = useState<Project | null>(null);
     const [loading, setLoading] = useState(true);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [activeImageIndex, setActiveImageIndex] = useState(0);
     
     // Zoom & Pan state
     const [zoom, setZoom] = useState(1);
@@ -42,12 +44,40 @@ export default function ProjectDetail() {
 
     const handleOpenImage = (img: string) => {
         resetView();
+        const imageIndex = project?.images?.indexOf(img) ?? -1;
+        if (imageIndex >= 0) setActiveImageIndex(imageIndex);
         setSelectedImage(img);
     };
 
     const handleCloseImage = () => {
         setSelectedImage(null);
         resetView();
+    };
+
+    const goToPreviousImage = () => {
+        if (!project?.images?.length) return;
+        setActiveImageIndex((prev) => (prev - 1 + project.images!.length) % project.images!.length);
+    };
+
+    const goToNextImage = () => {
+        if (!project?.images?.length) return;
+        setActiveImageIndex((prev) => (prev + 1) % project.images!.length);
+    };
+
+    const goToPreviousPreviewImage = () => {
+        if (!project?.images?.length) return;
+        const nextIndex = (activeImageIndex - 1 + project.images.length) % project.images.length;
+        resetView();
+        setActiveImageIndex(nextIndex);
+        setSelectedImage(project.images[nextIndex]);
+    };
+
+    const goToNextPreviewImage = () => {
+        if (!project?.images?.length) return;
+        const nextIndex = (activeImageIndex + 1) % project.images.length;
+        resetView();
+        setActiveImageIndex(nextIndex);
+        setSelectedImage(project.images[nextIndex]);
     };
 
     const handleZoomIn = () => setZoom(prev => Math.min(prev + 0.5, 5));
@@ -121,6 +151,10 @@ export default function ProjectDetail() {
 
         fetchProject();
     }, [slug]);
+
+    useEffect(() => {
+        setActiveImageIndex(0);
+    }, [project?.id]);
 
     const createHighlightedMarkup = (htmlContent: string) => {
         if (!htmlContent) return { __html: '' };
@@ -206,11 +240,24 @@ export default function ProjectDetail() {
                         className="space-y-20 md:space-y-32"
                     >
                         {/* 1. Hero Section (Centered & Majestic) */}
-                        <div className="flex flex-col items-center text-center space-y-8 max-w-5xl mx-auto pt-10">
+                        <div className="relative mx-auto flex min-h-[560px] w-full max-w-6xl flex-col items-center justify-center overflow-hidden rounded-[3rem] border border-zinc-200 bg-zinc-950 px-6 py-20 text-center shadow-[0_30px_90px_rgba(0,0,0,0.12)] md:px-12">
+                            {(project.thumbnail || project.images?.[0]) && (
+                                <>
+                                    <img
+                                        src={getAssetUrl(project.thumbnail || project.images![0])}
+                                        alt=""
+                                        aria-hidden="true"
+                                        className="absolute inset-0 h-full w-full scale-105 object-cover opacity-35 blur-sm"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/70 via-zinc-950/55 to-zinc-950/80" />
+                                    <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-zinc-950 to-transparent" />
+                                </>
+                            )}
+                            <div className="relative z-10 flex max-w-5xl flex-col items-center space-y-8">
                             <div className="px-6 py-2 bg-primary/5 border border-primary/10 rounded-full">
-                                <span className="text-xs font-black tracking-[0.3em] text-primary uppercase">{project.category || 'Case Study'}</span>
+                                <span className="text-xs font-black tracking-[0.3em] text-white uppercase">{project.category || 'Case Study'}</span>
                             </div>
-                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-zinc-950 tracking-tighter uppercase leading-[0.9]">
+                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter uppercase leading-[0.9] drop-shadow-2xl">
                                 {project.title}
                             </h1>
                             
@@ -222,8 +269,8 @@ export default function ProjectDetail() {
                                     { label: 'Core Tech', value: project.tech_stack?.[0] || 'Modern Stack' },
                                 ].map((item, idx) => (
                                     <div key={idx} className="flex flex-col items-center gap-2">
-                                        <span className="text-[10px] font-black text-zinc-400 tracking-[0.2em] uppercase">{item.label}</span>
-                                        <span className="text-sm md:text-base font-black text-zinc-900 uppercase tracking-tight">{item.value}</span>
+                                        <span className="text-[10px] font-black text-white/45 tracking-[0.2em] uppercase">{item.label}</span>
+                                        <span className="text-sm md:text-base font-black text-white uppercase tracking-tight">{item.value}</span>
                                     </div>
                                 ))}
                             </div>
@@ -245,48 +292,82 @@ export default function ProjectDetail() {
                                     </a>
                                 )}
                             </div>
+                            </div>
                         </div>
 
-                        {/* 2. Hero Image Gallery */}
+                        {/* 2. Project Image Carousel */}
                         {project.images && project.images.length > 0 && (
                             <div className="max-w-6xl mx-auto w-full">
-                                {/* First image as massive hero */}
-                                <div 
-                                    onClick={() => handleOpenImage(project.images![0])}
-                                    className="relative aspect-video w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-zinc-200 shadow-[0_20px_60px_rgba(0,0,0,0.08)] cursor-pointer group bg-zinc-100"
-                                >
-                                    <img 
-                                        src={getAssetUrl(project.images![0])} 
-                                        alt="Hero Showcase"
-                                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-[1.02]"
-                                    />
-                                    <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-                                        <div className="bg-white/90 backdrop-blur-md px-8 py-4 rounded-full border border-white/50 text-xs font-black text-zinc-900 tracking-widest uppercase shadow-2xl scale-95 group-hover:scale-100 transition-all duration-500 flex items-center gap-3">
-                                            <ZoomIn className="w-4 h-4" />
-                                            Expand View
+                                <div className="overflow-hidden rounded-[2.5rem] border border-zinc-200 bg-white p-3 shadow-[0_24px_80px_rgba(0,0,0,0.08)] md:rounded-[3rem]">
+                                    <div
+                                        onClick={() => handleOpenImage(project.images![activeImageIndex])}
+                                        className="group relative aspect-video w-full cursor-pointer overflow-hidden rounded-[2rem] bg-zinc-100"
+                                    >
+                                        <motion.img
+                                            key={project.images[activeImageIndex]}
+                                            src={getAssetUrl(project.images[activeImageIndex])}
+                                            alt={`${project.title} screenshot ${activeImageIndex + 1}`}
+                                            className="h-full w-full object-cover"
+                                            initial={{ opacity: 0.8, scale: 1.02 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ duration: 0.35, ease: "easeOut" }}
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/55 via-transparent to-zinc-950/10 opacity-80" />
+                                        <div className="absolute left-5 top-5 rounded-full bg-white/90 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-primary backdrop-blur-md">
+                                            {String(activeImageIndex + 1).padStart(2, '0')} / {String(project.images.length).padStart(2, '0')}
                                         </div>
+                                        <div className="absolute bottom-5 left-5 flex items-center gap-3 rounded-full bg-white/90 px-5 py-3 text-[10px] font-black uppercase tracking-[0.18em] text-zinc-900 opacity-0 shadow-xl backdrop-blur-md transition-all duration-300 group-hover:opacity-100">
+                                            <ZoomIn className="h-4 w-4" />
+                                            Open Preview
+                                        </div>
+                                        {project.images.length > 1 && (
+                                            <>
+                                                <button
+                                                    type="button"
+                                                    onClick={(event) => {
+                                                        event.stopPropagation();
+                                                        goToPreviousImage();
+                                                    }}
+                                                    className="absolute left-5 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-white/90 text-zinc-950 shadow-xl backdrop-blur-md transition-all hover:scale-105 hover:bg-white"
+                                                    aria-label="Previous screenshot"
+                                                >
+                                                    <ChevronLeft className="h-5 w-5" />
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    onClick={(event) => {
+                                                        event.stopPropagation();
+                                                        goToNextImage();
+                                                    }}
+                                                    className="absolute right-5 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-white/90 text-zinc-950 shadow-xl backdrop-blur-md transition-all hover:scale-105 hover:bg-white"
+                                                    aria-label="Next screenshot"
+                                                >
+                                                    <ChevronRight className="h-5 w-5" />
+                                                </button>
+                                            </>
+                                        )}
                                     </div>
-                                </div>
 
-                                {/* Remaining images in a grid below */}
-                                {project.images.length > 1 && (
-                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-6">
-                                        {project.images.slice(1).map((img, i) => (
-                                            <div 
-                                                key={i} 
-                                                onClick={() => handleOpenImage(img)}
-                                                className="relative aspect-[4/3] rounded-[2rem] overflow-hidden border border-zinc-200 shadow-sm cursor-pointer group hover:shadow-xl transition-all duration-500 hover:-translate-y-1 bg-zinc-100"
-                                            >
-                                                <img 
-                                                    src={getAssetUrl(img)} 
-                                                    alt={`Showcase ${i + 2}`}
-                                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                                />
-                                                <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-all duration-500" />
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
+                                    {project.images.length > 1 && (
+                                        <div className="carousel-scrollbar mt-3 flex gap-3 overflow-x-auto pb-1">
+                                            {project.images.map((img, i) => (
+                                                <button
+                                                    key={img}
+                                                    type="button"
+                                                    onClick={() => setActiveImageIndex(i)}
+                                                    className={`relative h-20 w-32 shrink-0 overflow-hidden rounded-2xl border transition-all ${i === activeImageIndex ? 'border-primary ring-4 ring-primary/10' : 'border-zinc-200 opacity-70 hover:opacity-100'}`}
+                                                    aria-label={`Show screenshot ${i + 1}`}
+                                                >
+                                                    <img
+                                                        src={getAssetUrl(img)}
+                                                        alt=""
+                                                        className="h-full w-full object-cover"
+                                                    />
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         )}
 
@@ -419,6 +500,38 @@ export default function ProjectDetail() {
                             Scroll to Zoom • Double-click to Toggle • Drag to Pan
                         </div>
 
+                        {project.images && project.images.length > 1 && (
+                            <>
+                                <button
+                                    type="button"
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+                                        goToPreviousPreviewImage();
+                                    }}
+                                    className="absolute left-4 top-1/2 z-10 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white shadow-2xl backdrop-blur-xl transition-all hover:scale-105 hover:bg-white hover:text-zinc-950 md:left-8"
+                                    title="Previous Image"
+                                    aria-label="Previous preview image"
+                                >
+                                    <ChevronLeft className="h-6 w-6" />
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+                                        goToNextPreviewImage();
+                                    }}
+                                    className="absolute right-4 top-1/2 z-10 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white shadow-2xl backdrop-blur-xl transition-all hover:scale-105 hover:bg-white hover:text-zinc-950 md:right-8"
+                                    title="Next Image"
+                                    aria-label="Next preview image"
+                                >
+                                    <ChevronRight className="h-6 w-6" />
+                                </button>
+                                <div className="absolute bottom-16 left-1/2 z-10 -translate-x-1/2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[10px] font-black uppercase tracking-[0.24em] text-white/70 backdrop-blur-xl">
+                                    {String(activeImageIndex + 1).padStart(2, '0')} / {String(project.images.length).padStart(2, '0')}
+                                </div>
+                            </>
+                        )}
+
                         {/* Image Container */}
                         <div 
                             className="relative w-full h-full flex items-center justify-center overflow-hidden p-6 md:p-12"
@@ -448,4 +561,3 @@ export default function ProjectDetail() {
         </div>
     );
 }
-

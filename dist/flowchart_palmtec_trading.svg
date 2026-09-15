@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1180" viewBox="0 0 1600 1180" role="img" aria-labelledby="title desc">
+  <title id="title">Palmtec Trading Portal Operational Flowchart</title>
+  <desc id="desc">Flowchart showing Palmtec Trading workflow from role based login, supplier and category master data, daily price setup, transaction weighing, tax and payment handling, reports, exports, dashboard monitoring, and audit log.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff7ed"/>
+      <stop offset="0.52" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#fef2f2"/>
+    </linearGradient>
+    <linearGradient id="primary" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e53935"/>
+      <stop offset="1" stop-color="#991b1b"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2 2 L12 7 L2 12 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="1180" rx="56" fill="url(#bg)"/>
+
+  <g transform="translate(100 84)" font-family="Inter, Arial, sans-serif">
+    <text x="0" y="0" fill="#111827" font-size="52" font-weight="900" letter-spacing="0">Palmtec Trading Portal</text>
+    <text x="0" y="42" fill="#64748b" font-size="20" font-weight="700" letter-spacing="2">SUPPLIER, PRICE, TRANSACTION, PAYMENT, REPORT, AND AUDIT FLOW</text>
+  </g>
+
+  <g font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800" text-anchor="middle">
+    <g filter="url(#shadow)">
+      <rect x="100" y="190" width="250" height="116" rx="28" fill="#ffffff" stroke="#fecaca"/>
+      <text x="225" y="238" fill="#111827">Role Login</text>
+      <text x="225" y="270" fill="#64748b" font-size="15" font-weight="700">admin, price, viewer</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="450" y="190" width="285" height="116" rx="28" fill="#ffffff" stroke="#fecaca"/>
+      <text x="592" y="238" fill="#111827">Supplier Master</text>
+      <text x="592" y="270" fill="#64748b" font-size="15" font-weight="700">category and tax setup</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="835" y="190" width="285" height="116" rx="28" fill="#ffffff" stroke="#fecaca"/>
+      <text x="978" y="238" fill="#111827">Daily Price</text>
+      <text x="978" y="270" fill="#64748b" font-size="15" font-weight="700">TBS, CPO, history</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1220" y="190" width="280" height="116" rx="28" fill="#ffffff" stroke="#fecaca"/>
+      <text x="1360" y="238" fill="#111827">Transaction</text>
+      <text x="1360" y="270" fill="#64748b" font-size="15" font-weight="700">weighing and margin</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="250" y="420" width="1100" height="132" rx="32" fill="url(#primary)"/>
+      <text x="800" y="470" fill="#ffffff">Trading Calculation Core</text>
+      <text x="800" y="508" fill="#fee2e2" font-size="16" font-weight="700">supplier price, CPO reference, purchase value, sales value, margin, tax, and payment status</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="105" y="675" width="305" height="132" rx="30" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="258" y="722" fill="#111827">Payment Review</text>
+      <text x="258" y="754" fill="#64748b" font-size="15" font-weight="700">unpaid and paid state</text>
+      <text x="258" y="782" fill="#64748b" font-size="15" font-weight="700">bulk payment support</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="465" y="675" width="305" height="132" rx="30" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="618" y="722" fill="#111827">Tax Config</text>
+      <text x="618" y="754" fill="#64748b" font-size="15" font-weight="700">PPN and discounts</text>
+      <text x="618" y="782" fill="#64748b" font-size="15" font-weight="700">supplier-specific rules</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="830" y="675" width="305" height="132" rx="30" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="983" y="722" fill="#111827">Reports</text>
+      <text x="983" y="754" fill="#64748b" font-size="15" font-weight="700">daily, tax, monthly</text>
+      <text x="983" y="782" fill="#64748b" font-size="15" font-weight="700">Excel, PNG, PDF</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1190" y="675" width="305" height="132" rx="30" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="1343" y="722" fill="#111827">Audit Log</text>
+      <text x="1343" y="754" fill="#64748b" font-size="15" font-weight="700">admin visibility</text>
+      <text x="1343" y="782" fill="#64748b" font-size="15" font-weight="700">critical changes</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="325" y="920" width="390" height="116" rx="28" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="520" y="968" fill="#111827">Dashboard</text>
+      <text x="520" y="1000" fill="#64748b" font-size="15" font-weight="700">stats, margin trend, tasks</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="885" y="920" width="390" height="116" rx="28" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="1080" y="968" fill="#111827">Operational Output</text>
+      <text x="1080" y="1000" fill="#64748b" font-size="15" font-weight="700">reviewable trading records</text>
+    </g>
+  </g>
+
+  <g fill="none" stroke="#64748b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)">
+    <path d="M350 248 H450"/>
+    <path d="M735 248 H835"/>
+    <path d="M1120 248 H1220"/>
+    <path d="M1360 306 V360 C1360 400 1265 420 1180 420"/>
+    <path d="M800 552 V610 C800 645 618 645 618 675"/>
+    <path d="M600 552 C450 590 258 625 258 675"/>
+    <path d="M930 552 C970 600 983 628 983 675"/>
+    <path d="M1060 552 C1225 600 1343 628 1343 675"/>
+    <path d="M410 741 H465"/>
+    <path d="M770 741 H830"/>
+    <path d="M1135 741 H1190"/>
+    <path d="M618 807 C610 865 575 890 520 920"/>
+    <path d="M1343 807 C1310 875 1230 900 1080 920"/>
+    <path d="M715 978 H885"/>
+  </g>
+
+  <g transform="translate(100 1080)" font-family="Inter, Arial, sans-serif">
+    <rect x="0" y="0" width="1400" height="1" fill="#e2e8f0"/>
+    <text x="0" y="42" fill="#64748b" font-size="16" font-weight="700">Product rule: pricing, supplier category, transaction, tax, payment, report, and audit data stay connected through role-aware workflows and centralized API access.</text>
+  </g>
+</svg>

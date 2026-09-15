@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1040" viewBox="0 0 1600 1040" role="img" aria-labelledby="title desc">
+  <title id="title">Apta Lab V2 Lab Workflow Map</title>
+  <desc id="desc">A workflow map showing Apta Lab V2 from login, WiFi check, lab module selection, measurement input, numeric validation, save or submit, history review, feedback, and app update.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f7ff"/>
+      <stop offset="0.55" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#effaf7"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2563eb"/>
+      <stop offset="1" stop-color="#0a122c"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2 2 L12 7 L2 12 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="1040" rx="56" fill="url(#bg)"/>
+
+  <g transform="translate(100 84)" font-family="Inter, Arial, sans-serif">
+    <text x="0" y="0" fill="#0a122c" font-size="52" font-weight="900" letter-spacing="0">Apta Lab V2</text>
+    <text x="0" y="42" fill="#64748b" font-size="20" font-weight="700" letter-spacing="2">LAB WORKFLOW MAP AND V2 PRODUCT STRUCTURE</text>
+  </g>
+
+  <g font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800" text-anchor="middle">
+    <g filter="url(#shadow)">
+      <rect x="115" y="190" width="260" height="112" rx="28" fill="#ffffff" stroke="#bfdbfe"/>
+      <text x="245" y="238" fill="#0a122c">Login</text>
+      <text x="245" y="270" fill="#64748b" font-size="15" font-weight="700">operator authentication</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="475" y="190" width="260" height="112" rx="28" fill="#ffffff" stroke="#bfdbfe"/>
+      <text x="605" y="238" fill="#0a122c">WiFi Rule</text>
+      <text x="605" y="270" fill="#64748b" font-size="15" font-weight="700">lab network constraint</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="835" y="190" width="260" height="112" rx="28" fill="#ffffff" stroke="#bfdbfe"/>
+      <text x="965" y="238" fill="#0a122c">Select Module</text>
+      <text x="965" y="270" fill="#64748b" font-size="15" font-weight="700">open lab workflow</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1195" y="190" width="290" height="112" rx="28" fill="#ffffff" stroke="#bfdbfe"/>
+      <text x="1340" y="238" fill="#0a122c">Input Measurement</text>
+      <text x="1340" y="270" fill="#64748b" font-size="15" font-weight="700">form and sample data</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="260" y="430" width="1080" height="128" rx="32" fill="url(#blue)"/>
+      <text x="800" y="480" fill="#ffffff">Core Lab Modules</text>
+      <text x="800" y="516" fill="#dbeafe" font-size="16" font-weight="700">Daily Losses, Kernel Losses, Centrifuge, Mutu Transaksi, and related sample workflows</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="150" y="690" width="300" height="122" rx="28" fill="#ffffff" stroke="#dbeafe"/>
+      <text x="300" y="738" fill="#0a122c">Numeric Handling</text>
+      <text x="300" y="770" fill="#64748b" font-size="15" font-weight="700">format, parse, validate</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="510" y="690" width="300" height="122" rx="28" fill="#ffffff" stroke="#dbeafe"/>
+      <text x="660" y="738" fill="#0a122c">Save or Submit</text>
+      <text x="660" y="770" fill="#64748b" font-size="15" font-weight="700">preserve lab workflow state</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="870" y="690" width="300" height="122" rx="28" fill="#ffffff" stroke="#dbeafe"/>
+      <text x="1020" y="738" fill="#0a122c">Review History</text>
+      <text x="1020" y="770" fill="#64748b" font-size="15" font-weight="700">trace previous records</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1230" y="690" width="300" height="122" rx="28" fill="#ffffff" stroke="#dbeafe"/>
+      <text x="1380" y="738" fill="#0a122c">Feedback and Update</text>
+      <text x="1380" y="770" fill="#64748b" font-size="15" font-weight="700">report issues, update build</text>
+    </g>
+  </g>
+
+  <g fill="none" stroke="#64748b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)">
+    <path d="M375 246 H475"/>
+    <path d="M735 246 H835"/>
+    <path d="M1095 246 H1195"/>
+    <path d="M1340 302 V358 C1340 405 1300 430 1240 430"/>
+    <path d="M800 558 V635 C800 670 660 668 660 690"/>
+    <path d="M650 558 C470 610 300 625 300 690"/>
+    <path d="M950 558 C1035 612 1020 632 1020 690"/>
+    <path d="M1090 558 C1270 610 1380 625 1380 690"/>
+    <path d="M450 751 H510"/>
+    <path d="M810 751 H870"/>
+    <path d="M1170 751 H1230"/>
+  </g>
+
+  <g transform="translate(100 916)" font-family="Inter, Arial, sans-serif">
+    <rect x="0" y="0" width="1400" height="1" fill="#e2e8f0"/>
+    <text x="0" y="44" fill="#64748b" font-size="16" font-weight="700">Product principle: V2 keeps the existing lab process, but improves clarity through feature separation, cleaner UI hierarchy, safer numeric behavior, history visibility, feedback, and update handling.</text>
+  </g>
+</svg>

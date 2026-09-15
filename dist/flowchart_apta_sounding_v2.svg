@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120" role="img" aria-labelledby="title desc">
+  <title id="title">Apta Sounding V2 Operational Flowchart</title>
+  <desc id="desc">Flowchart showing the Apta Sounding V2 workflow from login, master sync, tank measurement, Bottom or point input, local save, sync preflight, upload, reports, and correction request.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff8f3"/>
+      <stop offset="0.52" stop-color="#f8fbff"/>
+      <stop offset="1" stop-color="#eef7f2"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f08a4b"/>
+      <stop offset="1" stop-color="#d95d22"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#1f2937" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2 2 L12 7 L2 12 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="1120" rx="56" fill="url(#bg)"/>
+  <g transform="translate(100 84)">
+    <text x="0" y="0" fill="#111827" font-family="Inter, Arial, sans-serif" font-size="52" font-weight="900" letter-spacing="0">Apta Sounding V2</text>
+    <text x="0" y="42" fill="#64748b" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="2">FIELD MEASUREMENT TO TRUSTED SYNC WORKFLOW</text>
+  </g>
+
+  <g font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800" text-anchor="middle">
+    <g filter="url(#shadow)">
+      <rect x="100" y="190" width="250" height="108" rx="28" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="225" y="236" fill="#111827">Login Operator</text>
+      <text x="225" y="267" fill="#64748b" font-size="15" font-weight="700">session and role context</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="455" y="190" width="250" height="108" rx="28" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="580" y="236" fill="#111827">Pilih Petugas</text>
+      <text x="580" y="267" fill="#64748b" font-size="15" font-weight="700">sounding officer setup</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="810" y="190" width="250" height="108" rx="28" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="935" y="236" fill="#111827">Sync Master</text>
+      <text x="935" y="267" fill="#64748b" font-size="15" font-weight="700">tank and shift data to Hive</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1165" y="190" width="250" height="108" rx="28" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="1290" y="236" fill="#111827">Pilih Tangki</text>
+      <text x="1290" y="267" fill="#64748b" font-size="15" font-weight="700">open measurement modal</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="555" y="390" width="490" height="120" rx="30" fill="url(#orange)"/>
+      <text x="800" y="438" fill="#ffffff">Measurement Decision</text>
+      <text x="800" y="471" fill="#fff7ed" font-size="15" font-weight="700">Bottom and point measurements are mutually exclusive</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="210" y="610" width="360" height="144" rx="30" fill="#ffffff" stroke="#c7d2fe"/>
+      <text x="390" y="654" fill="#111827">Point Measurement</text>
+      <text x="390" y="688" fill="#64748b" font-size="15" font-weight="700">isi, kosong, or isi-kosong</text>
+      <text x="390" y="717" fill="#64748b" font-size="15" font-weight="700">save clears Bottom state</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1030" y="610" width="360" height="144" rx="30" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="1210" y="654" fill="#111827">Bottom Measurement</text>
+      <text x="1210" y="688" fill="#64748b" font-size="15" font-weight="700">save Bottom locally</text>
+      <text x="1210" y="717" fill="#64748b" font-size="15" font-weight="700">point inputs stay hidden</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="620" y="610" width="360" height="144" rx="30" fill="#ffffff" stroke="#fed7aa"/>
+      <text x="800" y="654" fill="#111827">Photo and Location</text>
+      <text x="800" y="688" fill="#64748b" font-size="15" font-weight="700">capture tank evidence</text>
+      <text x="800" y="717" fill="#64748b" font-size="15" font-weight="700">photo date, GPS, file path</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="230" y="865" width="300" height="112" rx="28" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="380" y="912" fill="#111827">Local Save</text>
+      <text x="380" y="944" fill="#64748b" font-size="15" font-weight="700">Hive keeps draft state</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="650" y="865" width="300" height="112" rx="28" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="800" y="912" fill="#111827">Sync Preflight</text>
+      <text x="800" y="944" fill="#64748b" font-size="15" font-weight="700">warn incomplete Bottom data</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1070" y="865" width="300" height="112" rx="28" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="1220" y="912" fill="#111827">Upload and Reports</text>
+      <text x="1220" y="944" fill="#64748b" font-size="15" font-weight="700">sync, history, correction</text>
+    </g>
+  </g>
+
+  <g fill="none" stroke="#64748b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)">
+    <path d="M350 244 H455"/>
+    <path d="M705 244 H810"/>
+    <path d="M1060 244 H1165"/>
+    <path d="M1290 298 V340 C1290 370 1260 390 1220 390 H1045"/>
+    <path d="M800 510 V610"/>
+    <path d="M700 510 C585 555 470 565 390 610"/>
+    <path d="M900 510 C1015 555 1130 565 1210 610"/>
+    <path d="M390 754 V808 C390 835 380 842 380 865"/>
+    <path d="M800 754 V865"/>
+    <path d="M1210 754 V808 C1210 835 1220 842 1220 865"/>
+    <path d="M530 921 H650"/>
+    <path d="M950 921 H1070"/>
+  </g>
+
+  <g font-family="Inter, Arial, sans-serif" font-size="15" font-weight="800" fill="#475569">
+    <text x="560" y="575">point path</text>
+    <text x="990" y="575">Bottom path</text>
+    <text x="730" y="832">settings sync</text>
+  </g>
+
+  <g transform="translate(100 1028)">
+    <rect x="0" y="0" width="1400" height="1" fill="#e2e8f0"/>
+    <text x="0" y="42" fill="#64748b" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">Product rule: Bottom-only records can remain local until photo, GPS, and photo date are complete. Point corrections send Bottom as 0 while preserving the original data for audit.</text>
+  </g>
+</svg>

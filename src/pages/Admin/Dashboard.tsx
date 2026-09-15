@@ -9,6 +9,10 @@ import ProjectList from './ProjectList';
 import ProjectForm from './ProjectForm';
 import SkillList from './SkillList';
 import SkillForm from './SkillForm';
+import ProductCaseList from './ProductCaseList';
+import ProductCaseForm from './ProductCaseForm';
+import ProductDocumentList from './ProductDocumentList';
+import ProductDocumentForm from './ProductDocumentForm';
 
 export default function AdminDashboard() {
     const navigate = useNavigate();
@@ -53,6 +57,14 @@ export default function AdminDashboard() {
                 <Route path="skills" element={<SkillList />} />
                 <Route path="skills/new" element={<SkillForm />} />
                 <Route path="skills/edit/:id" element={<SkillForm />} />
+
+                {/* Product Portfolio */}
+                <Route path="product" element={<ProductCaseList />} />
+                <Route path="product/new" element={<ProductCaseForm />} />
+                <Route path="product/edit/:id" element={<ProductCaseForm />} />
+                <Route path="product/documents" element={<ProductDocumentList />} />
+                <Route path="product/documents/new" element={<ProductDocumentForm />} />
+                <Route path="product/documents/edit/:id" element={<ProductDocumentForm />} />
             </Routes>
         </AdminLayout>
     );

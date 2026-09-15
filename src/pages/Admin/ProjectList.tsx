@@ -25,10 +25,14 @@ import {
     DropdownMenuSeparator
 } from '@/components/ui/dropdown-menu';
 
+import DeleteConfirmDialog from '@/components/Admin/DeleteConfirmDialog';
+
 export default function ProjectList() {
     const [projects, setProjects] = useState<Project[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const [deleteTarget, setDeleteTarget] = useState<Project | null>(null);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
         fetchProjects();
@@ -45,18 +49,21 @@ export default function ProjectList() {
         setLoading(false);
     };
 
-    const handleDelete = async (id: number) => {
-        if (!confirm('Are you sure you want to delete this project?')) return;
+    const handleConfirmDelete = async () => {
+        if (!deleteTarget) return;
 
+        setIsDeleting(true);
         const { error } = await supabase
             .from('projects')
             .delete()
-            .eq('id', id);
+            .eq('id', deleteTarget.id);
+        setIsDeleting(false);
 
         if (error) {
             alert('Error deleting project: ' + error.message);
         } else {
-            setProjects(projects.filter(p => p.id !== id));
+            setProjects(projects.filter(p => p.id !== deleteTarget.id));
+            setDeleteTarget(null);
         }
     };
 
@@ -187,7 +194,7 @@ export default function ProjectList() {
                                                         </DropdownMenuItem>
                                                     </Link>
                                                     <DropdownMenuItem 
-                                                        onClick={() => handleDelete(project.id)}
+                                                        onClick={() => setDeleteTarget(project)}
                                                         className="gap-3 rounded-xl py-3.5 cursor-pointer text-[10px] font-black uppercase tracking-widest text-rose-500 hover:bg-rose-50 hover:text-rose-600 transition-all"
                                                     >
                                                         <Trash2 className="w-4 h-4" /> Remove Entry
@@ -213,6 +220,16 @@ export default function ProjectList() {
                     </div>
                 </div>
             </div>
+
+            <DeleteConfirmDialog
+                isOpen={Boolean(deleteTarget)}
+                onClose={() => setDeleteTarget(null)}
+                onConfirm={handleConfirmDelete}
+                title="Delete Developer Project"
+                description="Are you sure you want to delete this project? It will be removed from your showcase and database."
+                itemName={deleteTarget?.title}
+                isLoading={isDeleting}
+            />
         </div>
     );
 }

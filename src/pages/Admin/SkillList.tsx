@@ -21,6 +21,8 @@ import {
     DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 
+import DeleteConfirmDialog from '@/components/Admin/DeleteConfirmDialog';
+
 interface Skill {
     id: number;
     category: string;
@@ -31,6 +33,8 @@ interface Skill {
 export default function SkillList() {
     const [skills, setSkills] = useState<Skill[]>([]);
     const [loading, setLoading] = useState(true);
+    const [deleteTarget, setDeleteTarget] = useState<Skill | null>(null);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
         fetchSkills();
@@ -47,18 +51,21 @@ export default function SkillList() {
         setLoading(false);
     };
 
-    const handleDelete = async (id: number) => {
-        if (!confirm('Are you sure you want to delete this skill category?')) return;
+    const handleConfirmDelete = async () => {
+        if (!deleteTarget) return;
 
+        setIsDeleting(true);
         const { error } = await supabase
             .from('skills')
             .delete()
-            .eq('id', id);
+            .eq('id', deleteTarget.id);
+        setIsDeleting(false);
 
         if (error) {
             alert('Error deleting skill: ' + error.message);
         } else {
-            setSkills(skills.filter(s => s.id !== id));
+            setSkills(skills.filter(s => s.id !== deleteTarget.id));
+            setDeleteTarget(null);
         }
     };
 
@@ -153,7 +160,7 @@ export default function SkillList() {
                                                     </Link>
                                                     <DropdownMenuSeparator className="bg-zinc-100 my-2" />
                                                     <DropdownMenuItem 
-                                                        onClick={() => handleDelete(skill.id)}
+                                                        onClick={() => setDeleteTarget(skill)}
                                                         className="gap-3 rounded-xl py-3.5 cursor-pointer text-[10px] font-black uppercase tracking-widest text-rose-500 hover:bg-rose-50 hover:text-rose-600 transition-all"
                                                     >
                                                         <Trash2 className="w-4 h-4" /> Remove Category
@@ -175,6 +182,16 @@ export default function SkillList() {
                     </div>
                 </div>
             </div>
+
+            <DeleteConfirmDialog
+                isOpen={Boolean(deleteTarget)}
+                onClose={() => setDeleteTarget(null)}
+                onConfirm={handleConfirmDelete}
+                title="Delete Skill Category"
+                description="Are you sure you want to delete this skill domain? All skills listed under this category will be removed."
+                itemName={deleteTarget?.category}
+                isLoading={isDeleting}
+            />
         </div>
     );
 }

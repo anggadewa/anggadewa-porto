@@ -9,7 +9,10 @@ import {
     ArrowUpRight,
     UploadCloud,
     Loader2,
-    LayoutDashboard
+    LayoutDashboard,
+    Boxes,
+    FileText,
+    Plus
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -19,7 +22,9 @@ export default function DashboardHome() {
     const [stats, setStats] = useState({
         projects: 0,
         skills: 0,
-        techStack: 0
+        techStack: 0,
+        productCases: 0,
+        productDocuments: 0
     });
     const [loading, setLoading] = useState(true);
     const [uploadingCV, setUploadingCV] = useState(false);
@@ -58,8 +63,17 @@ export default function DashboardHome() {
 
     const fetchStats = async () => {
         setLoading(true);
-        const { count: projectCount } = await supabase.from('projects').select('*', { count: 'exact', head: true });
-        const { data: skillsData } = await supabase.from('skills').select('items');
+        const [
+            { count: projectCount },
+            { data: skillsData },
+            { count: productCasesCount },
+            { count: productDocumentsCount }
+        ] = await Promise.all([
+            supabase.from('projects').select('*', { count: 'exact', head: true }),
+            supabase.from('skills').select('items'),
+            supabase.from('product_case_studies').select('*', { count: 'exact', head: true }),
+            supabase.from('product_documents').select('*', { count: 'exact', head: true })
+        ]);
 
         let techCount = 0;
         skillsData?.forEach(skill => {
@@ -69,7 +83,9 @@ export default function DashboardHome() {
         setStats({
             projects: projectCount || 0,
             skills: skillsData?.length || 0,
-            techStack: techCount
+            techStack: techCount,
+            productCases: productCasesCount || 0,
+            productDocuments: productDocumentsCount || 0
         });
         setLoading(false);
     };
@@ -79,7 +95,7 @@ export default function DashboardHome() {
         show: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.1
+                staggerChildren: 0.08
             }
         }
     };
@@ -95,7 +111,7 @@ export default function DashboardHome() {
             <motion.section
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="relative overflow-hidden rounded-[2.5rem] bg-white border border-zinc-200 p-12 lg:p-16 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+                className="relative overflow-hidden rounded-[2.5rem] bg-white border border-zinc-200 p-10 lg:p-14 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
             >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-50" />
                 <div className="relative z-10 space-y-6">
@@ -103,12 +119,12 @@ export default function DashboardHome() {
                         <Activity className="w-3.5 h-3.5 animate-pulse" />
                         Platform Status: Operational
                     </div>
-                    <h1 className="text-5xl lg:text-6xl font-black text-zinc-900 tracking-tighter leading-none">
-                        Welcome Back, <span className="text-primary italic">Dewa!</span>.
+                    <h1 className="text-4xl lg:text-5xl font-black text-zinc-900 tracking-tighter leading-none">
+                        Welcome Back, <span className="text-primary italic">Dewa!</span>
                     </h1>
-                    <p className="text-zinc-500 max-w-2xl text-lg font-medium leading-relaxed">
-                        Manage your professional digital presence and refine your portfolio showcase.
-                        Your project database and skill matrix are fully synchronized and ready for updates.
+                    <p className="text-zinc-500 max-w-2xl text-base lg:text-lg font-medium leading-relaxed">
+                        Manage your digital presence, developer projects, and product management showcase.
+                        Your project database, bootcamp documents, and skill matrix are synchronized.
                     </p>
                 </div>
 
@@ -124,69 +140,133 @@ export default function DashboardHome() {
                 variants={container}
                 initial="hidden"
                 animate="show"
-                className="grid grid-cols-1 md:grid-cols-3 gap-6"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
             >
+                {/* Dev Projects */}
                 <motion.div variants={item}>
-                    <Card className="bg-white border-zinc-200 shadow-sm rounded-[2rem] p-8 hover:border-primary/30 hover:shadow-md transition-all group overflow-hidden relative">
-                        <div className="relative z-10 flex flex-col gap-6">
-                            <div className="p-3 bg-primary/5 rounded-2xl w-fit group-hover:scale-110 transition-transform border border-primary/10">
-                                <Briefcase className="w-6 h-6 text-primary" />
+                    <Link to="/admin/projects" className="block group">
+                        <Card className="bg-white border-zinc-200 shadow-sm rounded-[2rem] p-7 hover:border-primary/40 hover:shadow-md transition-all overflow-hidden relative">
+                            <div className="relative z-10 flex flex-col gap-5">
+                                <div className="p-3 bg-primary/5 rounded-2xl w-fit group-hover:scale-110 transition-transform border border-primary/10">
+                                    <Briefcase className="w-5 h-5 text-primary" />
+                                </div>
+                                <div>
+                                    <div className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] mb-1">Dev Projects</div>
+                                    <div className="text-3xl font-black text-zinc-900 tracking-tighter">{stats.projects}</div>
+                                </div>
                             </div>
-                            <div>
-                                <div className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] mb-2">Total Projects</div>
-                                <div className="text-4xl font-black text-zinc-900 tracking-tighter">{stats.projects}</div>
+                            <div className="absolute -bottom-4 -right-4 opacity-[0.02] group-hover:opacity-[0.04] transition-opacity">
+                                <Briefcase className="w-28 h-28 text-zinc-900" />
                             </div>
-                        </div>
-                        <div className="absolute -bottom-4 -right-4 opacity-[0.02] group-hover:opacity-[0.04] transition-opacity">
-                            <Briefcase className="w-32 h-32 text-zinc-900" />
-                        </div>
-                    </Card>
+                        </Card>
+                    </Link>
                 </motion.div>
 
+                {/* Product Cases */}
                 <motion.div variants={item}>
-                    <Card className="bg-white border-zinc-200 shadow-sm rounded-[2rem] p-8 hover:border-violet-500/30 hover:shadow-md transition-all group overflow-hidden relative">
-                        <div className="relative z-10 flex flex-col gap-6">
-                            <div className="p-3 bg-violet-50 rounded-2xl w-fit group-hover:scale-110 transition-transform border border-violet-100">
-                                <Zap className="w-6 h-6 text-violet-500" />
+                    <Link to="/admin/product" className="block group">
+                        <Card className="bg-white border-zinc-200 shadow-sm rounded-[2rem] p-7 hover:border-blue-500/40 hover:shadow-md transition-all overflow-hidden relative">
+                            <div className="relative z-10 flex flex-col gap-5">
+                                <div className="p-3 bg-blue-50 rounded-2xl w-fit group-hover:scale-110 transition-transform border border-blue-100">
+                                    <Boxes className="w-5 h-5 text-blue-600" />
+                                </div>
+                                <div>
+                                    <div className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] mb-1">Product Cases</div>
+                                    <div className="text-3xl font-black text-zinc-900 tracking-tighter">{stats.productCases}</div>
+                                </div>
                             </div>
-                            <div>
-                                <div className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] mb-2">Skill Domains</div>
-                                <div className="text-4xl font-black text-zinc-900 tracking-tighter">{stats.skills}</div>
+                            <div className="absolute -bottom-4 -right-4 opacity-[0.02] group-hover:opacity-[0.04] transition-opacity">
+                                <Boxes className="w-28 h-28 text-zinc-900" />
                             </div>
-                        </div>
-                        <div className="absolute -bottom-4 -right-4 opacity-[0.02] group-hover:opacity-[0.04] transition-opacity">
-                            <Zap className="w-32 h-32 text-zinc-900" />
-                        </div>
-                    </Card>
+                        </Card>
+                    </Link>
                 </motion.div>
 
+                {/* Bootcamp Documents */}
                 <motion.div variants={item}>
-                    <Card className="bg-white border-zinc-200 shadow-sm rounded-[2rem] p-8 hover:border-emerald-500/30 hover:shadow-md transition-all group overflow-hidden relative">
-                        <div className="relative z-10 flex flex-col gap-6">
-                            <div className="p-3 bg-emerald-50 rounded-2xl w-fit group-hover:scale-110 transition-transform border border-emerald-100">
-                                <Code2 className="w-6 h-6 text-emerald-500" />
+                    <Link to="/admin/product/documents" className="block group">
+                        <Card className="bg-white border-zinc-200 shadow-sm rounded-[2rem] p-7 hover:border-amber-500/40 hover:shadow-md transition-all overflow-hidden relative">
+                            <div className="relative z-10 flex flex-col gap-5">
+                                <div className="p-3 bg-amber-50 rounded-2xl w-fit group-hover:scale-110 transition-transform border border-amber-100">
+                                    <FileText className="w-5 h-5 text-amber-600" />
+                                </div>
+                                <div>
+                                    <div className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] mb-1">Bootcamp PDFs</div>
+                                    <div className="text-3xl font-black text-zinc-900 tracking-tighter">{stats.productDocuments}</div>
+                                </div>
                             </div>
-                            <div>
-                                <div className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] mb-2">Technologies</div>
-                                <div className="text-4xl font-black text-zinc-900 tracking-tighter">{stats.techStack}</div>
+                            <div className="absolute -bottom-4 -right-4 opacity-[0.02] group-hover:opacity-[0.04] transition-opacity">
+                                <FileText className="w-28 h-28 text-zinc-900" />
                             </div>
-                        </div>
-                        <div className="absolute -bottom-4 -right-4 opacity-[0.02] group-hover:opacity-[0.04] transition-opacity">
-                            <Code2 className="w-32 h-32 text-zinc-900" />
-                        </div>
-                    </Card>
+                        </Card>
+                    </Link>
+                </motion.div>
+
+                {/* Tech & Skills */}
+                <motion.div variants={item}>
+                    <Link to="/admin/skills" className="block group">
+                        <Card className="bg-white border-zinc-200 shadow-sm rounded-[2rem] p-7 hover:border-emerald-500/40 hover:shadow-md transition-all overflow-hidden relative">
+                            <div className="relative z-10 flex flex-col gap-5">
+                                <div className="p-3 bg-emerald-50 rounded-2xl w-fit group-hover:scale-110 transition-transform border border-emerald-100">
+                                    <Code2 className="w-5 h-5 text-emerald-600" />
+                                </div>
+                                <div>
+                                    <div className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] mb-1">Skills / Tech</div>
+                                    <div className="text-3xl font-black text-zinc-900 tracking-tighter">{stats.techStack}</div>
+                                </div>
+                            </div>
+                            <div className="absolute -bottom-4 -right-4 opacity-[0.02] group-hover:opacity-[0.04] transition-opacity">
+                                <Code2 className="w-28 h-28 text-zinc-900" />
+                            </div>
+                        </Card>
+                    </Link>
                 </motion.div>
             </motion.div>
 
-            {/* Resume Management */}
+            {/* Product Portfolio Control & Resume Management */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.3 }}
                 className="grid grid-cols-1 lg:grid-cols-3 gap-8"
             >
-                <Card className="lg:col-span-1 bg-white border-zinc-200 shadow-sm rounded-[2rem] overflow-hidden">
-                    <CardHeader className="p-8 pb-6 border-b border-zinc-100">
+                {/* Product Section Hub Card */}
+                <Card className="lg:col-span-2 bg-gradient-to-br from-white to-zinc-50 border-zinc-200 shadow-sm rounded-[2.5rem] p-8 lg:p-10 flex flex-col justify-between space-y-6 relative overflow-hidden">
+                    <div className="space-y-4">
+                        <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-xl bg-primary/10 text-primary text-[9px] font-black uppercase tracking-widest">
+                            <Boxes className="w-3.5 h-3.5" />
+                            Product Management Showcase
+                        </div>
+                        <h3 className="text-2xl font-black text-zinc-900 uppercase tracking-tight">Product Portfolio & Bootcamp Center</h3>
+                        <p className="text-zinc-500 text-sm leading-relaxed max-w-xl font-medium">
+                            Manage case studies transformed from developer projects or built from scratch. Upload and manage your Harisenin.com PM bootcamp deliverables with downloadable PDFs.
+                        </p>
+                    </div>
+
+                    <div className="flex flex-wrap gap-3 pt-2">
+                        <Link to="/admin/product/new">
+                            <Button className="h-12 rounded-xl bg-primary px-5 text-[10px] font-black uppercase tracking-widest text-white shadow-md shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+                                <Plus className="w-3.5 h-3.5 mr-2" />
+                                Add Product Case
+                            </Button>
+                        </Link>
+                        <Link to="/admin/product/documents/new">
+                            <Button variant="outline" className="h-12 rounded-xl border-zinc-200 bg-white px-5 text-[10px] font-black uppercase tracking-widest text-zinc-700 hover:bg-zinc-100">
+                                <UploadCloud className="w-3.5 h-3.5 mr-2" />
+                                Upload Bootcamp PDF
+                            </Button>
+                        </Link>
+                        <Link to="/admin/product">
+                            <Button variant="ghost" className="h-12 rounded-xl px-4 text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:text-zinc-900">
+                                View Cases ({stats.productCases}) <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
+                            </Button>
+                        </Link>
+                    </div>
+                </Card>
+
+                {/* Resume Management */}
+                <Card className="lg:col-span-1 bg-white border-zinc-200 shadow-sm rounded-[2.5rem] overflow-hidden flex flex-col justify-between">
+                    <CardHeader className="p-8 pb-4 border-b border-zinc-100">
                         <div className="flex items-center gap-4">
                             <div className="p-3 rounded-2xl bg-amber-50 text-amber-600 border border-amber-100">
                                 <UploadCloud className="w-5 h-5" />
@@ -197,7 +277,10 @@ export default function DashboardHome() {
                             </div>
                         </div>
                     </CardHeader>
-                    <CardContent className="p-8">
+                    <CardContent className="p-8 space-y-4">
+                        <p className="text-xs text-zinc-500 leading-relaxed font-medium">
+                            Upload your latest CV in PDF format to keep potential employers updated across the site.
+                        </p>
                         <div className="relative">
                             <input
                                 type="file"
@@ -226,26 +309,6 @@ export default function DashboardHome() {
                         </div>
                     </CardContent>
                 </Card>
-
-                <div className="lg:col-span-2 p-10 bg-white border border-zinc-200 shadow-sm rounded-[2rem] flex flex-col justify-center space-y-6">
-                    <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-xl bg-primary/5 border border-primary/10 flex items-center justify-center">
-                            <Zap className="w-5 h-5 text-primary" />
-                        </div>
-                        <h3 className="text-[13px] font-black text-zinc-900 uppercase tracking-widest">Quick Portfolio Review</h3>
-                    </div>
-                    <p className="text-zinc-500 text-sm leading-relaxed max-w-xl">
-                        Your portfolio is currently live and optimized. You have <span className="text-zinc-900 font-black">{stats.projects} featured projects</span> being showcased
-                        to potential recruiters. Ensure your latest experience is reflected in your uploaded resume for the best conversion.
-                    </p>
-                    <div className="flex gap-4">
-                        <Link to="/admin/projects">
-                            <Button variant="link" className="text-primary text-[10px] font-black uppercase tracking-widest p-0 flex items-center gap-2 hover:opacity-80">
-                                Manage Projects <ArrowUpRight className="w-3.5 h-3.5" />
-                            </Button>
-                        </Link>
-                    </div>
-                </div>
             </motion.div>
         </div>
     );
