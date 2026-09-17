@@ -35,10 +35,11 @@ import {
 import { supabase } from '@/lib/supabase';
 import { getAssetUrl } from '@/lib/assets';
 import { stripHtml, cn } from '@/lib/utils';
-import { Project, Skill } from '@/types';
+import { CertificateRecord, Project, ResumeVersion, Skill } from '@/types';
 import { Tooltip } from '@/components/ui/tooltip-custom';
 import { ThemeToggle } from '@/components/theme-toggle';
 import MiniGame from '@/components/MiniGame';
+import CertificateShowcase from '@/components/CertificateShowcase';
 
 // Custom SVG Icons for maximum reliability
 const GitHubIcon = ({ className }: { className?: string }) => (
@@ -218,6 +219,8 @@ const getCategoryMetadata = (category: string, index: number) => {
 export default function Home() {
     const [projects, setProjects] = useState<Project[]>([]);
     const [skills, setSkills] = useState<Skill[]>([]);
+    const [activeResume, setActiveResume] = useState<ResumeVersion | null>(null);
+    const [certificates, setCertificates] = useState<CertificateRecord[]>([]);
     const [loading, setLoading] = useState(true);
     const [activeCategory, setActiveCategory] = useState('All');
     const [projectSearch, setProjectSearch] = useState('');
@@ -294,8 +297,32 @@ export default function Home() {
                     .select('*')
                     .order('sort_order', { ascending: true });
 
+                // Keep the source PDF as a graceful fallback until the CV module is configured.
+                const { data: resumeData, error: resumeError } = await supabase
+                    .from('resume_versions')
+                    .select('*')
+                    .eq('is_active', true)
+                    .order('created_at', { ascending: false })
+                    .limit(1)
+                    .maybeSingle();
+
+                const { data: certificateData, error: certificateError } = await supabase
+                    .from('certificates')
+                    .select('*')
+                    .eq('audience', 'developer')
+                    .eq('is_published', true)
+                    .order('sort_order', { ascending: true })
+                    .order('created_at', { ascending: false });
+
+                if (resumeError && resumeError.code !== '42P01') {
+                    console.error('Error loading active resume:', resumeError);
+                }
+                if (certificateError && certificateError.code !== '42P01') console.error('Error loading certificates:', certificateError);
+
                 setProjects(projectsData || []);
                 setSkills(skillsData || []);
+                setActiveResume((resumeData as ResumeVersion | null) || null);
+                setCertificates((certificateData || []) as CertificateRecord[]);
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -612,12 +639,13 @@ export default function Home() {
 
                                         <div className="pt-2">
                                             <a
-                                                href={cvPdf}
-                                                download="CV_IT_Angga_Dewantoro_2026.pdf"
+                                                href={activeResume ? getAssetUrl(activeResume.file_path) : cvPdf}
+                                                target="_blank"
+                                                rel="noreferrer"
                                                 className="inline-flex items-center gap-3 h-14 px-8 rounded-2xl bg-primary hover:bg-primary/90 text-white text-xs font-black tracking-widest uppercase transition-all shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95"
                                             >
                                                 <Download className="w-4 h-4" />
-                                                Download My CV
+                                                Preview My CV
                                             </a>
                                         </div>
 
@@ -1235,6 +1263,8 @@ export default function Home() {
                                 })()}
                             </div>
                         </section>
+
+                        <CertificateShowcase certificates={certificates} audience="developer" />
 
                         {/* Interactive Mini Game */}
                         <MiniGame />

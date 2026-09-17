@@ -13,6 +13,9 @@ import ProductCaseList from './ProductCaseList';
 import ProductCaseForm from './ProductCaseForm';
 import ProductDocumentList from './ProductDocumentList';
 import ProductDocumentForm from './ProductDocumentForm';
+import ResumeManager from './ResumeManager';
+import CertificateList from './CertificateList';
+import CertificateForm from './CertificateForm';
 
 export default function AdminDashboard() {
     const navigate = useNavigate();
@@ -65,6 +68,13 @@ export default function AdminDashboard() {
                 <Route path="product/documents" element={<ProductDocumentList />} />
                 <Route path="product/documents/new" element={<ProductDocumentForm />} />
                 <Route path="product/documents/edit/:id" element={<ProductDocumentForm />} />
+
+                {/* Resume */}
+                <Route path="resume" element={<ResumeManager />} />
+
+                <Route path="certificates" element={<CertificateList />} />
+                <Route path="certificates/new" element={<CertificateForm />} />
+                <Route path="certificates/edit/:id" element={<CertificateForm />} />
             </Routes>
         </AdminLayout>
     );

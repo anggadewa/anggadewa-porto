@@ -8,7 +8,6 @@ import {
     Zap,
     ArrowUpRight,
     UploadCloud,
-    Loader2,
     LayoutDashboard,
     Boxes,
     FileText,
@@ -27,39 +26,10 @@ export default function DashboardHome() {
         productDocuments: 0
     });
     const [loading, setLoading] = useState(true);
-    const [uploadingCV, setUploadingCV] = useState(false);
 
     useEffect(() => {
         fetchStats();
     }, []);
-
-    const handleCVUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (!file) return;
-
-        try {
-            setUploadingCV(true);
-            const bucketName = import.meta.env.VITE_STORAGE_BUCKET_NAME || 'portfolio-assets';
-
-            const { error } = await supabase.storage
-                .from(bucketName)
-                .upload('cv.pdf', file, {
-                    cacheControl: '3600',
-                    upsert: true
-                });
-
-            if (error) throw error;
-            alert('CV Uploaded successfully!');
-        } catch (error) {
-            console.error('Error uploading CV:', error);
-            alert('Failed to upload CV');
-        } finally {
-            setUploadingCV(false);
-            if (event.target) {
-                event.target.value = '';
-            }
-        }
-    };
 
     const fetchStats = async () => {
         setLoading(true);
@@ -279,34 +249,14 @@ export default function DashboardHome() {
                     </CardHeader>
                     <CardContent className="p-8 space-y-4">
                         <p className="text-xs text-zinc-500 leading-relaxed font-medium">
-                            Upload your latest CV in PDF format to keep potential employers updated across the site.
+                            Upload versi baru, cek PDF aktif, dan pulihkan versi sebelumnya dari satu tempat.
                         </p>
-                        <div className="relative">
-                            <input
-                                type="file"
-                                accept=".pdf"
-                                onChange={handleCVUpload}
-                                disabled={uploadingCV}
-                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed z-10"
-                            />
-                            <Button
-                                variant="outline"
-                                className="w-full h-14 bg-zinc-50 border-zinc-200 hover:bg-zinc-100 hover:border-zinc-300 text-zinc-600 text-[10px] font-black tracking-[0.2em] uppercase rounded-xl transition-all"
-                                disabled={uploadingCV}
-                            >
-                                {uploadingCV ? (
-                                    <>
-                                        <Loader2 className="w-4 h-4 mr-3 animate-spin text-primary" />
-                                        Updating File...
-                                    </>
-                                ) : (
-                                    <>
-                                        <UploadCloud className="w-4 h-4 mr-3" />
-                                        Upload New Resume
-                                    </>
-                                )}
+                        <Link to="/admin/resume" className="block">
+                            <Button variant="outline" className="w-full h-14 bg-zinc-50 border-zinc-200 hover:bg-zinc-100 hover:border-zinc-300 text-zinc-600 text-[10px] font-black tracking-[0.2em] uppercase rounded-xl transition-all">
+                                <UploadCloud className="w-4 h-4 mr-3" />
+                                Manage Resume
                             </Button>
-                        </div>
+                        </Link>
                     </CardContent>
                 </Card>
             </motion.div>

@@ -6,6 +6,8 @@ import {
     Briefcase, 
     Boxes,
     Terminal, 
+    FileStack,
+    Award,
     LogOut, 
     Home, 
     ChevronRight,
@@ -25,6 +27,8 @@ const navItems = [
     { label: 'Dashboard', path: '/admin', icon: LayoutDashboard },
     { label: 'Projects', path: '/admin/projects', icon: Briefcase },
     { label: 'Product', path: '/admin/product', icon: Boxes },
+    { label: 'CV & Resume', path: '/admin/resume', icon: FileStack },
+    { label: 'Certificates', path: '/admin/certificates', icon: Award },
     { label: 'Skills', path: '/admin/skills', icon: Terminal },
 ];
 

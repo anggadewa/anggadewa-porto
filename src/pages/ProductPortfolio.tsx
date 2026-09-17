@@ -32,7 +32,8 @@ import { cn } from '@/lib/utils';
 import { supabase } from '@/lib/supabase';
 import type { EvidenceMode, ProductCaseStudy } from '@/data/productCaseStudies';
 import { getAssetUrl } from '@/lib/assets';
-import type { ProductDocumentRecord } from '@/types';
+import type { CertificateRecord, ProductDocumentRecord } from '@/types';
+import CertificateShowcase from '@/components/CertificateShowcase';
 
 const GitHubIcon = ({ className }: { className?: string }) => (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -363,6 +364,7 @@ export default function ProductPortfolio() {
     const [casesLoading, setCasesLoading] = useState(true);
     const [documents, setDocuments] = useState<ProductDocumentRecord[]>([]);
     const [documentsLoading, setDocumentsLoading] = useState(true);
+    const [certificates, setCertificates] = useState<CertificateRecord[]>([]);
     const productCaseBase = typeof window !== 'undefined' && window.location.hostname.startsWith('product.') ? '/cases' : '/product/cases';
 
     useEffect(() => {
@@ -395,7 +397,7 @@ export default function ProductPortfolio() {
         const fetchProductContent = async () => {
             setCasesLoading(true);
             setDocumentsLoading(true);
-            const [{ data: caseData, error: caseError }, { data: documentData, error: documentError }] = await Promise.all([
+            const [{ data: caseData, error: caseError }, { data: documentData, error: documentError }, { data: certificateData, error: certificateError }] = await Promise.all([
                 supabase
                     .from('product_case_studies')
                     .select('*')
@@ -405,6 +407,13 @@ export default function ProductPortfolio() {
                 supabase
                     .from('product_documents')
                     .select('*')
+                    .eq('is_published', true)
+                    .order('sort_order', { ascending: true })
+                    .order('created_at', { ascending: false }),
+                supabase
+                    .from('certificates')
+                    .select('*')
+                    .eq('audience', 'product')
                     .eq('is_published', true)
                     .order('sort_order', { ascending: true })
                     .order('created_at', { ascending: false })
@@ -420,6 +429,12 @@ export default function ProductPortfolio() {
                 setDocuments(documentData as ProductDocumentRecord[]);
             } else {
                 setDocuments([]);
+            }
+
+            if (!certificateError && certificateData?.length) {
+                setCertificates(certificateData as CertificateRecord[]);
+            } else {
+                setCertificates([]);
             }
 
             setCasesLoading(false);
@@ -1483,6 +1498,7 @@ export default function ProductPortfolio() {
                         )}
                     </div>
                 </section>
+                <CertificateShowcase certificates={certificates} audience="product" />
             </main>
 
             <footer id="contact" className="bg-zinc-950 px-6 py-40 text-white selection:bg-primary/50">
